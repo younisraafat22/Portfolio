@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RadiView - AI-Assisted Medical Imaging Platform Case Study">
+    <title>RadiView - Younis Portfolio</title>
+    <link rel="icon" type="image/png" href="assets/images/y.png">
+    <link rel="apple-touch-icon" href="assets/images/y.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/project-templates.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/rooster" rel="stylesheet">
+    <style>
+        /* Project-specific color - Navy in light mode, Teal in dark mode */
+        :root {
+            --project-color: #0A2540; /* Navy for light theme */
+        }
+        
+        body.dark-mode {
+            --project-color: #00A8B5; /* Teal for dark theme */
+        }
+        
+        .project-title,
+        .content-section h2,
+        .content-section h3 {
+            color: var(--project-color);
+        }
+        
+        /* Make paragraphs white in dark mode for better readability */
+        body.dark-mode p,
+        body.dark-mode .section-intro,
+        body.dark-mode .project-description,
+        body.dark-mode .stat-text,
+        body.dark-mode .goal-card p,
+        body.dark-mode .pain-point p,
+        body.dark-mode .process-step p,
+        body.dark-mode .feature-card p,
+        body.dark-mode li {
+            color: #ffffff;
+        }
+
+        /* Image Modal/Lightbox Styles */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 40px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Clickable gallery images */
+        .image-grid-2 {
+            row-gap: 3rem !important;
+        }
+        
+        .image-grid-2 img {
+            cursor: zoom-in;
+            transition: all 0.3s ease;
+        }
+
+        .image-grid-2 img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Z-shape layout for features */
+        .feature-z-layout .two-column-layout:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .feature-z-layout .two-column-layout:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        /* Better alignment for feature images and text */
+        .feature-z-layout .two-column-layout {
+            align-items: center;
+            gap: var(--spacing-3xl);
+            margin-bottom: 5rem;
+            padding-bottom: var(--spacing-4xl);
+        }
+
+        .feature-z-layout .two-column-layout:not(:last-child) {
+            border-bottom: 1px solid transparent;
+            margin-bottom: 6rem;
+        }
+
+        .feature-z-layout .column-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-z-layout .column-image img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+
+        /* Ensure text column takes proper space */
+        .feature-z-layout .column-text {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-blob"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+    
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor">
+        <span class="cursor-text" id="cursorText"></span>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo-container" id="logoContainer">
+                    <img src="assets/images/y.png" alt="Y" class="logo-y" id="logoY">
+                    <img src="assets/images/younis.png" alt="Younis" class="logo-full" id="logoFull">
+                </a>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">← Back to Home</a></li>
+                    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon">◐</span>
+                    </button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero" style="background: linear-gradient(135deg, var(--project-color)15, var(--color-surface));">
+        <div class="container">
+            <div class="project-hero-content">
+                <div class="project-tags">
+                    <span class="tag">Medical Imaging</span>
+                    <span class="tag">Web Application</span>
+                    <span class="tag">2025</span>
+                </div>
+                <h1 class="project-title">RadiView</h1>
+                <p class="project-subtitle">AI-powered medical imaging platform reducing diagnostic time by 30% for hospital radiologists</p>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Role</span>
+                        <span class="meta-value">UI/UX Designer</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Timeline</span>
+                        <span class="meta-value">6 Weeks</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Team</span>
+                        <span class="meta-value">Personal Project</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tools</span>
+                        <span class="meta-value">Figma</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hero Image -->
+            <div class="hero-image-wrapper">
+                <img src="assets/images/hero.png" alt="RadiView Application Interface" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview: Setting the Context -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>The Story Behind RadiView</h2>
+            <p>RadiView is an enterprise web application designed for hospital radiology departments. It enables radiologists to review medical images (CT, MRI, X-Ray), prioritize critical cases using AI, collaborate with colleagues in real-time, and generate diagnostic reports—all within a single, accessible interface.</p>
+            <p>In modern hospitals, radiologists analyze 50-100+ medical scans daily across fragmented systems. This personal project emerged from my observations during clinical training at Egyptian Liver Hospital's Radiology Department in 2020, where I witnessed firsthand how workflow inefficiencies and outdated interfaces contributed to diagnostic delays and radiologist burnout.</p>
+        </div>
+    </section>
+
+    <!-- The Problem: What Needed Solving -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <div class="two-column-layout">
+                <div class="column-text">
+                    <h2>The Challenge We Faced</h2>
+                    <p>Radiologists in medium-to-large hospitals must toggle between 4-6 separate systems during each diagnostic session—PACS viewer, EHR, reporting software, messaging apps. This fragmentation causes cognitive overload, context-switching errors, and adds critical minutes to every case, increasing the risk of missing vital information.</p>
+                    
+                    <h3>Key Issues Identified</h3>
+                    <ul class="bullet-list">
+                        <li>Workflow fragmentation across 4-6 systems causing 15+ minutes per case in context-switching</li>
+                        <li>Critical stroke cases buried in alphabetical worklists alongside routine exams</li>
+                        <li>Inefficient collaboration requiring phone calls or office visits, consuming 15-20 minutes per consultation</li>
+                    </ul>
+                </div>
+                <div class="column-image">
+                    <img src="assets/images/Challenge.png" alt="RadiView Challenge Visualization" class="hero-image" style="max-height: 700px; width: 100%; object-fit: contain; border-radius: 16px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research: Understanding Our Users -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>Getting to Know Our Users</h2>
+            <p><strong>Research Note:</strong> This is a speculative design project based on observational insights from my 2020 clinical training at Egyptian Liver Hospital's Radiology Department, secondary research reviewing peer-reviewed studies, and informal consultations with radiologists from my professional network. No formal user interviews were conducted.</p>
+            
+            <div class="audience-stats">
+                <div class="stat-box">
+                    <span class="stat-big">15</span>
+                    <span class="stat-text">Peer-reviewed studies on PACS usability analyzed</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-big">62%</span>
+                    <span class="stat-text">Radiologists dissatisfied with legacy systems</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-big">50-100</span>
+                    <span class="stat-text">Cases per day workload per radiologist</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Empathy Map -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>Building Empathy</h2>
+            <p class="section-intro">Understanding what radiologists say, think, do, and feel in their daily workflow helped identify critical design opportunities.</p>
+            
+            <div class="empathy-map">
+                <div class="empathy-quadrant">
+                    <h3>Says</h3>
+                    <ul>
+                        <li>"I need to prioritize critical cases but they're buried in the list"</li>
+                        <li>"Finding a colleague for a second opinion wastes so much time"</li>
+                        <li>"I can't keep up with this workload"</li>
+                    </ul>
+                </div>
+                <div class="empathy-quadrant">
+                    <h3>Thinks</h3>
+                    <ul>
+                        <li>This interface makes my job harder than it needs to be</li>
+                        <li>I'm too old to learn another complicated system</li>
+                        <li>I might miss something important if I rush</li>
+                    </ul>
+                </div>
+                <div class="empathy-quadrant">
+                    <h3>Does</h3>
+                    <ul>
+                        <li>Takes notes on paper to remember complex cases</li>
+                        <li>Manually scans worklist every hour for urgent cases</li>
+                        <li>Walks to colleagues' offices for case discussions</li>
+                        <li>Works 10-hour shifts analyzing 60-80 scans</li>
+                    </ul>
+                </div>
+                <div class="empathy-quadrant">
+                    <h3>Feels</h3>
+                    <ul>
+                        <li>Overwhelmed by daily case volume</li>
+                        <li>Anxious about missing critical findings</li>
+                        <li>Frustrated with inefficient tools</li>
+                        <li>Exhausted by end of shift</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Persona -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Meet Dr. Sarah Chen</h2>
+            <p class="section-intro">Based on research insights and clinical observations, I created a persona representing our primary user: senior radiologists managing high-volume workloads with legacy systems.</p>
+            
+            <div class="persona-card">
+                <div class="persona-header">
+                    <div class="persona-avatar">
+                        <img src="assets/images/Dr.SarahChen.png" alt="Dr. Sarah Chen" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">
+                    </div>
+                    <div class="persona-intro">
+                        <h3>Dr. Sarah Chen</h3>
+                        <p class="persona-title">35 · Senior Radiologist · Calgary, Alberta</p>
+                        <p class="persona-quote">"I need to prioritize critical cases but they're buried in the list"</p>
+                    </div>
+                </div>
+                
+                <div class="persona-details">
+                    <div class="persona-section">
+                        <h4>Goals</h4>
+                        <ul>
+                            <li>Maintain 99%+ accuracy while reducing overtime</li>
+                            <li>Quick access to expert opinions</li>
+                            <li>Better work-life balance</li>
+                            <li>Use intuitive, efficient tools</li>
+                        </ul>
+                    </div>
+                    <div class="persona-section">
+                        <h4>Frustrations</h4>
+                        <ul>
+                            <li>No intelligent case prioritization</li>
+                            <li>15-20 min wasted seeking second opinions</li>
+                            <li>Eye strain from poor contrast/small fonts</li>
+                            <li>Toggling between 4-6 separate systems</li>
+                        </ul>
+                    </div>
+                    <div class="persona-section">
+                        <h4>Context</h4>
+                        <ul>
+                            <li>MD, Radiology with 15 years experience at 400-bed hospital</li>
+                            <li>Analyzes 60-80 scans daily (CT, MRI, X-Ray)</li>
+                            <li>Values accuracy and efficiency but struggles with legacy PACS</li>
+                            <li>Cautious with tech but willing to adopt genuinely useful tools</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points Deep Dive -->
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <h2>Critical Pain Points</h2>
+            
+            <div class="pain-points">
+                <div class="pain-point-item">
+                    <span class="pain-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="32" height="32">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                        </svg>
+                    </span>
+                    <div>
+                        <h3>Workflow Fragmentation</h3>
+                        <p>Radiologists toggle between 4-6 separate systems (PACS viewer, EHR, reporting software, messaging apps) during each diagnostic session. This causes cognitive overload, context-switching errors, and adds 15+ minutes per case, increasing the risk of missing critical information.</p>
+                    </div>
+                </div>
+                <div class="pain-point-item">
+                    <span class="pain-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="32" height="32">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                        </svg>
+                    </span>
+                    <div>
+                        <h3>Lack of Intelligent Case Prioritization</h3>
+                        <p>Critical cases like suspected strokes are buried in alphabetical worklists alongside routine exams. Radiologists must manually scan through 80+ daily cases to identify urgent studies, wasting 5-10 minutes hourly and risking delayed diagnosis of time-sensitive conditions.</p>
+                    </div>
+                </div>
+                <div class="pain-point-item">
+                    <span class="pain-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="32" height="32">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                        </svg>
+                    </span>
+                    <div>
+                        <h3>Inefficient Collaboration</h3>
+                        <p>Seeking expert consultation requires phone calls or walking to colleagues' offices, consuming 15-20 minutes per attempt. Legacy PACS systems lack real-time annotation sharing or remote review, forcing radiologists to delay diagnoses or make uncertain decisions independently.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Journey -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Dr. Sarah Chen's Journey</h2>
+            <p class="section-intro">Mapping a typical morning workflow analyzing a suspected stroke case—from logging in to generating the final report.</p>
+            <img src="assets/images/UserJourney-light.png" alt="RadiView User Journey Map" class="theme-image" data-light-src="assets/images/USerJourney-light.png" data-dark-src="assets/images/UserJourney-dark.png" style="width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl);">
+        </div>
+    </section>
+
+    <!-- Goals: What We Set Out to Achieve -->
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <h2>Design Goals</h2>
+            <p>Translating pain points into measurable design objectives that would improve both radiologist experience and patient outcomes.</p>
+            
+            <div class="goals-grid">
+                <div class="goal-card">
+                    <div class="goal-number">01</div>
+                    <h3>Reduce Diagnostic Time</h3>
+                    <p>Reduce diagnostic time by 30% through AI-powered case prioritization and unified workflow</p>
+                </div>
+                <div class="goal-card">
+                    <div class="goal-number">02</div>
+                    <h3>Improve Collaboration</h3>
+                    <p>Enable real-time consultation features to eliminate 15-20 minute delays when seeking expert opinions</p>
+                </div>
+                <div class="goal-card">
+                    <div class="goal-number">03</div>
+                    <h3>Unify Workflow</h3>
+                    <p>Create a single, intuitive interface eliminating context-switching across 4-6 separate systems</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Process: From Ideas to Solutions -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>Design Process</h2>
+            <p>Following the Double Diamond process: Understand → Define → Ideate → Design → Test</p>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div>
+                        <h3>Understand</h3>
+                        <p>Clinical observations from 2020 training, literature review of peer-reviewed studies on PACS usability and radiologist workflows</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div>
+                        <h3>Define</h3>
+                        <p>Created personas, empathy maps, user journey maps, and defined pain points and design goals</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div>
+                        <h3>Ideate</h3>
+                        <p>Sketched solutions for key workflows, explored AI-prioritization patterns, designed collaboration features</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div>
+                        <h3>Design</h3>
+                        <p>Built wireframes, developed information architecture, created high-fidelity mockups in Figma</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">05</div>
+                    <div>
+                        <h3>Refine</h3>
+                        <p>Iterated on designs based on best practices for medical interfaces and accessibility guidelines</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Flow -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>User Flow</h2>
+            <p class="section-intro">The user flow shows how radiologists navigate from dashboard to diagnosis, with decision points for consultation and second opinions.</p>
+            <img src="assets/images/user-flow-light.png" alt="RadiView User Flow" class="theme-image" data-light-src="assets/images/user-flow-light.png" data-dark-src="assets/images/user-flow-dark.png" style="width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl);">
+        </div>
+    </section>
+
+    <!-- Wireframes: Building the Foundation
+    <section class="content-section">
+        <div class="container">
+            <h2>From Sketches to Wireframes</h2>
+            <p class="section-intro">Early explorations focused on dashboard layout, AI-priority indicators, and collaboration modal design.</p>
+            
+            <div class="image-grid-3">
+                <div class="placeholder-medium">
+                    <span>Dashboard Wireframe</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Wireframe 2</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Wireframe 3</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- The Solution: Final Designs -->
+    <section class="content-section">
+        <div class="container">
+            <h2>The Solution</h2>
+            <p class="section-intro">RadiView consolidates the radiologist's entire workflow into a unified platform. By integrating AI-powered case prioritization, streamlined imaging tools, real-time collaboration features, and intelligent reporting—all within a clean, accessible interface—RadiView eliminates system fragmentation and reduces diagnostic time by 30%. The design prioritizes critical cases, minimizes cognitive load, and enables radiologists to focus on what matters most: accurate, timely diagnoses.</p>
+            
+            <!-- Main Feature Showcase -->
+            <div class="screen-showcase">
+                <div class="placeholder-xlarge" style="border: none; background: none; overflow: hidden;">
+                    <img src="assets/images/HomePage.png" alt="Main Solution Screen" class="animate-fadeInUp" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-2xl);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Deep Dive 1 -->
+    <section class="content-section">
+        <div class="container feature-z-layout">
+            <div class="two-column-layout">
+                <div class="column-text">
+                    <h2>AI-Powered Smart Worklist</h2>
+                    <p>The intelligent worklist automatically prioritizes cases using AI analysis, surfacing critical findings (stroke, trauma, pulmonary embolism) to the top in real-time. Instead of manually scanning 80+ alphabetical entries, radiologists see urgent cases first—reducing diagnostic delays from hours to minutes and potentially saving lives.</p>
+                    
+                    <h3>Design Decisions</h3>
+                    <ul class="bullet-list">
+                        <li><strong>Color-coded urgency indicators:</strong> Red (critical), yellow (urgent), blue (routine) with high-contrast visuals ensure instant recognition even during cognitive fatigue</li>
+                        <li><strong>AI confidence scores displayed:</strong> Transparent 85-99% accuracy ratings build trust and help radiologists triage efficiently without over-reliance</li>
+                        <li><strong>One-click filtering:</strong> Toggle between AI-sorted and traditional views to accommodate different workflow preferences and validate AI recommendations</li>
+                        <li><strong>Persistent timeline view:</strong> Shows case arrival time and waiting duration to balance AI priority with FIFO fairness</li>
+                    </ul>
+                </div>
+                <div class="column-image">
+                    <img src="assets/images/Ai.png" alt="AI-Powered Smart Worklist" style="width: 65%; height: 100%; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-2xl);">
+                </div>
+            </div>
+
+            <!-- Feature Deep Dive 2 -->
+            <div class="two-column-layout">
+                <div class="column-image">
+                    <img src="assets/images/colaaboration.png" alt="Real-Time Collaboration Hub" style="width: 65%; height: 100%; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-2xl);">
+                </div>
+                <div class="column-text">
+                    <h2>Real-Time Collaboration Hub</h2>
+                    <p>Built-in consultation features eliminate the 15-20 minute hunt for expert opinions. Radiologists can share cases instantly with available colleagues, co-annotate images in real-time, and exchange secure messages—all without leaving the imaging viewer or switching applications.</p>
+                    
+                    <h3>User Impact</h3>
+                    <ul class="bullet-list">
+                        <li><strong>Reduces consultation time by 80%:</strong> From 15-20 minutes to 2-3 minutes by showing colleague availability status and enabling one-click case sharing</li>
+                        <li><strong>Persistent annotation layer:</strong> Drawings, measurements, and notes sync instantly across devices, preserving diagnostic context during handoffs</li>
+                        <li><strong>Specialty-based routing:</strong> Smart suggestions recommend neuroradiologists for brain CTs, MSK specialists for orthopedic cases based on expertise tags</li>
+                        <li><strong>Asynchronous review:</strong> Colleagues can review shared cases remotely during downtime, with notification alerts for urgent consultations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature Deep Dive 3 -->
+            <div class="two-column-layout">
+                <div class="column-text">
+                    <h2>Unified Image Viewer with Integrated Reporting</h2>
+                    <p>A single-screen workflow combines medical image viewing, diagnostic tools, patient history, and report generation. Radiologists no longer toggle between PACS, EHR, and dictation software—everything needed for diagnosis lives in one optimized interface, reducing context-switching by 90%.</p>
+                    
+                    <h3>Key Capabilities</h3>
+                    <ul class="bullet-list">
+                        <li><strong>Split-screen comparison:</strong> View current and prior studies side-by-side with synchronized scrolling, windowing, and zoom for faster change detection</li>
+                        <li><strong>Context-aware toolbox:</strong> Measurement, annotation, and 3D reconstruction tools appear based on study type (CT brain shows stroke protocol tools, chest X-ray shows lung markings)</li>
+                        <li><strong>Embedded patient timeline:</strong> Access labs, clinical notes, and previous reports via collapsible sidebar without leaving the viewer</li>
+                        <li><strong>Voice-to-text reporting:</strong> Dictate findings with auto-populated templates, one-click impression generation using AI, and structured reporting for common protocols</li>
+                    </ul>
+                </div>
+                <div class="column-image">
+                    <img src="assets/images/Image_Viewer.png" alt="Unified Image Viewer with Integrated Reporting" style="width: 120%; max-width: 650px; border-radius: var(--radius-md); box-shadow: var(--shadow-2xl);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Screens Gallery -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Complete Experience</h2>
+            <p class="section-intro">Supporting screens that complete the RadiView ecosystem—from user preferences to advanced imaging protocols.</p>
+            
+            <div class="image-grid-2">
+                <img src="assets/images/01- Login Page.png" alt="Login Page" style="width: 100%; height: auto; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);" class="gallery-image" data-full="assets/images/01- Login Page.png">
+                <img src="assets/images/02- Home Page.png" alt="Home Page" style="width: 100%; height: auto; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);" class="gallery-image" data-full="assets/images/02- Home Page.png">
+                <img src="assets/images/03- Recent Cases.png" alt="Recent Cases" style="width: 100%; height: auto; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);" class="gallery-image" data-full="assets/images/03- Recent Cases.png">
+                <img src="assets/images/02-2- Patient Info.png" alt="Patient Info" style="width: 100%; height: auto; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);" class="gallery-image" data-full="assets/images/02-2- Patient Info.png">
+                <img src="assets/images/03-Grid View.png" alt="Grid View" style="width: 100%; height: auto; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);" class="gallery-image" data-full="assets/images/03-Grid View.png">
+                <img src="assets/images/04-Download Image.png" alt="Download Image" style="width: 100%; height: auto; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);" class="gallery-image" data-full="assets/images/04-Download Image.png">
+                <img src="assets/images/04- Reports.png" alt="Reports" style="width: 100%; height: auto; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);" class="gallery-image" data-full="assets/images/04- Reports.png">
+                <img src="assets/images/05- View Report.png" alt="View Report" style="width: 100%; height: auto; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);" class="gallery-image" data-full="assets/images/05- View Report.png">
+                <img src="assets/images/05- Downlaod Report.png" alt="View Report" style="width: 100%; height: auto; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);" class="gallery-image" data-full="assets/images/05- View Report.png">
+            </div>
+        </div>
+    </section>
+
+    <!-- Style Guide -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Design System</h2>
+            <p class="section-intro">Visual choices prioritizing accessibility, contrast for medical imaging viewing, and professional healthcare aesthetics.</p>
+            
+            <div class="style-section">
+                <h3>Color Palette</h3>
+                <div class="color-swatches">
+                    <div class="swatch" style="background: #0A2540;">
+                        <span class="swatch-name">Primary (Navy)</span>
+                        <span class="swatch-hex">#0A2540</span>
+                    </div>
+                    <div class="swatch" style="background: #00A8B5;">
+                        <span class="swatch-name">Secondary (Teal)</span>
+                        <span class="swatch-hex">#00A8B5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="style-section">
+                <h3>Typography</h3>
+                <div class="typography-sample">
+                    <div class="type-sample">
+                        <p style="font-size: 14px; color: #888; font-family: 'Montserrat', sans-serif; margin: 0 0 var(--spacing-sm) 0; text-transform: uppercase; letter-spacing: 1px;">Font Family</p>
+                        <h1 style="font-size: 3rem; margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 700;">Montserrat</h1>
+                    </div>
+                    <div class="type-sample" style="display: flex; flex-direction: column; gap: var(--spacing-lg); margin-top: var(--spacing-2xl);">
+                        <div>
+                            <p style="font-size: 24px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin: 0;">Heading 1: 24px / Bold</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 18px; font-weight: 400; font-family: 'Montserrat', sans-serif; margin: 0;">Body - Large: 18px / Regular</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 16px; font-weight: 500; font-family: 'Montserrat', sans-serif; margin: 0;">Button: 16px / Medium</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results & Impact -->
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <h2>Expected Impact</h2>
+            <p>As a speculative design project, these are the projected outcomes based on addressing identified pain points and design goals.</p>
+            
+            <div class="results-metrics">
+                <div class="metric-item">
+                    <span class="metric-value">30%</span>
+                    <span class="metric-label">Reduction in diagnostic time through AI prioritization</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">15-20min</span>
+                    <span class="metric-label">Saved per consultation with real-time collaboration</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">4-6 to 1</span>
+                    <span class="metric-label">Systems unified into single interface</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Takeaways -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>Reflections & Learnings</h2>
+            
+            <div class="learnings">
+                <div class="learning-item">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="learning-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                        </svg>
+                        What I Learned
+                    </h3>
+                    <p>This project deepened my understanding of designing for specialized medical workflows and the importance of accessibility in high-stakes healthcare environments. Balancing powerful features with intuitive UX for time-pressured users was a valuable challenge.</p>
+                </div>
+                <div class="learning-item">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="learning-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                        </svg>
+                        Next Steps
+                    </h3>
+                    <p>With formal user testing, I would validate the AI prioritization logic, test the collaboration modal with actual radiologist workflows, and explore mobile companion features for on-call scenarios.</p>
+                </div>
+                <div class="learning-item">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="learning-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                        </svg>
+                        If I Could Do It Again
+                    </h3>
+                    <p>I would conduct structured user interviews with radiologists from diverse hospital settings, perform task analysis sessions with actual PACS systems, and prototype interactive features beyond static mockups to test real workflows.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Home CTA -->
+    <section class="project-footer">
+        <div class="container-narrow">
+            <h2>Thanks for reading!</h2>
+            <p>Want to see how I approach other design challenges?</p>
+            <a href="index.html" class="btn btn-primary">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/younis.png" alt="Younis" class="footer-logo-img" id="footerLogo">
+                </div>
+                <p class="footer-text">© 2025 Younis. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- Image Modal/Lightbox -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <img id="modalImage" src="" alt="Expanded view">
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Image Modal/Lightbox functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+        const galleryImages = document.querySelectorAll('.gallery-image');
+
+        // Open modal when clicking gallery images
+        galleryImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.classList.add('active');
+                modalImg.src = this.getAttribute('data-full');
+                modalImg.alt = this.alt;
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+        });
+
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        
+        // Close on background click
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

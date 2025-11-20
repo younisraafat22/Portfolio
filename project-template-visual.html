@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="[PROJECT NAME] - Visual Design Showcase">
+    <title>[PROJECT NAME] - Younis Portfolio</title>
+    <link rel="icon" type="image/png" href="assets/images/y.png">
+    <link rel="apple-touch-icon" href="assets/images/y.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/project-templates.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/rooster" rel="stylesheet">
+    <style>
+        /* Project-specific color - CHANGE THIS FOR EACH PROJECT */
+        :root {
+            --project-color: #EC4899;
+        }
+        
+        .project-title,
+        .content-section h2,
+        .content-section h3 {
+            color: var(--project-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-blob"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+    
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor">
+        <span class="cursor-text" id="cursorText"></span>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo-container" id="logoContainer">
+                    <a href="index.html">
+                        <img src="assets/images/y.png" alt="Y" class="logo-y" id="logoY">
+                        <img src="assets/images/younis.png" alt="Younis" class="logo-full" id="logoFull">
+                    </a>
+                </div>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">← Back to Home</a></li>
+                    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon">◐</span>
+                    </button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero" style="background: linear-gradient(135deg, var(--project-color)15, var(--color-surface));">
+        <div class="container">
+            <div class="project-hero-content">
+                <div class="project-tags">
+                    <span class="tag">[PLATFORM]</span>
+                    <span class="tag">[DESIGN TYPE]</span>
+                    <span class="tag">[YEAR]</span>
+                </div>
+                <h1 class="project-title">[PROJECT NAME]</h1>
+                <p class="project-subtitle">[A compelling one-liner about the visual design or brand]</p>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Role</span>
+                        <span class="meta-value">[Your Role]</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Timeline</span>
+                        <span class="meta-value">[Duration]</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tools</span>
+                        <span class="meta-value">[Design Tools]</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Category</span>
+                        <span class="meta-value">[Project Type]</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-cover-image">
+                <div class="placeholder-large">
+                    <span>Hero Image - Main Design</span>
+                    <span class="placeholder-note">1200 x 800px - Your best design visual</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Context -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>About This Project</h2>
+            <p>[Brief, punchy description of what this is and who it's for. Keep it short - the visuals are the star here.]</p>
+        </div>
+    </section>
+
+    <!-- Main Design Showcase 1 -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <div class="screen-showcase">
+                <div class="placeholder-xlarge">
+                    <span>Key Screen 1</span>
+                    <span class="placeholder-note">1000 x 800px - Primary interface or design</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Feature 1 -->
+    <section class="content-section">
+        <div class="container">
+            <div class="two-column-layout">
+                <div class="column-text">
+                    <h2>[Feature or Screen Name]</h2>
+                    <p>[Brief description of this screen or feature - what it does, why it's interesting visually or functionally.]</p>
+                </div>
+                <div class="column-image">
+                    <div class="placeholder-medium">
+                        <span>Screen Detail</span>
+                        <span class="placeholder-note">600 x 800px</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Width Visual 1 -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <div class="placeholder-large">
+                <span>Full Width Design</span>
+                <span class="placeholder-note">1200 x 700px - Impactful wide visual</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Multiple Screens Grid -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Key Screens</h2>
+            <p class="section-intro">[Optional: Brief intro to the screens below]</p>
+            
+            <div class="image-grid-3">
+                <div class="placeholder-medium">
+                    <span>Screen A</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Screen B</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Screen C</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Feature 2 -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <div class="two-column-layout reverse">
+                <div class="column-image">
+                    <div class="placeholder-medium">
+                        <span>Feature Visual</span>
+                        <span class="placeholder-note">600 x 800px</span>
+                    </div>
+                </div>
+                <div class="column-text">
+                    <h2>[Another Feature]</h2>
+                    <p>[What makes this feature special from a design perspective]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Design Showcase 2 -->
+    <section class="content-section">
+        <div class="container">
+            <div class="screen-showcase">
+                <div class="placeholder-xlarge">
+                    <span>Key Screen 2</span>
+                    <span class="placeholder-note">1000 x 800px - Another hero visual</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Screens - 2 Column -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <div class="image-grid-2">
+                <div class="placeholder-medium">
+                    <span>Design 1</span>
+                    <span class="placeholder-note">600 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Design 2</span>
+                    <span class="placeholder-note">600 x 800px</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Width Visual 2 -->
+    <section class="content-section">
+        <div class="container">
+            <div class="placeholder-large">
+                <span>Wide Context Shot</span>
+                <span class="placeholder-note">1200 x 700px - Design in context or mockup</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Screens Gallery -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>More Screens</h2>
+            
+            <div class="image-grid-2">
+                <div class="placeholder-medium">
+                    <span>Screen 1</span>
+                    <span class="placeholder-note">600 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Screen 2</span>
+                    <span class="placeholder-note">600 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Screen 3</span>
+                    <span class="placeholder-note">600 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Screen 4</span>
+                    <span class="placeholder-note">600 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Screen 5</span>
+                    <span class="placeholder-note">600 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Screen 6</span>
+                    <span class="placeholder-note">600 x 800px</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Feature 3 -->
+    <section class="content-section">
+        <div class="container">
+            <div class="two-column-layout">
+                <div class="column-text">
+                    <h2>[Design Detail or Interaction]</h2>
+                    <p>[Highlight a specific design detail, micro-interaction, or visual element that you're proud of]</p>
+                </div>
+                <div class="column-image">
+                    <div class="placeholder-medium">
+                        <span>Detail Shot</span>
+                        <span class="placeholder-note">600 x 800px</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Responsive/Other Platforms -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>Responsive Design</h2>
+            <p class="section-intro">[Brief note about responsive considerations or other platforms]</p>
+            
+            <div class="placeholder-large">
+                <span>Responsive Mockups</span>
+                <span class="placeholder-note">1200 x 700px - Desktop, tablet, mobile views</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Style Guide / Visual System -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Visual System</h2>
+            <p class="section-intro">[Brief intro to your design system and visual choices]</p>
+            
+            <!-- Colors -->
+            <div class="style-section">
+                <h3>Color Palette</h3>
+                <div class="color-swatches">
+                    <div class="swatch" style="background: var(--project-color);">
+                        <span class="swatch-name">Primary</span>
+                        <span class="swatch-hex">[#HEX]</span>
+                    </div>
+                    <div class="swatch" style="background: #0EA5E9;">
+                        <span class="swatch-name">Secondary</span>
+                        <span class="swatch-hex">[#HEX]</span>
+                    </div>
+                    <div class="swatch" style="background: #000000;">
+                        <span class="swatch-name">Text</span>
+                        <span class="swatch-hex">[#HEX]</span>
+                    </div>
+                    <div class="swatch" style="background: #F8F8F8;">
+                        <span class="swatch-name" style="color: #000;">Background</span>
+                        <span class="swatch-hex" style="color: #000;">[#HEX]</span>
+                    </div>
+                    <div class="swatch" style="background: #10B981;">
+                        <span class="swatch-name">Accent</span>
+                        <span class="swatch-hex">[#HEX]</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Typography -->
+            <div class="style-section">
+                <h3>Typography</h3>
+                <div class="typography-sample">
+                    <div class="type-sample">
+                        <span class="type-label">Display / Headings</span>
+                        <h1 style="font-size: 3rem; margin: 0; font-weight: 700;">[Font Name Bold]</h1>
+                    </div>
+                    <div class="type-sample">
+                        <span class="type-label">Body Text</span>
+                        <p style="font-size: 1.125rem; margin: 0;">[Font Name Regular] - The quick brown fox jumps over the lazy dog</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Components or Icons -->
+            <div class="style-section">
+                <h3>Components</h3>
+                <div class="placeholder-medium">
+                    <span>UI Components or Iconography</span>
+                    <span class="placeholder-note">1000 x 400px - Buttons, cards, icons, etc.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Hero Shot -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <div class="screen-showcase">
+                <div class="placeholder-xlarge">
+                    <span>Final Hero Shot</span>
+                    <span class="placeholder-note">1000 x 800px - Closing visual statement</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Takeaway -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>Design Highlights</h2>
+            
+            <div class="goals-grid">
+                <div class="goal-card">
+                    <div class="goal-number">🎨</div>
+                    <h3>Visual Identity</h3>
+                    <p>[Key aspect of the visual design - e.g., "Modern, minimalist aesthetic with bold typography"]</p>
+                </div>
+                <div class="goal-card">
+                    <div class="goal-number">✨</div>
+                    <h3>User Experience</h3>
+                    <p>[How the design serves users - e.g., "Intuitive navigation with clear visual hierarchy"]</p>
+                </div>
+                <div class="goal-card">
+                    <div class="goal-number">🚀</div>
+                    <h3>Innovation</h3>
+                    <p>[What makes this design special - e.g., "Unique card-based layout optimized for mobile"]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Home CTA -->
+    <section class="project-footer">
+        <div class="container-narrow">
+            <h2>Like what you see?</h2>
+            <p>Check out more of my design work</p>
+            <a href="index.html" class="btn btn-primary">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/younis.png" alt="Younis" class="footer-logo-img" id="footerLogo">
+                </div>
+                <p class="footer-text">© 2025 Younis. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="[PROJECT NAME] - Design Process Showcase">
+    <title>[PROJECT NAME] - Younis Portfolio</title>
+    <link rel="icon" type="image/png" href="assets/images/y.png">
+    <link rel="apple-touch-icon" href="assets/images/y.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/project-templates.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/rooster" rel="stylesheet">
+    <style>
+        /* Project-specific color - CHANGE THIS FOR EACH PROJECT */
+        :root {
+            --project-color: #8B5CF6;
+        }
+        
+        .project-title,
+        .content-section h2,
+        .content-section h3 {
+            color: var(--project-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-blob"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+    
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor">
+        <span class="cursor-text" id="cursorText"></span>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo-container" id="logoContainer">
+                    <a href="index.html">
+                        <img src="assets/images/y.png" alt="Y" class="logo-y" id="logoY">
+                        <img src="assets/images/younis.png" alt="Younis" class="logo-full" id="logoFull">
+                    </a>
+                </div>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">← Back to Home</a></li>
+                    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon">◐</span>
+                    </button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero" style="background: linear-gradient(135deg, var(--project-color)15, var(--color-surface));">
+        <div class="container">
+            <div class="project-hero-content">
+                <div class="project-tags">
+                    <span class="tag">[CATEGORY]</span>
+                    <span class="tag">[RESEARCH FOCUS]</span>
+                    <span class="tag">[YEAR]</span>
+                </div>
+                <h1 class="project-title">[PROJECT NAME]</h1>
+                <p class="project-subtitle">[Describe the design challenge and your process-driven approach]</p>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Role</span>
+                        <span class="meta-value">[Your Role]</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">[Timeline]</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Methods</span>
+                        <span class="meta-value">[Research Methods]</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Focus</span>
+                        <span class="meta-value">[Process Focus Area]</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-cover-image">
+                <div class="placeholder-large">
+                    <span>Process Overview or Final Design</span>
+                    <span class="placeholder-note">1200 x 800px</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Context -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>The Starting Point</h2>
+            <p>[Set the stage: What was the problem space? What made this project interesting from a design process perspective?]</p>
+            <p>[Emphasize the complexity or uniqueness of the challenge that required a thoughtful, research-driven approach.]</p>
+        </div>
+    </section>
+
+    <!-- Research Phase -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>Deep Dive into Research</h2>
+            <p class="section-intro">[Explain your research methodology and why you chose these specific methods]</p>
+            
+            <div class="goals-grid">
+                <div class="goal-card">
+                    <div class="goal-number">📊</div>
+                    <h3>User Interviews</h3>
+                    <p>[Number of interviews, key questions, recruitment criteria]</p>
+                </div>
+                <div class="goal-card">
+                    <div class="goal-number">🔍</div>
+                    <h3>Competitive Analysis</h3>
+                    <p>[Competitors analyzed, frameworks used, key findings]</p>
+                </div>
+                <div class="goal-card">
+                    <div class="goal-number">📈</div>
+                    <h3>Surveys & Analytics</h3>
+                    <p>[Data gathered, sample size, significant patterns]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Insights -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>What We Discovered</h2>
+            <p>[Synthesize your research findings. What patterns emerged? What surprised you?]</p>
+            
+            <div class="pain-points">
+                <div class="pain-point-item">
+                    <span class="pain-icon">💡</span>
+                    <div>
+                        <h3>Insight 1</h3>
+                        <p>[Key finding from your research with supporting evidence or quotes]</p>
+                    </div>
+                </div>
+                <div class="pain-point-item">
+                    <span class="pain-icon">💡</span>
+                    <div>
+                        <h3>Insight 2</h3>
+                        <p>[Another important discovery that shaped your design direction]</p>
+                    </div>
+                </div>
+                <div class="pain-point-item">
+                    <span class="pain-icon">💡</span>
+                    <div>
+                        <h3>Insight 3</h3>
+                        <p>[Third key insight that influenced your decisions]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Empathy Building -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>Building Empathy</h2>
+            <p class="section-intro">[Explain how you translated research into actionable user insights]</p>
+            
+            <!-- Empathy Map -->
+            <div class="empathy-map">
+                <div class="empathy-quadrant">
+                    <h3>Says</h3>
+                    <ul>
+                        <li>"[Direct user quote 1]"</li>
+                        <li>"[Direct user quote 2]"</li>
+                        <li>"[Direct user quote 3]"</li>
+                    </ul>
+                </div>
+                <div class="empathy-quadrant">
+                    <h3>Thinks</h3>
+                    <ul>
+                        <li>[Internal thought or concern]</li>
+                        <li>[Worry or consideration]</li>
+                        <li>[Mental model observation]</li>
+                    </ul>
+                </div>
+                <div class="empathy-quadrant">
+                    <h3>Does</h3>
+                    <ul>
+                        <li>[Observable behavior 1]</li>
+                        <li>[Action or workaround]</li>
+                        <li>[Current solution attempt]</li>
+                    </ul>
+                </div>
+                <div class="empathy-quadrant">
+                    <h3>Feels</h3>
+                    <ul>
+                        <li>[Emotional state]</li>
+                        <li>[Frustration or joy]</li>
+                        <li>[Motivation or fear]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Persona -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Our Primary Persona</h2>
+            <p class="section-intro">[Explain how this persona emerged from your research and represents your target users]</p>
+            
+            <div class="persona-card">
+                <div class="persona-header">
+                    <div class="persona-avatar">
+                        <div class="placeholder-small">
+                            <span>Photo</span>
+                        </div>
+                    </div>
+                    <div class="persona-intro">
+                        <h3>[Persona Name]</h3>
+                        <p class="persona-title">[Age] · [Job Title] · [Context]</p>
+                        <p class="persona-quote">"[Representative quote from research]"</p>
+                    </div>
+                </div>
+                
+                <div class="persona-details">
+                    <div class="persona-section">
+                        <h4>Goals</h4>
+                        <ul>
+                            <li>[Primary goal]</li>
+                            <li>[Secondary goal]</li>
+                            <li>[Aspirational goal]</li>
+                        </ul>
+                    </div>
+                    <div class="persona-section">
+                        <h4>Frustrations</h4>
+                        <ul>
+                            <li>[Key pain point]</li>
+                            <li>[Daily struggle]</li>
+                            <li>[Barrier to success]</li>
+                        </ul>
+                    </div>
+                    <div class="persona-section">
+                        <h4>Context</h4>
+                        <ul>
+                            <li>[Environment/situation]</li>
+                            <li>[Tech comfort level]</li>
+                            <li>[Time constraints]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Journey Mapping -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>Mapping the Current Experience</h2>
+            <p class="section-intro">[Explain what journey you mapped and why. What were you trying to understand?]</p>
+            
+            <div class="placeholder-large">
+                <span>User Journey Map</span>
+                <span class="placeholder-note">1200 x 700px - Show current state journey with pain points</span>
+            </div>
+            
+            <div class="two-column-layout" style="margin-top: var(--spacing-3xl);">
+                <div class="column-text">
+                    <h3>Key Moments of Friction</h3>
+                    <ul class="bullet-list">
+                        <li>[Critical pain point in journey]</li>
+                        <li>[Another friction point]</li>
+                        <li>[Opportunity area identified]</li>
+                    </ul>
+                </div>
+                <div class="column-text">
+                    <h3>Opportunities for Improvement</h3>
+                    <ul class="bullet-list">
+                        <li>[Design opportunity 1]</li>
+                        <li>[Design opportunity 2]</li>
+                        <li>[Design opportunity 3]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ideation Process -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Exploring Solutions</h2>
+            <p class="section-intro">[Describe your ideation process: workshops, brainstorming, sketching sessions, etc.]</p>
+            
+            <div class="image-grid-2">
+                <div class="placeholder-medium">
+                    <span>Sketches 1</span>
+                    <span class="placeholder-note">600 x 800px - Early concept sketches</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Sketches 2</span>
+                    <span class="placeholder-note">600 x 800px - Alternative approaches</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: var(--spacing-2xl);">
+                <h3>Why This Direction?</h3>
+                <p>[Explain how you evaluated ideas and chose the direction to pursue. What criteria did you use?]</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Architecture -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>Structuring Information</h2>
+            <p class="section-intro">[Explain your IA decisions. Did you do card sorting? Tree testing? How did you validate the structure?]</p>
+            
+            <div class="placeholder-large">
+                <span>Information Architecture / User Flow</span>
+                <span class="placeholder-note">1200 x 800px - Sitemap or detailed user flow</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lo-Fi Iteration -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Lo-Fi Prototyping & Testing</h2>
+            <p class="section-intro">[Describe your wireframing and early testing process. What did you learn from lo-fi testing?]</p>
+            
+            <div class="image-grid-3">
+                <div class="placeholder-medium">
+                    <span>Lo-Fi Version 1</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Lo-Fi Version 2</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Lo-Fi Version 3</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+            </div>
+            
+            <div class="two-column-layout" style="margin-top: var(--spacing-3xl);">
+                <div class="column-text">
+                    <h3>Testing Insights</h3>
+                    <p>[What you learned from testing these wireframes]</p>
+                    <ul class="bullet-list">
+                        <li>[Key finding from usability test]</li>
+                        <li>[User confusion point]</li>
+                        <li>[Positive feedback]</li>
+                    </ul>
+                </div>
+                <div class="column-text">
+                    <h3>Iterations Made</h3>
+                    <p>[How you improved based on feedback]</p>
+                    <ul class="bullet-list">
+                        <li>[Specific change made]</li>
+                        <li>[Problem addressed]</li>
+                        <li>[New approach tried]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Decisions -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>Key Design Decisions</h2>
+            <p class="section-intro">[Highlight 2-3 critical design decisions and the thinking behind them]</p>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div>
+                        <h3>[Decision 1: e.g., "Single-Page vs Multi-Page"]</h3>
+                        <p>[Explain the options you considered, the tradeoffs, and why you chose this path. Include user or business rationale.]</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div>
+                        <h3>[Decision 2: e.g., "Navigation Structure"]</h3>
+                        <p>[Another critical decision point with clear reasoning]</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div>
+                        <h3>[Decision 3: e.g., "Onboarding Flow"]</h3>
+                        <p>[Third important decision that shaped the final product]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hi-Fi Testing -->
+    <section class="content-section">
+        <div class="container">
+            <h2>Hi-Fidelity Testing</h2>
+            <p class="section-intro">[Describe your hi-fi prototype testing. What tasks did users complete? What metrics did you track?]</p>
+            
+            <div class="audience-stats">
+                <div class="stat-box">
+                    <span class="stat-big">[#]</span>
+                    <span class="stat-text">Participants tested</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-big">[%]</span>
+                    <span class="stat-text">Task success rate</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-big">[X]</span>
+                    <span class="stat-text">Iterations completed</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: var(--spacing-3xl);">
+                <div class="image-grid-2">
+                    <div class="placeholder-medium">
+                        <span>Before Iteration</span>
+                        <span class="placeholder-note">600 x 800px - Problem screen</span>
+                    </div>
+                    <div class="placeholder-medium">
+                        <span>After Iteration</span>
+                        <span class="placeholder-note">600 x 800px - Improved screen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Solution -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <h2>The Final Solution</h2>
+            <p class="section-intro">[Introduce the final designs as the result of this iterative, research-driven process]</p>
+            
+            <div class="screen-showcase">
+                <div class="placeholder-xlarge">
+                    <span>Final Design</span>
+                    <span class="placeholder-note">1000 x 800px - Key screen showing final solution</span>
+                </div>
+            </div>
+            
+            <div class="image-grid-3" style="margin-top: var(--spacing-2xl);">
+                <div class="placeholder-medium">
+                    <span>Screen 1</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Screen 2</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+                <div class="placeholder-medium">
+                    <span>Screen 3</span>
+                    <span class="placeholder-note">400 x 800px</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Reflections -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>Process Reflections</h2>
+            
+            <div class="learnings">
+                <div class="learning-item">
+                    <h3>💡 Key Learnings</h3>
+                    <p>[What this project taught you about the design process. What worked well? What surprised you?]</p>
+                </div>
+                <div class="learning-item">
+                    <h3>🔄 What I'd Do Differently</h3>
+                    <p>[Honest reflection on what you'd improve in your process next time]</p>
+                </div>
+                <div class="learning-item">
+                    <h3>📊 Process Improvements</h3>
+                    <p>[How you refined your approach during this project or what you'll apply to future projects]</p>
+                </div>
+                <div class="learning-item">
+                    <h3>🎯 Impact on Users</h3>
+                    <p>[How this thoughtful process resulted in better outcomes for users]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Home CTA -->
+    <section class="project-footer">
+        <div class="container-narrow">
+            <h2>Want to see more of my process?</h2>
+            <p>Explore other projects where I applied research-driven design thinking</p>
+            <a href="index.html" class="btn btn-primary">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/younis.png" alt="Younis" class="footer-logo-img" id="footerLogo">
+                </div>
+                <p class="footer-text">© 2025 Younis. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
