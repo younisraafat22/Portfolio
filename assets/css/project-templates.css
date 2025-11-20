@@ -16,7 +16,7 @@
 
 /* Project Hero */
 .project-hero {
-    padding: calc(var(--nav-height) + var(--spacing-3xl)) var(--spacing-xl) var(--spacing-3xl);
+    padding: calc(80px + var(--spacing-3xl)) var(--spacing-xl) var(--spacing-3xl);
     min-height: 80vh;
     display: flex;
     align-items: center;
@@ -38,8 +38,8 @@
     width: 100%;
     height: auto;
     display: block;
-    object-fit: cover;
-    max-height: 800px;
+    object-fit: contain;
+    max-height: 600px;
 }
 
 .project-tags {
@@ -729,7 +729,7 @@ body.dark-mode .learning-icon {
 /* Responsive */
 @media (max-width: 768px) {
     .project-hero {
-        padding-top: calc(var(--nav-height) + var(--spacing-xl));
+        padding-top: calc(70px + var(--spacing-xl));
         padding-bottom: var(--spacing-xl);
         min-height: auto;
     }
