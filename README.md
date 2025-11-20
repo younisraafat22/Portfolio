@@ -2,7 +2,7 @@
 
 A clean, modern portfolio website showcasing UI/UX design work and case studies.
 
-� **Live Site**: [younisahmed.com](https://younisahmed.com)
+� **Live Site**: [https://younisahmed.netlify.app/](https://younisahmed.netlify.app)
 
 ## ✨ Features
 
