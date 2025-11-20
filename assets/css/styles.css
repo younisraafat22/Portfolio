@@ -186,6 +186,7 @@ html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 body {
@@ -195,17 +196,32 @@ body {
     line-height: 1.6;
     font-size: 16px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--spacing-xl);
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
 }
 
 @media (max-width: 768px) {
     .container {
         padding: 0 var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
     }
 }
 
@@ -698,7 +714,6 @@ body.dark-mode .gradient-blob {
     display: inline-block;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
-    white-space: nowrap;
 }
 
 .hero-title-main .line-1 {
@@ -949,8 +964,21 @@ body.dark-mode .gradient-blob {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .design-element {
+        display: none;
+    }
+    
+    .hero-title-main {
+        font-size: 2.75rem;
+        line-height: 1.2;
+    }
+    
+    .hero-stats {
+        gap: var(--spacing-lg);
+    }
+    
+    .floating-shapes {
         display: none;
     }
 }
@@ -964,12 +992,14 @@ body.dark-mode .gradient-blob {
     .hero-title-main {
         font-size: 2rem;
         line-height: 1.3;
+        margin-bottom: var(--spacing-lg);
     }
     
     .hero-stats {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
         padding: var(--spacing-md) 0;
+        margin: var(--spacing-lg) 0;
     }
     
     .stat-number {
@@ -987,6 +1017,11 @@ body.dark-mode .gradient-blob {
     
     .floating-shape {
         display: none;
+    }
+    
+    .hero-badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 1rem;
     }
 }
 
@@ -1464,6 +1499,23 @@ body.dark-mode .case-study:hover {
         grid-template-columns: 1fr;
         gap: var(--spacing-xl);
         text-align: center;
+    }
+    
+    .about-image {
+        order: -1; /* Ensure image stays at top */
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .personal-photo {
+        max-width: 200px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: -40px -5px;
+        margin-bottom: 0;
+        border: 3px solid var(--color-border);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     
     .about-text .section-title {
@@ -2135,6 +2187,115 @@ body.dark-mode .back-to-top:hover {
         right: 1.5rem;
         width: 44px;
         height: 44px;
+    }
+}
+
+/* ===================================
+   ADDITIONAL RESPONSIVE BREAKPOINTS
+   =================================== */
+
+/* Large Desktop (1400px and above) */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    .hero-title {
+        font-size: 6rem;
+    }
+}
+
+/* Medium Laptops (1024px - 1200px) */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .case-study-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-2xl);
+    }
+}
+
+/* Tablets (768px - 968px) */
+@media (max-width: 968px) and (min-width: 769px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .case-study-content {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* Tablet and below - Navigation adjustments */
+@media (max-width: 968px) {
+    .nav-links {
+        gap: var(--spacing-sm);
+        font-size: 0.9rem;
+    }
+    
+    .logo-container {
+        min-width: 120px;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+        line-height: 1.1;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.125rem;
+    }
+    
+    .hero-title-main {
+        font-size: 2.5rem;
+    }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .hero-title-main {
+        font-size: 1.75rem;
+        line-height: 1.4;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .nav-links {
+        gap: var(--spacing-sm);
+    }
+    
+    .skills-list li {
+        font-size: 0.875rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .nav-content {
+        padding: var(--spacing-sm) 0;
     }
 }
 
