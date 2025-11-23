@@ -108,8 +108,8 @@ body.dark-mode .engagement-item.active {
 .engagement-mobile-toggle {
     display: none;
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    top: 5rem;
+    right: 1rem;
     width: 56px;
     height: 56px;
     background: var(--color-text-primary);
@@ -140,9 +140,9 @@ body.dark-mode .engagement-item.active {
 .project-engagement.mobile-visible {
     display: flex;
     position: fixed;
-    bottom: 5rem;
+    top: 7rem;
     right: 1rem;
-    top: auto;
+    bottom: auto;
     transform: none;
     animation: slideUp 0.3s ease-out;
 }
