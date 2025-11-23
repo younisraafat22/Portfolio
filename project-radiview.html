@@ -13,6 +13,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/rooster" rel="stylesheet">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    
     <style>
         /* Project-specific color - Navy in light mode, Teal in dark mode */
         :root {
@@ -906,8 +911,25 @@
             }
         });
 
-        // Project Engagement Interactions with Real Data Tracking
-        const PROJECT_ID = 'radiview'; // Unique identifier for this project
+        // Project Engagement Interactions with Firebase Real-time Database
+        
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA8riCFk0HeThm9sGy2EMETiMJi7NPZ9vw",
+            authDomain: "portfolio-346fb.firebaseapp.com",
+            databaseURL: "https://portfolio-346fb-default-rtdb.firebaseio.com",
+            projectId: "portfolio-346fb",
+            storageBucket: "portfolio-346fb.firebasestorage.app",
+            messagingSenderId: "843697826460",
+            appId: "1:843697826460:web:52b1b2f5e86ac550d89b59",
+            measurementId: "G-86RZFL35FQ"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        const PROJECT_ID = 'radiview';
         const likesItem = document.getElementById('likesItem');
         const commentsItem = document.getElementById('commentsItem');
         const commentsSection = document.getElementById('commentsSection');
@@ -917,21 +939,6 @@
         const commentsList = document.getElementById('commentsList');
         const mobileToggle = document.getElementById('mobileEngagementToggle');
         const engagementSidebar = document.getElementById('engagementSidebar');
-        
-        // Initialize data from localStorage
-        function getProjectData() {
-            const data = localStorage.getItem(`project_${PROJECT_ID}`);
-            return data ? JSON.parse(data) : {
-                views: 0,
-                likes: 0,
-                likedBy: [],
-                comments: []
-            };
-        }
-        
-        function saveProjectData(data) {
-            localStorage.setItem(`project_${PROJECT_ID}`, JSON.stringify(data));
-        }
         
         // Get or create visitor ID
         function getVisitorId() {
@@ -944,81 +951,104 @@
         }
         
         const visitorId = getVisitorId();
-        let projectData = getProjectData();
+        const projectRef = database.ref('projects/' + PROJECT_ID);
         
         // Track page view (once per visitor ever)
-        if (!projectData.viewedBy) {
-            projectData.viewedBy = [];
+        const hasViewed = localStorage.getItem(`viewed_${PROJECT_ID}`);
+        if (!hasViewed) {
+            projectRef.child('views').transaction(function(currentViews) {
+                return (currentViews || 0) + 1;
+            });
+            localStorage.setItem(`viewed_${PROJECT_ID}`, 'true');
         }
         
-        if (!projectData.viewedBy.includes(visitorId)) {
-            projectData.views++;
-            projectData.viewedBy.push(visitorId);
-            saveProjectData(projectData);
-        }
-        
-        // Update UI with current data
-        function updateUI() {
-            document.getElementById('viewsCount').textContent = projectData.views;
-            document.getElementById('likesCount').textContent = projectData.likes;
-            document.getElementById('commentsCount').textContent = projectData.comments.length;
-            document.getElementById('commentCount').textContent = projectData.comments.length;
+        // Listen for real-time updates
+        projectRef.on('value', function(snapshot) {
+            const data = snapshot.val() || {};
+            
+            // Update views
+            document.getElementById('viewsCount').textContent = data.views || 0;
+            
+            // Update likes
+            const likes = data.likes || {};
+            const likesCount = Object.keys(likes).length;
+            document.getElementById('likesCount').textContent = likesCount;
             
             // Update like button state
-            if (projectData.likedBy.includes(visitorId)) {
+            if (likes[visitorId]) {
                 likesItem.classList.add('active');
             } else {
                 likesItem.classList.remove('active');
             }
             
-            // Render comments
-            renderComments();
-        }
+            // Update comments
+            const comments = data.comments || {};
+            const commentsArray = Object.keys(comments).map(key => ({
+                id: key,
+                ...comments[key]
+            })).sort((a, b) => b.timestamp - a.timestamp);
+            
+            document.getElementById('commentsCount').textContent = commentsArray.length;
+            document.getElementById('commentCount').textContent = commentsArray.length;
+            
+            renderComments(commentsArray);
+        });
         
         // Render comments
-        function renderComments() {
-            if (projectData.comments.length === 0) {
-                commentsList.innerHTML = '<p style=\"text-align: center; color: var(--color-text-secondary); padding: 2rem;\">No comments yet. Be the first to share your thoughts!</p>';
+        function renderComments(comments) {
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<p style="text-align: center; color: var(--color-text-secondary); padding: 2rem;">No comments yet. Be the first to share your thoughts!</p>';
                 return;
             }
             
-            commentsList.innerHTML = projectData.comments.map(comment => `
-                <div class="comment-card">
-                    <div class="comment-header">
-                        <div class="comment-avatar">${comment.initials}</div>
-                        <div class="comment-meta">
-                            <div class="comment-author">${comment.name}</div>
-                            <div class="comment-time">${comment.time}</div>
+            commentsList.innerHTML = comments.map(comment => {
+                const timeAgo = getTimeAgo(comment.timestamp);
+                return `
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <div class="comment-avatar">${comment.initials}</div>
+                            <div class="comment-meta">
+                                <div class="comment-author">${comment.name}</div>
+                                <div class="comment-time">${timeAgo}</div>
+                            </div>
                         </div>
+                        <p class="comment-text">${comment.text}</p>
                     </div>
-                    <p class="comment-text">${comment.text}</p>
-                </div>
-            `).join('');
+                `;
+            }).join('');
+        }
+        
+        // Get time ago string
+        function getTimeAgo(timestamp) {
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return Math.floor(seconds / 60) + ' minutes ago';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + ' hours ago';
+            if (seconds < 604800) return Math.floor(seconds / 86400) + ' days ago';
+            return Math.floor(seconds / 604800) + ' weeks ago';
         }
         
         // Handle likes
         likesItem.addEventListener('click', function() {
-            const isLiked = projectData.likedBy.includes(visitorId);
+            const likesRef = projectRef.child('likes/' + visitorId);
             
-            if (isLiked) {
-                projectData.likes--;
-                projectData.likedBy = projectData.likedBy.filter(id => id !== visitorId);
-                this.classList.remove('active');
-            } else {
-                projectData.likes++;
-                projectData.likedBy.push(visitorId);
-                this.classList.add('active');
-                
-                // Add animation
-                const icon = this.querySelector('.engagement-icon');
-                icon.style.animation = 'none';
-                setTimeout(() => {
-                    icon.style.animation = 'heartBeat 0.6s ease-out';
-                }, 10);
-            }
-            
-            saveProjectData(projectData);
-            updateUI();
+            likesRef.once('value').then(function(snapshot) {
+                if (snapshot.exists()) {
+                    // Unlike
+                    likesRef.remove();
+                } else {
+                    // Like
+                    likesRef.set(true);
+                    
+                    // Add animation
+                    const icon = likesItem.querySelector('.engagement-icon');
+                    icon.style.animation = 'none';
+                    setTimeout(() => {
+                        icon.style.animation = 'heartBeat 0.6s ease-out';
+                    }, 10);
+                }
+            });
         });
         
         // Toggle comments section
@@ -1043,7 +1073,7 @@
             const text = commentInput.value.trim();
             if (!text) return;
             
-            // Get visitor name or use Anonymous
+            // Get visitor name
             let visitorName = localStorage.getItem('visitorName');
             if (!visitorName) {
                 visitorName = prompt('Enter your name (or leave blank for Anonymous):') || 'Anonymous';
@@ -1055,19 +1085,14 @@
             // Create initials
             const initials = visitorName.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
             
-            // Add comment
-            const comment = {
-                id: Date.now(),
+            // Add comment to Firebase
+            const commentsRef = projectRef.child('comments');
+            commentsRef.push({
                 name: visitorName,
                 initials: initials,
                 text: text,
-                time: 'Just now',
                 timestamp: Date.now()
-            };
-            
-            projectData.comments.unshift(comment);
-            saveProjectData(projectData);
-            updateUI();
+            });
             
             commentInput.value = '';
         });
@@ -1085,9 +1110,6 @@
                 }
             }
         });
-        
-        // Initial UI update
-        updateUI();
 
         // Add heart beat animation
         const style = document.createElement('style');
