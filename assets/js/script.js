@@ -362,49 +362,43 @@ if (contactForm) {
         formStatus.textContent = '';
         formStatus.className = 'form-status';
         
-        // Simulate form submission (replace with actual backend endpoint)
-        setTimeout(() => {
-            // SUCCESS - Replace this with actual fetch to your backend
-            formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
-            formStatus.classList.add('success');
-            contactForm.reset();
+        // Send to Formspree (replace YOUR_FORM_ID with your actual Formspree form ID)
+        // Or use EmailJS, Web3Forms, or similar service
+        try {
+            const response = await fetch('https://formspree.io/f/xblvjdoz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
             
-            // Remove loading state
-            submitBtn.classList.remove('loading');
-            submitBtn.textContent = 'Send Message';
+            if (response.ok) {
+                formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+                formStatus.classList.add('success');
+                contactForm.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    formStatus.textContent = '';
+                    formStatus.className = 'form-status';
+                }, 5000);
+            } else {
+                throw new Error('Failed to send message');
+            }
+        } catch (error) {
+            formStatus.textContent = '✗ Failed to send message. Please try again or email me directly.';
+            formStatus.classList.add('error');
             
-            // Hide success message after 5 seconds
+            // Hide error message after 5 seconds
             setTimeout(() => {
                 formStatus.textContent = '';
                 formStatus.className = 'form-status';
             }, 5000);
-            
-            /* ACTUAL BACKEND IMPLEMENTATION:
-            try {
-                const response = await fetch('YOUR_BACKEND_ENDPOINT', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                if (response.ok) {
-                    formStatus.textContent = '✓ Message sent successfully!';
-                    formStatus.classList.add('success');
-                    contactForm.reset();
-                } else {
-                    throw new Error('Failed to send message');
-                }
-            } catch (error) {
-                formStatus.textContent = '✗ Failed to send message. Please try again.';
-                formStatus.classList.add('error');
-            } finally {
-                submitBtn.classList.remove('loading');
-                submitBtn.textContent = 'Send Message';
-            }
-            */
-        }, 1500);
+        } finally {
+            submitBtn.classList.remove('loading');
+            submitBtn.textContent = 'Send Message';
+        }
     });
 }
 
@@ -440,19 +434,35 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 let lastScroll = 0;
 const nav = document.querySelector('.nav');
+let scrollTimeout;
+
+// Throttle scroll events for better performance
+function throttleScroll(callback, delay = 16) {
+    if (!scrollTimeout) {
+        scrollTimeout = setTimeout(() => {
+            callback();
+            scrollTimeout = null;
+        }, delay);
+    }
+}
 
 window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    // Add shadow when scrolled
-    if (currentScroll > 10) {
-        nav.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
-    } else {
-        nav.style.boxShadow = 'none';
-    }
-    
-    lastScroll = currentScroll;
-});
+    throttleScroll(() => {
+        const currentScroll = window.pageYOffset;
+        
+        // Add shadow when scrolled
+        if (currentScroll > 10) {
+            nav.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
+        } else {
+            nav.style.boxShadow = 'none';
+        }
+        
+        lastScroll = currentScroll;
+        
+        // Call highlight navigation here too
+        highlightNavigation();
+    });
+}, { passive: true });
 
 // ===================================
 // LOGO HOVER INTERACTIONS
@@ -514,27 +524,35 @@ function highlightNavigation() {
     });
 }
 
-window.addEventListener('scroll', highlightNavigation);
+// Removed duplicate scroll listener - now called from throttled scroll function above
 
 // ===================================
 // SCROLL REVEAL ANIMATIONS
 // ===================================
 
+let revealTimeout;
+
 function scrollReveal() {
-    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-    
-    reveals.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementBottom = element.getBoundingClientRect().bottom;
-        const windowHeight = window.innerHeight;
-        
-        if (elementTop < windowHeight * 0.85 && elementBottom > 0) {
-            element.classList.add('active');
-        }
-    });
+    if (!revealTimeout) {
+        revealTimeout = setTimeout(() => {
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+            
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.85 && elementBottom > 0) {
+                    element.classList.add('active');
+                }
+            });
+            
+            revealTimeout = null;
+        }, 16);
+    }
 }
 
-window.addEventListener('scroll', scrollReveal);
+window.addEventListener('scroll', scrollReveal, { passive: true });
 window.addEventListener('load', scrollReveal);
 
 // ===================================

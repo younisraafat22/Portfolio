@@ -303,7 +303,7 @@ body.dark-mode .comment-input:focus {
 
 /* Project Hero */
 .project-hero {
-    padding: calc(80px + var(--spacing-3xl)) var(--spacing-xl) var(--spacing-3xl);
+    padding: calc(80px + var(--spacing-md)) var(--spacing-xl) var(--spacing-3xl);
     min-height: 80vh;
     display: flex;
     align-items: center;
@@ -317,7 +317,7 @@ body.dark-mode .comment-input:focus {
 .hero-image-wrapper {
     margin-top: var(--spacing-2xl);
     border-radius: var(--radius-lg);
-    overflow: hidden;
+    overflow: visible;
     box-shadow: var(--shadow-2xl);
 }
 
@@ -326,7 +326,7 @@ body.dark-mode .comment-input:focus {
     height: auto;
     display: block;
     object-fit: contain;
-    max-height: 600px;
+    min-height: 600px;
 }
 
 .project-tags {

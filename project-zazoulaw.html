@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZazouaLaw - Legal Services Mobile App Case Study">
+    <title>ZazouaLaw - Younis Portfolio</title>
+    <link rel="icon" type="image/png" href="assets/images/y.png">
+    <link rel="apple-touch-icon" href="assets/images/y.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/project-templates.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    
+    <style>
+        /* Global Font Override */
+        * {
+            font-family: 'Cairo', sans-serif !important;
+        }
+        
+        /* Project-specific colors - ZazouaLaw Branding */
+        :root {
+            --project-color: #d8a723;
+            --project-dark: #152133;
+        }
+        
+        body.dark-mode {
+            --project-color: #d8a723;
+            --project-dark: #152133;
+        }
+        
+        .project-title,
+        .content-section h2,
+        .content-section h3 {
+            color: var(--project-color);
+        }
+        
+        /* Section styling */
+        .section-intro {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .section-number {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--project-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .content-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .content-section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: var(--spacing-xl) 0 var(--spacing-md) 0;
+        }
+        
+        .user-quote {
+            background: var(--color-surface);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-xl) 0;
+            border-left: 4px solid var(--project-color);
+        }
+        
+        .quote-text {
+            font-size: 1.125rem;
+            font-style: italic;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .quote-author {
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+        }
+        
+        .screens-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .persona-grid {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-2xl);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .persona-card {
+            width: 100%;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .persona-card > div {
+                flex-direction: column !important;
+            }
+            
+            .persona-card [style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        .screen-card {
+            text-align: center;
+        }
+        
+        .screen-card img {
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .screen-card:hover img {
+            transform: translateY(-8px);
+        }
+        
+        .screen-label {
+            margin-top: var(--spacing-sm);
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+        
+        /* Sitemap theme switching */
+        .sitemap-light {
+            display: block;
+        }
+        
+        .sitemap-dark {
+            display: none;
+        }
+        
+        body.dark-mode .sitemap-light {
+            display: none;
+        }
+        
+        body.dark-mode .sitemap-dark {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor">
+        <span class="cursor-text" id="cursorText"></span>
+    </div>
+    
+    <!-- Animated Background (Full Page) -->
+    <div class="animated-background">
+        <div class="gradient-blob"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo-container" id="logoContainer">
+                    <img src="assets/images/y.png" alt="Y" class="logo-y" id="logoY">
+                    <img src="assets/images/younis.png" alt="Younis" class="logo-full" id="logoFull">
+                </a>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">← Back to Home</a></li>
+                    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon">◐</span>
+                    </button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-hero-content">
+                <div class="project-tags">
+                    <span class="tag">Mobile App</span>
+                    <span class="tag">Legal Tech</span>
+                    <span class="tag">Arabic/RTL</span>
+                    <span class="tag">2025</span>
+                </div>
+                <h1 class="project-title">ZazouaLaw</h1>
+                <p class="project-subtitle">Bridging the gap between traditional legal services and modern client expectations through Egypt's first comprehensive legal services mobile app</p>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Role</span>
+                        <span class="meta-value">UX/UI Designer</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Timeline</span>
+                        <span class="meta-value">4 Weeks</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Platform</span>
+                        <span class="meta-value">iOS & Android</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tools</span>
+                        <span class="meta-value" style="display: flex; gap: 8px; align-items: center;">
+                            <img src="ZazouaLaw/logos/figma.png" alt="Figma" style="height: 24px; width: auto;">
+                            <img src="ZazouaLaw/logos/photoshop.png" alt="Photoshop" style="height: 24px; width: auto;">
+                            <img src="ZazouaLaw/logos/illustrator.png" alt="Illustrator" style="height: 24px; width: auto;">
+                            <img src="ZazouaLaw/logos/jitter.png" alt="Jitter" style="height: 24px; width: auto;">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hero Animation -->
+            <div class="hero-image-wrapper">
+                <div id="lottie-hero" class="hero-image"></div>
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (typeof lottie !== 'undefined') {
+                        lottie.loadAnimation({
+                            container: document.getElementById('lottie-hero'),
+                            renderer: 'svg',
+                            loop: true,
+                            autoplay: true,
+                            path: 'ZazouaLaw/assets/hero2.json'
+                        });
+                    }
+                });
+            </script>
+
+            <!-- Comments Section (Hidden by default) -->
+            <div class="comments-section" id="commentsSection">
+                <div class="comments-header">
+                    <h3 class="comments-title">Comments (<span id="commentCount">0</span>)</h3>
+                </div>
+                
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments will be dynamically added here -->
+                </div>
+                
+                <div class="comment-form">
+                    <textarea class="comment-input" id="commentInput" placeholder="Add your thoughts or feedback..."></textarea>
+                    <div class="comment-actions">
+                        <button class="btn-comment btn-comment-secondary" id="cancelCommentBtn">Cancel</button>
+                        <button class="btn-comment btn-comment-primary" id="postCommentBtn">Post Comment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fixed Engagement Sidebar -->
+    <div class="project-engagement" id="engagementSidebar">
+        <div class="engagement-item" id="viewsItem">
+            <div class="engagement-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </div>
+            <div class="engagement-content">
+                <span class="engagement-count" id="viewsCount">0</span>
+                <span class="engagement-label">Views</span>
+            </div>
+        </div>
+        
+        <div class="engagement-item" id="likesItem">
+            <div class="engagement-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </div>
+            <div class="engagement-content">
+                <span class="engagement-count" id="likesCount">0</span>
+                <span class="engagement-label">Likes</span>
+            </div>
+        </div>
+        
+        <div class="engagement-item" id="commentsItem">
+            <div class="engagement-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+            </div>
+            <div class="engagement-content">
+                <span class="engagement-count" id="commentsCount">0</span>
+                <span class="engagement-label">Comments</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Floating Toggle Button -->
+    <button class="engagement-mobile-toggle" id="mobileEngagementToggle" aria-label="Show engagement">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+    </button>
+
+    <!-- Problem -->
+    <section class="content-section">
+        <div class="container">
+            <div class="section-number">01 — Problem</div>
+            <h2 style="text-align: left; margin-bottom: var(--spacing-xl);">The Legal Services Gap in Egypt</h2>
+            
+            <p class="section-intro" style="max-width: 100%; text-align: left; margin-bottom: var(--spacing-2xl);">In 2025, Egyptians can book rides, order food, and schedule doctor appointments from their phones—but accessing legal services still requires multiple phone calls, office visits, and weeks of waiting.</p>
+            
+            <!-- Visual Problem Illustration -->
+            <div style="display: flex; align-items: center; gap: var(--spacing-3xl); margin: var(--spacing-3xl) 0; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <img src="ZazouaLaw/assets/Worried-amico.svg" alt="Frustrated user trying to access legal services" style="width: 100%; max-width: 500px; margin: 0 auto; display: block;">
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <div style="background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg); border-left: 4px solid var(--project-color);">
+                        <h4 style="color: var(--project-color); margin-bottom: var(--spacing-md);">The Gap</h4>
+                        <p style="color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--spacing-md);"><strong>0 out of 20+</strong> major Egyptian law firms analyzed had mobile applications with booking functionality.</p>
+                        <p style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.7;"><strong>96% mobile penetration</strong> in Egypt, yet legal services remain offline-only.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Competitive Analysis Visual -->
+            <div style="margin: var(--spacing-3xl) 0;">
+                <h3 style="text-align: center; margin-bottom: var(--spacing-2xl);">Competitive Landscape</h3>
+                
+                <!-- Competitive Comparison Table -->
+                <div style="background: var(--color-surface); padding: var(--spacing-2xl); border-radius: var(--radius-lg); overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 0;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--color-border);">
+                                <th style="padding: var(--spacing-md); text-align: left; color: var(--color-text-primary);">Platform</th>
+                                <th style="padding: var(--spacing-md); text-align: center; color: var(--color-text-primary);">Mobile App</th>
+                                <th style="padding: var(--spacing-md); text-align: center; color: var(--color-text-primary);">Online Booking</th>
+                                <th style="padding: var(--spacing-md); text-align: center; color: var(--color-text-primary);">Price Transparency</th>
+                                <th style="padding: var(--spacing-md); text-align: center; color: var(--color-text-primary);">Arabic RTL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--color-border);">
+                                <td style="padding: var(--spacing-md); color: var(--color-text-secondary); font-weight: 500;">Zaki Hashem</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--color-border);">
+                                <td style="padding: var(--spacing-md); color: var(--color-text-secondary); font-weight: 500;">Matouk Bassiouny</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--color-border);">
+                                <td style="padding: var(--spacing-md); color: var(--color-text-secondary); font-weight: 500;">Avocato</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem;">✓</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                            </tr>
+                            <tr style="border-bottom: 2px solid var(--project-color); background: rgba(216, 167, 35, 0.05);">
+                                <td style="padding: var(--spacing-md); color: var(--project-color); font-weight: 700;">ZazouaLaw</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem; font-weight: 700;">✓</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem; font-weight: 700;">✓</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem; font-weight: 700;">✓</td>
+                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem; font-weight: 700;">✓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Opportunity -->
+            <div style="background: linear-gradient(135deg, rgba(216, 167, 35, 0.1), rgba(21, 33, 51, 0.05)); padding: var(--spacing-3xl); border-radius: var(--radius-lg); text-align: center; margin-top: var(--spacing-3xl);">
+                <h3 style="color: var(--project-color); margin-bottom: var(--spacing-md);">The Opportunity</h3>
+                <p style="color: var(--color-text-primary); font-weight: 600; max-width: 800px; margin: 0 auto;">Design Egypt's first comprehensive legal services mobile app with Arabic-native experience, transparent booking, and modern client expectations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research -->
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <div class="section-number">02 — Research</div>
+            <h2>Understanding User Needs</h2>
+            
+            <p><strong>Research Note:</strong> This is a conceptual design project based on competitive analysis of 20+ legal platforms (Egyptian law firms, international legal tech apps), secondary research on digital service adoption in Egypt, and insights from informal conversations with legal professionals. User statistics are derived from industry reports and market research studies on digital booking preferences in professional services. No formal user interviews or usability testing were conducted.</p>
+            
+            <p class="section-intro" style="max-width: 100%; text-align: left; margin-top: var(--spacing-lg);">Through competitive analysis and secondary research on Egyptian legal service usage patterns, I identified key pain points and created personas representing different user segments. These insights shaped the app's core features and user experience strategy.</p>
+            
+            <!-- Research Statistics -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-xl); margin: var(--spacing-2xl) 0; text-align: center;">
+                <div style="background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg);">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--project-color);">20+</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9375rem; margin-top: var(--spacing-sm);">Platforms Analyzed</div>
+                </div>
+                <div style="background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg);">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--project-color);">0/20</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9375rem; margin-top: var(--spacing-sm);">Law Firms with Mobile Booking</div>
+                </div>
+                <div style="background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg);">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--project-color);">3-5</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9375rem; margin-top: var(--spacing-sm);">Days Average Wait Time</div>
+                </div>
+                <div style="background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg);">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--project-color);">96%</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9375rem; margin-top: var(--spacing-sm);">Mobile Penetration in Egypt</div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: var(--spacing-3xl);">User Personas</h3>
+            
+            <!-- Persona Images -->
+            <div style="margin: var(--spacing-2xl) 0;">
+                <!-- Persona 1 -->
+                <picture>
+                    <source media="(max-width: 768px)" srcset="ZazouaLaw/assets/persona1-mobile.png">
+                    <img src="ZazouaLaw/assets/persona1.png" alt="User Persona - Mona Rahman" style="width: 100%; max-width: 100%; border-radius: var(--radius-lg); margin-bottom: var(--spacing-2xl);">
+                </picture>
+                
+                <!-- Persona 2 -->
+                <picture>
+                    <source media="(max-width: 768px)" srcset="ZazouaLaw/assets/persona2-mobile.png">
+                    <img src="ZazouaLaw/assets/persona2.png" alt="User Persona - Karim Mostafa" style="width: 100%; max-width: 100%; border-radius: var(--radius-lg); ">
+                </picture>
+            </div>
+            
+            <h3 style="margin-top: var(--spacing-3xl);">Key Insights</h3>
+            <ul class="bullet-list">
+                <li><strong>Limited accessibility:</strong> Services only available during business hours</li>
+                <li><strong>No transparency:</strong> Hidden pricing and unclear processes</li>
+                <li><strong>Fragmented communication:</strong> Multiple phone calls, emails, and office visits</li>
+                <li><strong>No case tracking:</strong> Clients left in the dark about progress</li>
+                <li><strong>Language barriers:</strong> Most legal tech is English-first, alienating Arabic speakers</li>
+            </ul>
+            
+            <h3 style="margin-top: var(--spacing-3xl);">Empathy Mapping</h3>
+            <p class="section-intro" style="max-width: 100%; text-align: left;">Understanding what users think, feel, say, and do to guide design decisions.</p>
+            
+            <div style="margin: var(--spacing-2xl) 0;">
+                <img src="ZazouaLaw/assets/EmpathyMap.png" alt="Empathy Map" style="width: 100%; max-width: 100%; border-radius: var(--radius-lg);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Process -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <div class="section-number">03 — Design Process</div>
+            <h2>From Insights to Interface</h2>
+            
+            <p class="section-intro" style="max-width: 100%; text-align: left;"><strong>Design Goal:</strong> Make legal services as accessible and transparent as ordering food delivery.</p>
+            
+            <h3>Design Principles</h3>
+            <div class="two-column-layout">
+                <div class="column-text">
+                    <h4>Arabic-First Design</h4>
+                    <p>Not just translation—native RTL experience. Every screen, interaction, and flow designed for Arabic reading patterns.</p>
+                </div>
+                <div class="column-text">
+                    <h4>Trust Through Transparency</h4>
+                    <p>Upfront pricing, visible credentials, real-time availability. No hidden information.</p>
+                </div>
+            </div>
+            
+            <div class="two-column-layout">
+                <div class="column-text">
+                    <h4>Professional Yet Approachable</h4>
+                    <p>Navy blue (trust) + gold (premium) balanced with clean, modern UI to reduce intimidation.</p>
+                </div>
+                <div class="column-text">
+                    <h4>Mobile-First</h4>
+                    <p>Thumb-friendly design, quick actions, on-the-go accessibility.</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: var(--spacing-3xl);">Mid-Fidelity Wireframes</h3>
+            <p class="section-intro" style="max-width: 100%; text-align: left;">Middle-stage wireframes focused on user flow and information architecture. These sketches helped validate core navigation patterns and screen layouts before investing in visual design.</p>
+            
+            <div style="margin: var(--spacing-2xl) 0;">
+                <img src="ZazouaLaw/assets/Lo-fi/Lo-fi.webp" alt="Mid-Fidelity Wireframes" style="width: 100%; height: auto; border-radius: var(--radius-lg); display: block;" loading="lazy">
+            </div>
+            
+            <h3 style="margin-top: var(--spacing-3xl);">Site Map</h3>
+            <p class="section-intro" style="max-width: 100%; text-align: left;">A visual representation of ZazouaLaw's structure, showcasing the hierarchy and relationships between screens.</p>
+            
+            <div style="margin: var(--spacing-2xl) 0;">
+                <img src="ZazouaLaw/assets/sitemaplight.png" alt="ZazouaLaw Site Map - Light Theme" class="sitemap-light" style="width: 100%; height: auto; border-radius: var(--radius-lg);">
+                <img src="ZazouaLaw/assets/sitemapdark.png" alt="ZazouaLaw Site Map - Dark Theme" class="sitemap-dark" style="width: 100%; height: auto; border-radius: var(--radius-lg);">
+            </div>
+            
+            <h3 style="margin-top: var(--spacing-3xl);">User Booking Flow</h3>
+            <p class="section-intro" style="max-width: 100%; text-align: left;">A seamless 6-step journey from discovering lawyers to confirming consultations—designed for efficiency and clarity.</p>
+            
+            <!-- Booking Flow Steps - Z Pattern -->
+            <div style="margin: var(--spacing-3xl) 0;">
+                <!-- Step 1 - Center (Top of Z) -->
+                <div style="text-align: center; margin-bottom: var(--spacing-3xl);">
+                    <h2 style="font-size: 3rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: var(--spacing-md);">Home Dashboard</h2>
+                    <p style="color: var(--color-text-secondary); font-size: 1.125rem; max-width: 600px; margin: 0 auto; margin-bottom: var(--spacing-2xl);">It serves as the central hub, offering quick access to legal services, personalized recommendations, and user-friendly navigation.</p>
+                    <img src="ZazouaLaw/assets/Mockups/home-light.png" alt="Home Screen" style="width: 100%; max-width: 350px; border-radius: var(--radius-lg);">
+                </div>
+                
+                <!-- Step 2 - Left aligned (Screen left, text right) -->
+                <div class="booking-flow-step" style="display: flex; align-items: center; gap: 48px; margin: 8px 0; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 280px; max-width: 350px;">
+                        <img src="ZazouaLaw/assets/Mockups/services-light.png" alt="Services Categories" style="width: 100%; border-radius: var(--radius-lg);">
+                    </div>
+                    <div style="flex: 1; min-width: 300px;">
+                        <h4 style="font-size: 1.5rem; font-weight: 600; color: var(--color-text-primary); margin-bottom: var(--spacing-sm);">Browse Services</h4>
+                        <p style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.6;">Select legal category and explore specialties to find the right expertise for your needs.</p>
+                    </div>
+                </div>
+                
+                <style>
+                    @media (max-width: 768px) {
+                        .booking-flow-step {
+                            flex-direction: column !important;
+                            gap: var(--spacing-sm) !important;
+                        }
+                        .booking-flow-step > div:has(img) {
+                            order: 1 !important;
+                        }
+                        .booking-flow-step > div:not(:has(img)) {
+                            order: 2 !important;
+                        }
+                        .booking-flow-step > div {
+                            text-align: center !important;
+                            max-width: 100% !important;
+                        }
+                        .booking-flow-step img {
+                            margin: 0 auto !important;
+                            display: block !important;
+                        }
+                        .booking-flow-step h4 {
+                            margin-top: var(--spacing-md) !important;
+                        }
+                    }
+                </style>
+                
+                <!-- Step 3 - Right aligned (Text left, screen right) -->
+                <div class="booking-flow-step" style="display: flex; align-items: center; gap: 48px; margin: 8px 0; flex-wrap: wrap-reverse;">
+                    <div style="flex: 1; min-width: 300px; text-align: right;">
+                        <h4 style="font-size: 1.5rem; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px;">Compare Lawyers</h4>
+                        <p style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.6;">Filter by rating, price, and experience. View credentials and availability at a glance.</p>
+                    </div>
+                    <div style="flex: 1; min-width: 280px; max-width: 350px;">
+                        <img src="ZazouaLaw/assets/Mockups/lawyers-in-services-light.png" alt="Lawyers List" style="width: 100%; border-radius: var(--radius-lg);">
+                    </div>
+                </div>
+                
+                <!-- Step 4 - Left aligned (Screen left, text right) -->
+                <div class="booking-flow-step" style="display: flex; align-items: center; gap: 48px; margin: 8px 0; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 280px; max-width: 350px;">
+                        <img src="ZazouaLaw/assets/Mockups/lawyer-profile-light.png" alt="Lawyer Profile" style="width: 100%; border-radius: var(--radius-lg);">
+                    </div>
+                    <div style="flex: 1; min-width: 300px;">
+                        <h4 style="font-size: 1.5rem; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px;">Lawyer Profile Details</h4>
+                        <p style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.6;">Review comprehensive credentials, specializations, client reviews, and transparent pricing before booking.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 5 - Right aligned (Text left, screen right) -->
+                <div class="booking-flow-step" style="display: flex; align-items: center; gap: 48px; margin: 8px 0; flex-wrap: wrap-reverse;">
+                    <div style="flex: 1; min-width: 300px; text-align: right;">
+                        <h4 style="font-size: 1.5rem; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px;">Select Date & Time</h4>
+                        <p style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.6;">Interactive calendar with real-time availability—no phone calls needed.</p>
+                    </div>
+                    <div style="flex: 1; min-width: 280px; max-width: 350px;">
+                        <img src="ZazouaLaw/assets/Mockups/booking-page-light.png" alt="Date & Time Selection" style="width: 100%; border-radius: var(--radius-lg);">
+                    </div>
+                </div>
+                
+                <!-- Step 6 - Left aligned (Screen left, text right) - Bottom of Z -->
+                <div class="booking-flow-step" style="display: flex; align-items: center; gap: 48px; margin: 8px 0; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 280px; max-width: 350px;">
+                        <img src="ZazouaLaw/assets/Mockups/confirm-booking-light.png" alt="Booking Confirmation" style="width: 100%; border-radius: var(--radius-lg);">
+                    </div>
+                    <div style="flex: 1; min-width: 300px;">
+                        <h4 style="font-size: 1.5rem; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px;">Confirm & Pay</h4>
+                        <p style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.6;">Review booking summary, select consultation type, and complete payment effortlessly.</p>
+                    </div>
+                </div>
+                
+                <!-- Closing Text -->
+                <div style="text-align: center; margin-top: var(--spacing-3xl); padding: var(--spacing-2xl); background: var(--color-surface); border-radius: var(--radius-lg);">
+                    <p style="color: var(--color-text-secondary); font-size: 1.125rem; line-height: 1.7; font-style: italic;">The flow ensures a seamless experience with intuitive navigation and real-time availability updates, helping users find the perfect lawyer effortlessly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="content-section bg-surface">
+        <div class="container">
+            <div class="section-number">04 — Solution</div>
+            <h2>Final Design Showcase</h2>
+            
+            <p class="section-intro" style="max-width: 100%; text-align: left; margin-bottom: var(--spacing-2xl);">A comprehensive legal services platform designed for Arabic speakers, featuring transparent lawyer profiles, instant booking, and seamless consultation management.</p>
+            
+            <h3>Light Theme</h3>
+            <div class="screens-showcase">
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/opening the app light.png" alt="Opening Screen Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/language-light.png" alt="Language Selection Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/onboarding1light.png" alt="Onboarding 1 Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/onboarding2light.png" alt="Onboarding 2 Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/onboarding3light.png" alt="Onboarding 3 Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/login-light.png" alt="Login Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/signup-light.png" alt="Signup Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/forgotpassword-emaillight.png" alt="Forgot Password Email Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/forgotpasswordphonelight.png" alt="Forgot Password Phone Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/otplight.png" alt="OTP Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/home-light.png" alt="Home Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/services-light.png" alt="Services Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/lawyers-in-services-light.png" alt="Lawyers in Services Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/no-lawyers-available-light.png" alt="No Lawyers Available Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/lawyer-profile-light.png" alt="Lawyer Profile Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/booking-page-light.png" alt="Booking Page Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/confirm-booking-light.png" alt="Confirm Booking Light">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/messages-light.png" alt="Messages Light">
+                </div>
+            </div>
+            
+            <h3 style="margin-top: var(--spacing-3xl);">Dark Theme</h3>
+            <div class="screens-showcase">
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/opening the app Dark.png" alt="Opening Screen Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/language-dark.png" alt="Language Selection Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/onboarding1dark.png" alt="Onboarding 1 Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/onboarding2dark.png" alt="Onboarding 2 Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/onboarding3dark.png" alt="Onboarding 3 Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/login-dark.png" alt="Login Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/signup-dark.png" alt="Signup Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/forgotpasswordemaildark.png" alt="Forgot Password Email Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/forgotpasswordphonedark.png" alt="Forgot Password Phone Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/otpdark.png" alt="OTP Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/home-dark.png" alt="Home Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/serices-dark.png" alt="Services Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/lawyers-in-services-dark.png" alt="Lawyers in Services Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/no-lawyers-available-dark.png" alt="No Lawyers Available Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/lawyer-profile-dark.png" alt="Lawyer Profile Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/booking-page-dark.png" alt="Booking Page Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/confirm-booking-dark.png" alt="Confirm Booking Dark">
+                </div>
+                <div class="screen-card">
+                    <img src="ZazouaLaw/assets/Mockups/messages-dark.png" alt="Messages Dark">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Design Details -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <div class="section-number">05 — Design System</div>
+            <h2>Visual Language & Design Details</h2>
+            
+            <h3>Style Guide</h3>
+            
+            <div class="style-guide" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-xl); margin: var(--spacing-xl) 0;">
+                <div class="style-item" style="padding: var(--spacing-lg); background: var(--color-surface); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                    <h4 style="color: var(--color-text-primary); margin-bottom: var(--spacing-md);">Primary Colors</h4>
+                    <div style="display: flex; gap: var(--spacing-md); margin-bottom: var(--spacing-sm);">
+                        <div style="width: 60px; height: 60px; background: #152133; border-radius: var(--radius-sm); border: 1px solid var(--color-border);"></div>
+                        <div>
+                            <strong style="color: var(--color-text-primary); display: block;">Navy Blue</strong>
+                            <code style="color: var(--color-text-secondary); font-size: 0.875rem;">#152133</code>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: var(--spacing-md);">
+                        <div style="width: 60px; height: 60px; background: #d8a723; border-radius: var(--radius-sm);"></div>
+                        <div>
+                            <strong style="color: var(--color-text-primary); display: block;">Gold</strong>
+                            <code style="color: var(--color-text-secondary); font-size: 0.875rem;">#d8a723</code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="style-item" style="padding: var(--spacing-lg); background: var(--color-surface); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                    <h4 style="color: var(--color-text-primary); margin-bottom: var(--spacing-md);">Typography</h4>
+                    <div style="margin-bottom: var(--spacing-sm);">
+                        <strong style="color: var(--color-text-primary); display: block;">Primary Font</strong>
+                        <p style="font-family: 'Cairo', sans-serif; color: var(--color-text-secondary); margin-top: var(--spacing-xs);">Cairo (Google Fonts)</p>
+                    </div>
+                    <p style="color: var(--color-text-secondary); margin-top: var(--spacing-sm);">Optimal legibility for Arabic and English, modern aesthetic, supports multiple weights (400-700).</p>
+                </div>
+                
+                <div class="style-item" style="padding: var(--spacing-lg); background: var(--color-surface); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                    <h4 style="color: var(--color-text-primary); margin-bottom: var(--spacing-md);">Design Principles</h4>
+                    <ul style="list-style: none; padding: 0; color: var(--color-text-secondary);">
+                        <li style="margin-bottom: var(--spacing-xs);">✓ Arabic-first RTL design</li>
+                        <li style="margin-bottom: var(--spacing-xs);">✓ Professional trust signals</li>
+                        <li style="margin-bottom: var(--spacing-xs);">✓ Transparent information</li>
+                        <li style="margin-bottom: var(--spacing-xs);">✓ Mobile-optimized interface</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: var(--spacing-3xl);">Arabic-First RTL Design</h3>
+            <p>Beyond mirroring—native Arabic experience:</p>
+            <ul class="bullet-list">
+                <li><strong>Natural text flow:</strong> Reading patterns from right to left</li>
+                <li><strong>Icon placement:</strong> Arrows, chevrons, and navigation adjusted</li>
+                <li><strong>Cultural context:</strong> Using appropriate imagery and metaphors</li>
+                <li><strong>Font selection:</strong> Cairo font for optimal Arabic readability</li>
+            </ul>
+            
+            <h3 style="margin-top: var(--spacing-xl);">Building Trust</h3>
+            <p>Every design element reinforces credibility:</p>
+            <ul class="bullet-list">
+                <li><strong>Lawyer credentials prominent:</strong> Education, years of experience, specializations</li>
+                <li><strong>Rating system visible:</strong> Star ratings and success rates</li>
+                <li><strong>Status indicators:</strong> Green (available), Yellow (busy), Gray (offline)</li>
+                <li><strong>Verified badges:</strong> Crown icon for premium lawyers</li>
+            </ul>
+            
+            <h3 style="margin-top: var(--spacing-xl);">Accessibility & Usability</h3>
+            <ul class="bullet-list">
+                <li><strong>Thumb-friendly design:</strong> Navigation bar at bottom, key actions within reach</li>
+                <li><strong>Clear CTAs:</strong> Gold buttons stand out against navy backgrounds</li>
+                <li><strong>Feedback at every step:</strong> Loading states, confirmations, error messages</li>
+                <li><strong>Both light & dark modes:</strong> Comfortable viewing anytime, anywhere</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Results & Reflection -->
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <div class="section-number">06 — Results & Reflection</div>
+            <h2>Impact & Key Takeaways</h2>
+            
+            <h3>Design Goals & Expected Outcomes</h3>
+            <p>If implemented, ZazouaLaw would achieve the following objectives:</p>
+            
+            <div class="results-metrics">
+                <div class="metric-item">
+                    <span class="metric-value">6 steps</span>
+                    <span class="metric-label">Streamlined booking flow from search to confirmation</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">&lt;5 min</span>
+                    <span class="metric-label">Expected booking time vs. 3-5 days traditional process</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">24/7</span>
+                    <span class="metric-label">Access eliminates business hour constraints</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">100%</span>
+                    <span class="metric-label">Price transparency—no hidden consultation fees</span>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: var(--spacing-2xl);">Key Takeaways</h3>
+            <ul class="bullet-list">
+                <li><strong>Cultural Design:</strong> Arabic-first design requires understanding reading patterns and cultural expectations—not just translation</li>
+                <li><strong>Trust Building:</strong> Transparency, credentials, and clear pricing are critical for professional service apps</li>
+                <li><strong>Mobile Accessibility:</strong> 24/7 booking transforms legal services from intimidating to approachable</li>
+            </ul>
+            
+            <h3 style="margin-top: var(--spacing-2xl);">What I Would Do Differently</h3>
+            <p>If I had more time and resources, I would:</p>
+            <ul class="bullet-list">
+                <li><strong>Conduct formal user interviews</strong> with Egyptian lawyers and potential clients to validate assumptions and gather real pain points</li>
+                <li><strong>Run usability testing</strong> with 8-10 participants to measure actual task completion rates and booking flow efficiency</li>
+                <li><strong>Research legal regulations</strong> around client-lawyer privilege, data privacy, and digital signatures in Egypt</li>
+                <li><strong>Test with diverse age groups</strong> to ensure accessibility for both tech-savvy and traditional users</li>
+                <li><strong>Prototype advanced features</strong> like case tracking, document management, and video consultations for a more comprehensive solution</li>
+            </ul>
+
+        </div>
+    </section>
+
+    <!-- Back to Home CTA -->
+    <section class="project-footer">
+        <div class="container-narrow">
+            <h2>Thanks for reading!</h2>
+            <p>Want to see how I approach other design challenges?</p>
+            <a href="index.html" class="btn btn-primary">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/younis.png" alt="Younis" class="footer-logo-img" id="footerLogo">
+                </div>
+                <p class="footer-text">© 2025 Younis. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 15-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Project Engagement Interactions with Firebase Real-time Database
+        
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA8riCFk0HeThm9sGy2EMETiMJi7NPZ9vw",
+            authDomain: "portfolio-346fb.firebaseapp.com",
+            databaseURL: "https://portfolio-346fb-default-rtdb.firebaseio.com",
+            projectId: "portfolio-346fb",
+            storageBucket: "portfolio-346fb.firebasestorage.app",
+            messagingSenderId: "843697826460",
+            appId: "1:843697826460:web:52b1b2f5e86ac550d89b59",
+            measurementId: "G-86RZFL35FQ"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        const PROJECT_ID = 'zazoulaw';
+        const likesItem = document.getElementById('likesItem');
+        const commentsItem = document.getElementById('commentsItem');
+        const commentsSection = document.getElementById('commentsSection');
+        const cancelCommentBtn = document.getElementById('cancelCommentBtn');
+        const postCommentBtn = document.getElementById('postCommentBtn');
+        const commentInput = document.getElementById('commentInput');
+        const commentsList = document.getElementById('commentsList');
+        const mobileToggle = document.getElementById('mobileEngagementToggle');
+        const engagementSidebar = document.getElementById('engagementSidebar');
+        
+        // Get or create visitor ID
+        function getVisitorId() {
+            let visitorId = localStorage.getItem('visitorId');
+            if (!visitorId) {
+                visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('visitorId', visitorId);
+            }
+            return visitorId;
+        }
+        
+        const visitorId = getVisitorId();
+        const projectRef = database.ref('projects/' + PROJECT_ID);
+        
+        // Track page view (once per visitor ever)
+        const hasViewed = localStorage.getItem(`viewed_${PROJECT_ID}`);
+        if (!hasViewed) {
+            projectRef.child('views').transaction(function(currentViews) {
+                return (currentViews || 0) + 1;
+            });
+            localStorage.setItem(`viewed_${PROJECT_ID}`, 'true');
+        }
+        
+        // Listen for real-time updates
+        projectRef.on('value', function(snapshot) {
+            const data = snapshot.val() || {};
+            
+            // Update views
+            document.getElementById('viewsCount').textContent = data.views || 0;
+            
+            // Update likes
+            const likes = data.likes || {};
+            const likesCount = Object.keys(likes).length;
+            document.getElementById('likesCount').textContent = likesCount;
+            
+            // Update like button state
+            if (likes[visitorId]) {
+                likesItem.classList.add('active');
+            } else {
+                likesItem.classList.remove('active');
+            }
+            
+            // Update comments
+            const comments = data.comments || {};
+            const commentsArray = Object.keys(comments).map(key => ({
+                id: key,
+                ...comments[key]
+            })).sort((a, b) => b.timestamp - a.timestamp);
+            
+            document.getElementById('commentsCount').textContent = commentsArray.length;
+            document.getElementById('commentCount').textContent = commentsArray.length;
+            
+            renderComments(commentsArray);
+        });
+        
+        // Render comments
+        function renderComments(comments) {
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<p style="text-align: center; color: var(--color-text-secondary); padding: 2rem;">No comments yet. Be the first to share your thoughts!</p>';
+                return;
+            }
+            
+            commentsList.innerHTML = comments.map(comment => {
+                const timeAgo = getTimeAgo(comment.timestamp);
+                return `
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <div class="comment-avatar">${comment.initials}</div>
+                            <div class="comment-meta">
+                                <div class="comment-author">${comment.name}</div>
+                                <div class="comment-time">${timeAgo}</div>
+                            </div>
+                        </div>
+                        <p class="comment-text">${comment.text}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Get time ago string
+        function getTimeAgo(timestamp) {
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return Math.floor(seconds / 60) + ' minutes ago';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + ' hours ago';
+            if (seconds < 604800) return Math.floor(seconds / 86400) + ' days ago';
+            return Math.floor(seconds / 604800) + ' weeks ago';
+        }
+        
+        // Handle likes
+        likesItem.addEventListener('click', function() {
+            const likesRef = projectRef.child('likes/' + visitorId);
+            
+            likesRef.once('value').then(function(snapshot) {
+                if (snapshot.exists()) {
+                    // Unlike
+                    likesRef.remove();
+                } else {
+                    // Like
+                    likesRef.set(true);
+                    
+                    // Add animation
+                    const icon = likesItem.querySelector('.engagement-icon');
+                    icon.style.animation = 'none';
+                    setTimeout(() => {
+                        icon.style.animation = 'heartBeat 0.6s ease-out';
+                    }, 10);
+                }
+            });
+        });
+        
+        // Toggle comments section
+        commentsItem.addEventListener('click', function() {
+            commentsSection.classList.toggle('active');
+            
+            if (commentsSection.classList.contains('active')) {
+                setTimeout(() => {
+                    commentsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        });
+        
+        // Cancel comment
+        cancelCommentBtn.addEventListener('click', function() {
+            commentsSection.classList.remove('active');
+            commentInput.value = '';
+        });
+        
+        // Post comment
+        postCommentBtn.addEventListener('click', function() {
+            const text = commentInput.value.trim();
+            if (!text) return;
+            
+            // Get visitor name
+            let visitorName = localStorage.getItem('visitorName');
+            if (!visitorName) {
+                visitorName = prompt('Enter your name (or leave blank for Anonymous):') || 'Anonymous';
+                if (visitorName && visitorName !== 'Anonymous') {
+                    localStorage.setItem('visitorName', visitorName);
+                }
+            }
+            
+            // Create initials
+            const initials = visitorName.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
+            
+            // Add comment to Firebase
+            const commentsRef = projectRef.child('comments');
+            commentsRef.push({
+                name: visitorName,
+                initials: initials,
+                text: text,
+                timestamp: Date.now()
+            });
+            
+            commentInput.value = '';
+        });
+        
+        // Mobile toggle
+        mobileToggle.addEventListener('click', function() {
+            engagementSidebar.classList.toggle('mobile-visible');
+        });
+        
+        // Close mobile engagement when clicking outside
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                if (!engagementSidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    engagementSidebar.classList.remove('mobile-visible');
+                }
+            }
+        });
+
+        // Add heart beat animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes heartBeat {
+                0%, 100% { transform: scale(1); }
+                15% { transform: scale(1.3); }
+                30% { transform: scale(1); }
+                45% { transform: scale(1.2); }
+                60% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
