@@ -155,6 +155,105 @@
         body.dark-mode .sitemap-dark {
             display: block;
         }
+        
+        /* Image Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: var(--radius-lg);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            z-index: 10001;
+        }
+        
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Make images clickable */
+        .screen-card img,
+        .booking-flow-step img,
+        .persona-card img,
+        img[alt*="Empathy Map"],
+        img[alt*="Site Map"],
+        img[alt*="Wireframes"],
+        img[alt*="Home Screen"] {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .screen-card img:hover,
+        .booking-flow-step img:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Fix hero section spacing on mobile */
+        @media (max-width: 768px) {
+            .project-hero {
+                padding-bottom: var(--spacing-xl) !important;
+            }
+            
+            .hero-image-wrapper {
+                margin-top: var(--spacing-lg) !important;
+            }
+            
+            .content-section {
+                padding: var(--spacing-2xl) 0 !important;
+            }
+            
+            .booking-flow-step img {
+                margin: 0 auto !important;
+                display: block !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -162,6 +261,9 @@
     <div class="custom-cursor" id="customCursor">
         <span class="cursor-text" id="cursorText"></span>
     </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
     
     <!-- Animated Background (Full Page) -->
     <div class="animated-background">
@@ -352,45 +454,45 @@
                 <h3 style="text-align: center; margin-bottom: var(--spacing-2xl);">Competitive Landscape</h3>
                 
                 <!-- Competitive Comparison Table -->
-                <div style="background: var(--color-surface); padding: var(--spacing-2xl); border-radius: var(--radius-lg); overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: separate; border-spacing: 0;">
+                <div style="background: var(--color-surface); padding: var(--spacing-2xl); border-radius: var(--radius-lg);">
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.875rem;">
                         <thead>
                             <tr style="border-bottom: 2px solid var(--color-border);">
-                                <th style="padding: var(--spacing-md); text-align: left; color: var(--color-text-primary);">Platform</th>
-                                <th style="padding: var(--spacing-md); text-align: center; color: var(--color-text-primary);">Mobile App</th>
-                                <th style="padding: var(--spacing-md); text-align: center; color: var(--color-text-primary);">Online Booking</th>
-                                <th style="padding: var(--spacing-md); text-align: center; color: var(--color-text-primary);">Price Transparency</th>
-                                <th style="padding: var(--spacing-md); text-align: center; color: var(--color-text-primary);">Arabic RTL</th>
+                                <th style="padding: var(--spacing-sm) var(--spacing-xs); text-align: left; color: var(--color-text-primary); white-space: nowrap;">Platform</th>
+                                <th style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: var(--color-text-primary); font-size: 0.75rem;">Mobile App</th>
+                                <th style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: var(--color-text-primary); font-size: 0.75rem;">Online Booking</th>
+                                <th style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: var(--color-text-primary); font-size: 0.75rem;">Price Transparency</th>
+                                <th style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: var(--color-text-primary); font-size: 0.75rem;">Arabic RTL</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr style="border-bottom: 1px solid var(--color-border);">
-                                <td style="padding: var(--spacing-md); color: var(--color-text-secondary); font-weight: 500;">Zaki Hashem</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); color: var(--color-text-secondary); font-weight: 500; white-space: nowrap;">Zaki Hashem</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
                             </tr>
                             <tr style="border-bottom: 1px solid var(--color-border);">
-                                <td style="padding: var(--spacing-md); color: var(--color-text-secondary); font-weight: 500;">Matouk Bassiouny</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); color: var(--color-text-secondary); font-weight: 500; white-space: nowrap;">Matouk Bassiouny</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
                             </tr>
                             <tr style="border-bottom: 1px solid var(--color-border);">
-                                <td style="padding: var(--spacing-md); color: var(--color-text-secondary); font-weight: 500;">Avocato</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem;">✓</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: #dc3545; font-size: 1.25rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); color: var(--color-text-secondary); font-weight: 500; white-space: nowrap;">Avocato</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: var(--project-color); font-size: 1.125rem;">✓</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: #dc3545; font-size: 1.125rem;">✕</td>
                             </tr>
                             <tr style="border-bottom: 2px solid var(--project-color); background: rgba(216, 167, 35, 0.05);">
-                                <td style="padding: var(--spacing-md); color: var(--project-color); font-weight: 700;">ZazouaLaw</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem; font-weight: 700;">✓</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem; font-weight: 700;">✓</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem; font-weight: 700;">✓</td>
-                                <td style="padding: var(--spacing-md); text-align: center; color: var(--project-color); font-size: 1.25rem; font-weight: 700;">✓</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); color: var(--project-color); font-weight: 700; white-space: nowrap;">ZazouaLaw</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: var(--project-color); font-size: 1.125rem; font-weight: 700;">✓</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: var(--project-color); font-size: 1.125rem; font-weight: 700;">✓</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: var(--project-color); font-size: 1.125rem; font-weight: 700;">✓</td>
+                                <td style="padding: var(--spacing-sm) var(--spacing-xs); text-align: center; color: var(--project-color); font-size: 1.125rem; font-weight: 700;">✓</td>
                             </tr>
                         </tbody>
                     </table>
@@ -512,7 +614,7 @@
             <p class="section-intro" style="max-width: 100%; text-align: left;">A visual representation of ZazouaLaw's structure, showcasing the hierarchy and relationships between screens.</p>
             
             <div style="margin: var(--spacing-2xl) 0;">
-                <img src="ZazouaLaw/assets/sitemaplight.png" alt="ZazouaLaw Site Map - Light Theme" class="sitemap-light" style="width: 100%; height: auto; border-radius: var(--radius-lg);" loading="lazy">
+                <img src="ZazouaLaw/assets/sitemaplight.png" alt="ZazouaLaw Site Map - Light Theme" class="sitemap-light" data-full="ZazouaLaw/assets/sitemapdark.png" style="width: 100%; height: auto; border-radius: var(--radius-lg);" loading="lazy">
                 <img src="ZazouaLaw/assets/sitemapdark.png" alt="ZazouaLaw Site Map - Dark Theme" class="sitemap-dark" style="width: 100%; height: auto; border-radius: var(--radius-lg);" loading="lazy">
             </div>
             
@@ -895,7 +997,77 @@
         </svg>
     </button>
 
+    <!-- Image Modal/Lightbox -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <img id="modalImage" src="" alt="Expanded view">
+        </div>
+    </div>
+
     <script src="assets/js/script.js"></script>
+    <script>
+        // Image Modal/Lightbox functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+        
+        // Get all clickable images
+        const clickableImages = document.querySelectorAll('.screen-card img, .booking-flow-step img, .persona-card img, img[alt*="Empathy Map"], img[alt*="Site Map"], img[alt*="Wireframes"], img[alt*="Home Screen"], img[alt*="Worried"]');
+        
+        // Open modal when clicking images
+        clickableImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.classList.add('active');
+                // Use data-full attribute if available, otherwise use the src
+                modalImg.src = this.getAttribute('data-full') || this.src;
+                modalImg.alt = this.alt;
+                document.body.style.overflow = 'hidden';
+                
+                // Change cursor to white for visibility on dark background
+                const cursor = document.getElementById('customCursor');
+                if (cursor) {
+                    cursor.style.borderColor = 'white';
+                    const cursorText = cursor.querySelector('.cursor-text');
+                    if (cursorText) {
+                        cursorText.style.color = 'white';
+                    }
+                }
+            });
+        });
+        
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Reset cursor color
+            const cursor = document.getElementById('customCursor');
+            if (cursor) {
+                cursor.style.borderColor = '';
+                const cursorText = cursor.querySelector('.cursor-text');
+                if (cursorText) {
+                    cursorText.style.color = '';
+                }
+            }
+        }
+        
+        modalClose.addEventListener('click', closeModal);
+        
+        // Close on background click
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
     <script>
         // Project Engagement Interactions with Firebase Real-time Database
         
