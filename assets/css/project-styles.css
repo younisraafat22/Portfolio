@@ -521,19 +521,19 @@ body.dark-mode .shape {
     }
     
     .project-hero-image {
-        padding: var(--spacing-lg) 0;
+        padding: 0 0 var(--spacing-xs) 0;
     }
     
     .hero-mockup {
-        padding: var(--spacing-lg);
+        padding: var(--spacing-sm);
     }
     
     .project-content {
-        padding: var(--spacing-lg) 0;
+        padding: 0;
     }
     
     .content-section {
-        margin-bottom: var(--spacing-xl);
+        margin-bottom: var(--spacing-md);
     }
     
     .mockup-large {
