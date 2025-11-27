@@ -520,8 +520,20 @@ body.dark-mode .shape {
         padding: var(--spacing-md);
     }
     
+    .project-hero-image {
+        padding: var(--spacing-lg) 0;
+    }
+    
     .hero-mockup {
         padding: var(--spacing-lg);
+    }
+    
+    .project-content {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .content-section {
+        margin-bottom: var(--spacing-xl);
     }
     
     .mockup-large {
