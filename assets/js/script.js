@@ -911,3 +911,61 @@ if (carouselTrackAuto) {
         });
     });
 }
+
+
+
+// ===================================
+// PROJECT METRICS - Fetch from Firebase
+// ===================================
+
+if (typeof firebase !== 'undefined') {
+    // Initialize Firebase if not already initialized
+    if (!firebase.apps.length) {
+        const firebaseConfig = {
+            apiKey: "AIzaSyA8riCFk0HeThm9sGy2EMETiMJi7NPZ9vw",
+            authDomain: "portfolio-346fb.firebaseapp.com",
+            databaseURL: "https://portfolio-346fb-default-rtdb.firebaseio.com",
+            projectId: "portfolio-346fb",
+            storageBucket: "portfolio-346fb.firebasestorage.app",
+            messagingSenderId: "843697826460",
+            appId: "1:843697826460:web:52b1b2f5e86ac550d89b59",
+            measurementId: "G-86RZFL35FQ"
+        };
+        firebase.initializeApp(firebaseConfig);
+    }
+    
+    const database = firebase.database();
+    const projectsList = ['zazoulaw', 'chemistryhub', 'radiview', 'qawafel'];
+    
+    projectsList.forEach(function(projectName) {
+        const projectRef = database.ref('projects/' + projectName);
+        
+        projectRef.on('value', function(snapshot) {
+            const data = snapshot.val() || { views: 0, likes: {} };
+            
+            // Count likes from object
+            const likes = data.likes || {};
+            const likesCount = Object.keys(likes).length;
+            
+            const metricsElements = document.querySelectorAll('[data-project="' + projectName + '"]');
+            
+            metricsElements.forEach(function(metricEl) {
+                const parent = metricEl.closest('.case-study-metrics');
+                if (parent) {
+                    const viewsCountEl = parent.querySelector('.views-count');
+                    const likesCountEl = parent.querySelector('.likes-count');
+                    
+                    if (viewsCountEl) viewsCountEl.textContent = formatMetricCount(data.views || 0);
+                    if (likesCountEl) likesCountEl.textContent = formatMetricCount(likesCount);
+                }
+            });
+        });
+    });
+    
+    function formatMetricCount(count) {
+        if (count >= 1000) {
+            return (count / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+        }
+        return count.toString();
+    }
+}

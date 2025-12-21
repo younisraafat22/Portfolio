@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="assets/css/project-templates.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>    <style>
         /* Project-specific color - Qawafel Brand */
         :root {
             --project-color: #b86a35;
@@ -358,6 +360,13 @@
                 <h1 class="project-title">Digitizing Wholesale Commerce – Qawafel</h1>
                 <p class="project-subtitle">Qawafel connects wholesale vendors and businesses with technological, financial, marketing, and logistical solutions</p>
                 
+                <!-- Quick Summary for Recruiters -->
+                <div style="background: var(--color-surface); border-left: 4px solid var(--project-color); padding: var(--spacing-lg); border-radius: var(--radius-md); margin: var(--spacing-xl) 0; font-size: 0.95rem; line-height: 1.6;">
+                    <p style="margin: 0 0 var(--spacing-sm) 0;"><strong style="color: var(--project-color);">Product:</strong> B2B wholesale platform managing vendors, logistics, and payments with bilingual interface for Middle East markets</p>
+                    <p style="margin: 0 0 var(--spacing-sm) 0;"><strong style="color: var(--project-color);">My Role:</strong> Visual Design, UI & UX Design—comprehensive vendor dashboard, bilingual interface design, complete design system</p>
+                    <p style="margin: 0;"><strong style="color: var(--project-color);">Outcome:</strong> Connecting 100+ vendors with business buyers through unified platform for wholesale commerce</p>
+                </div>
+                
                 <div class="project-meta">
                     <div class="meta-item">
                         <span class="meta-label">Client</span>
@@ -388,8 +397,74 @@
             <div class="project-cover-image" style="margin-bottom: var(--spacing-3xl);">
                 <img src="Qwafel/Main Page English.jpg" alt="Qawafel Main Page" loading="lazy">
             </div>
+
+            <div class="comments-section" id="commentsSection">
+                <div class="comments-header">
+                    <h3 class="comments-title">Comments (<span id="commentCount">0</span>)</h3>
+                </div>
+                
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments will be dynamically added here -->
+                </div>
+                
+                <div class="comment-form">
+                    <textarea class="comment-input" id="commentInput" placeholder="Add your thoughts or feedback..."></textarea>
+                    <div class="comment-actions">
+                        <button class="btn-comment btn-comment-secondary" id="cancelCommentBtn">Cancel</button>
+                        <button class="btn-comment btn-comment-primary" id="postCommentBtn">Post Comment</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+
+    <!-- Fixed Engagement Sidebar -->
+    <div class="project-engagement" id="engagementSidebar">
+        <div class="engagement-item" id="viewsItem">
+            <div class="engagement-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </div>
+            <div class="engagement-content">
+                <span class="engagement-count" id="viewsCount">0</span>
+                <span class="engagement-label">Views</span>
+            </div>
+        </div>
+        
+        <div class="engagement-item" id="likesItem">
+            <div class="engagement-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </div>
+            <div class="engagement-content">
+                <span class="engagement-count" id="likesCount">0</span>
+                <span class="engagement-label">Likes</span>
+            </div>
+        </div>
+        
+        <div class="engagement-item" id="commentsItem">
+            <div class="engagement-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+            </div>
+            <div class="engagement-content">
+                <span class="engagement-count" id="commentsCount">0</span>
+                <span class="engagement-label">Comments</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Floating Toggle Button -->
+    <button class="engagement-mobile-toggle" id="mobileEngagementToggle" aria-label="Show engagement">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+    </button>
+
     <!-- Project Overview -->
     <section class="content-section">
         <div class="container-narrow">
@@ -564,6 +639,220 @@
                 closeModal();
             }
         });
+    </script>
+    <script>
+        // Project Engagement Interactions with Firebase Real-time Database
+        
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA8riCFk0HeThm9sGy2EMETiMJi7NPZ9vw",
+            authDomain: "portfolio-346fb.firebaseapp.com",
+            databaseURL: "https://portfolio-346fb-default-rtdb.firebaseio.com",
+            projectId: "portfolio-346fb",
+            storageBucket: "portfolio-346fb.firebasestorage.app",
+            messagingSenderId: "843697826460",
+            appId: "1:843697826460:web:52b1b2f5e86ac550d89b59",
+            measurementId: "G-86RZFL35FQ"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        const PROJECT_ID = 'qawafel';
+        const likesItem = document.getElementById('likesItem');
+        const commentsItem = document.getElementById('commentsItem');
+        const commentsSection = document.getElementById('commentsSection');
+        const cancelCommentBtn = document.getElementById('cancelCommentBtn');
+        const postCommentBtn = document.getElementById('postCommentBtn');
+        const commentInput = document.getElementById('commentInput');
+        const commentsList = document.getElementById('commentsList');
+        const mobileToggle = document.getElementById('mobileEngagementToggle');
+        const engagementSidebar = document.getElementById('engagementSidebar');
+        
+        // Get or create visitor ID
+        function getVisitorId() {
+            let visitorId = localStorage.getItem('visitorId');
+            if (!visitorId) {
+                visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('visitorId', visitorId);
+            }
+            return visitorId;
+        }
+        
+        const visitorId = getVisitorId();
+        const projectRef = database.ref('projects/' + PROJECT_ID);
+        
+        // Track page view (once per visitor ever)
+        const hasViewed = localStorage.getItem(`viewed_${PROJECT_ID}`);
+        if (!hasViewed) {
+            projectRef.child('views').transaction(function(currentViews) {
+                return (currentViews || 0) + 1;
+            });
+            localStorage.setItem(`viewed_${PROJECT_ID}`, 'true');
+        }
+        
+        // Listen for real-time updates
+        projectRef.on('value', function(snapshot) {
+            const data = snapshot.val() || {};
+            
+            // Update views
+            document.getElementById('viewsCount').textContent = data.views || 0;
+            
+            // Update likes
+            const likes = data.likes || {};
+            const likesCount = Object.keys(likes).length;
+            document.getElementById('likesCount').textContent = likesCount;
+            
+            // Update like button state
+            if (likes[visitorId]) {
+                likesItem.classList.add('active');
+            } else {
+                likesItem.classList.remove('active');
+            }
+            
+            // Update comments
+            const comments = data.comments || {};
+            const commentsArray = Object.keys(comments).map(key => ({
+                id: key,
+                ...comments[key]
+            })).sort((a, b) => b.timestamp - a.timestamp);
+            
+            document.getElementById('commentsCount').textContent = commentsArray.length;
+            document.getElementById('commentCount').textContent = commentsArray.length;
+            
+            renderComments(commentsArray);
+        });
+        
+        // Render comments
+        function renderComments(comments) {
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<p style="text-align: center; color: var(--color-text-secondary); padding: 2rem;">No comments yet. Be the first to share your thoughts!</p>';
+                return;
+            }
+            
+            commentsList.innerHTML = comments.map(comment => {
+                const timeAgo = getTimeAgo(comment.timestamp);
+                return `
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <div class="comment-avatar">${comment.initials}</div>
+                            <div class="comment-meta">
+                                <div class="comment-author">${comment.name}</div>
+                                <div class="comment-time">${timeAgo}</div>
+                            </div>
+                        </div>
+                        <p class="comment-text">${comment.text}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Get time ago string
+        function getTimeAgo(timestamp) {
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return Math.floor(seconds / 60) + ' minutes ago';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + ' hours ago';
+            if (seconds < 604800) return Math.floor(seconds / 86400) + ' days ago';
+            return Math.floor(seconds / 604800) + ' weeks ago';
+        }
+        
+        // Handle likes
+        likesItem.addEventListener('click', function() {
+            const likesRef = projectRef.child('likes/' + visitorId);
+            
+            likesRef.once('value').then(function(snapshot) {
+                if (snapshot.exists()) {
+                    // Unlike
+                    likesRef.remove();
+                } else {
+                    // Like
+                    likesRef.set(true);
+                    
+                    // Add animation
+                    const icon = likesItem.querySelector('.engagement-icon');
+                    icon.style.animation = 'none';
+                    setTimeout(() => {
+                        icon.style.animation = 'heartBeat 0.6s ease-out';
+                    }, 10);
+                }
+            });
+        });
+        
+        // Toggle comments section
+        commentsItem.addEventListener('click', function() {
+            commentsSection.classList.toggle('active');
+            
+            if (commentsSection.classList.contains('active')) {
+                setTimeout(() => {
+                    commentsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        });
+        
+        // Cancel comment
+        cancelCommentBtn.addEventListener('click', function() {
+            commentsSection.classList.remove('active');
+            commentInput.value = '';
+        });
+        
+        // Post comment
+        postCommentBtn.addEventListener('click', function() {
+            const text = commentInput.value.trim();
+            if (!text) return;
+            
+            // Get visitor name
+            let visitorName = localStorage.getItem('visitorName');
+            if (!visitorName) {
+                visitorName = prompt('Enter your name (or leave blank for Anonymous):') || 'Anonymous';
+                if (visitorName && visitorName !== 'Anonymous') {
+                    localStorage.setItem('visitorName', visitorName);
+                }
+            }
+            
+            // Create initials
+            const initials = visitorName.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
+            
+            // Add comment to Firebase
+            const commentsRef = projectRef.child('comments');
+            commentsRef.push({
+                name: visitorName,
+                initials: initials,
+                text: text,
+                timestamp: Date.now()
+            });
+            
+            commentInput.value = '';
+        });
+        
+        // Mobile toggle
+        mobileToggle.addEventListener('click', function() {
+            engagementSidebar.classList.toggle('mobile-visible');
+        });
+        
+        // Close mobile engagement when clicking outside
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                if (!engagementSidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    engagementSidebar.classList.remove('mobile-visible');
+                }
+            }
+        });
+
+        // Add heart beat animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes heartBeat {
+                0%, 100% { transform: scale(1); }
+                15% { transform: scale(1.3); }
+                30% { transform: scale(1); }
+                45% { transform: scale(1.2); }
+                60% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

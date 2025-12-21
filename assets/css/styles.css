@@ -1373,6 +1373,29 @@ body.dark-mode .case-study:hover {
     background-color: var(--color-border);
 }
 
+.case-study-metrics {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.metric {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.metric svg {
+    opacity: 0.6;
+}
+
+.metric-count {
+    font-weight: 500;
+}
+
 .case-study-link {
     display: inline-flex;
     align-items: center;
