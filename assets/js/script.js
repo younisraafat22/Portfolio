@@ -861,3 +861,53 @@ if (backToTopBtn) {
         });
     });
 }
+
+// ===================================
+// VIDEO CAROUSEL - AUTO SCROLL
+// ===================================
+
+const carouselTrackAuto = document.getElementById('carouselTrackAuto');
+
+if (carouselTrackAuto) {
+    const videoCards = carouselTrackAuto.querySelectorAll('.video-card');
+    const videos = carouselTrackAuto.querySelectorAll('video');
+    
+    // Slow down Distance Learning videos for smoother motion
+    const slowVideos = carouselTrackAuto.querySelectorAll('.slow-video');
+    slowVideos.forEach(video => {
+        video.playbackRate = 0.5; // 50% speed for smooth playback
+    });
+    
+    // Intersection Observer to play videos when in viewport
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                video.play().catch(err => console.log('Video autoplay failed:', err));
+            } else {
+                video.pause();
+            }
+        });
+    }, { 
+        threshold: 0.5,
+        rootMargin: '0px'
+    });
+    
+    // Observe all videos
+    videos.forEach(video => {
+        videoObserver.observe(video);
+        // Attempt to play on load
+        video.play().catch(err => console.log('Initial video play failed:', err));
+    });
+    
+    // Pause animation on hover for individual cards
+    videoCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            carouselTrackAuto.style.animationPlayState = 'paused';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            carouselTrackAuto.style.animationPlayState = 'running';
+        });
+    });
+}

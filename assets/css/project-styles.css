@@ -214,11 +214,8 @@ body.dark-mode .shape {
 .project-meta {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--spacing-lg);
-    padding: var(--spacing-xl);
-    background-color: var(--color-surface);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border-light);
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-2xl);
 }
 
 .meta-item {

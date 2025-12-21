@@ -1204,6 +1204,8 @@ body.dark-mode .gradient-blob {
     border: 1px solid var(--color-border-light);
     position: relative;
     will-change: transform;
+    display: flex;
+    flex-direction: column;
 }
 
 .case-study::before {
@@ -1227,7 +1229,9 @@ body.dark-mode .case-study::before {
 .case-study-link-wrapper {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     position: relative;
     z-index: 2;
 }
@@ -1253,7 +1257,7 @@ body.dark-mode .case-study:hover {
 .case-study-image {
     position: relative;
     width: 100%;
-    padding-top: 60%;
+    padding-top: 56%;
     overflow: hidden;
     background-color: var(--color-border-light);
 }
@@ -1326,7 +1330,10 @@ body.dark-mode .case-study:hover {
 }
 
 .case-study-content {
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .case-study-title {
@@ -1375,6 +1382,10 @@ body.dark-mode .case-study:hover {
     font-weight: 600;
     font-size: 0.9375rem;
     transition: all var(--transition-fast);
+    margin-top: auto;
+    padding-bottom: 0;
+    position: relative;
+    bottom: 0;
 }
 
 .case-study-link:hover {
@@ -2303,12 +2314,106 @@ body.dark-mode .back-to-top:hover {
 }
 
 /* ===================================
-   PRINT STYLES
+   QUICK PROJECTS CAROUSEL
    =================================== */
 
-@media print {
-    .nav,
-    .hero-cta,
+.quick-projects {
+    padding: var(--spacing-4xl) 0;
+    background: transparent;
+    overflow: hidden;
+}
+
+.carousel-wrapper-full {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-top: var(--spacing-3xl);
+    overflow: hidden;
+    padding: var(--spacing-xl) 0;
+}
+
+.carousel-track-auto {
+    display: flex;
+    gap: var(--spacing-xl);
+    animation: scroll 40s linear infinite;
+    width: max-content;
+}
+
+.carousel-track-auto:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.video-card {
+    flex: 0 0 550px;
+    width: 550px;
+    height: 340px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    background: var(--color-background);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+    z-index: 10;
+}
+
+.video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.slow-video {
+    /* This class will be used in JavaScript to slow down playback */
+}
+
+@media (max-width: 1024px) {
+    .video-card {
+        flex: 0 0 450px;
+        width: 450px;
+        height: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-card {
+        flex: 0 0 380px;
+        width: 380px;
+        height: 240px;
+    }
+    
+    .carousel-track-auto {
+        gap: var(--spacing-md);
+        animation: scroll 30s linear infinite;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-card {
+        flex: 0 0 320px;
+        width: 320px;
+        height: 200px;
+    }
+}
+
+/* ===================================
     .case-study-link,
     .social-links {
         display: none;

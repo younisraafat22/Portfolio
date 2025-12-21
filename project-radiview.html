@@ -177,6 +177,71 @@
                 flex-direction: column !important;
             }
         }
+
+        /* Next Project Navigation */
+        .next-project {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .next-project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .next-project-card {
+            position: relative;
+            padding: var(--spacing-2xl);
+            background: var(--color-background);
+            border: 2px solid var(--color-border-light);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .next-project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--project-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .next-project-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-tertiary);
+            font-weight: 500;
+        }
+
+        .next-project-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .next-project-card:hover .next-project-name {
+            color: var(--project-color);
+        }
+
+        .next-project-desc {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .next-project-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -841,9 +906,28 @@
     <!-- Back to Home CTA -->
     <section class="project-footer">
         <div class="container-narrow">
-            <h2>Thanks for reading!</h2>
+            <h2>Thanks for watching!</h2>
             <p>Want to see how I approach other design challenges?</p>
             <a href="index.html" class="btn btn-primary">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <section class="next-project">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Explore More Work</h2>
+            <div class="next-project-grid">
+                <a href="project-qawafel.html" class="next-project-card">
+                    <span class="next-project-label">← Previous Project</span>
+                    <h3 class="next-project-name">Qawafel</h3>
+                    <p class="next-project-desc">Wholesale E-commerce Platform</p>
+                </a>
+                <a href="project-bolt.html" class="next-project-card">
+                    <span class="next-project-label">Next Project →</span>
+                    <h3 class="next-project-name">Bolt Micro-Mobility</h3>
+                    <p class="next-project-desc">Product Redesign</p>
+                </a>
+            </div>
         </div>
     </section>
 

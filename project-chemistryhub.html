@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChemistryHub - Reinventing Chemistry Learning Through Gamification and AI">
+    <title>ChemistryHub - Younis Portfolio</title>
+    <link rel="icon" type="image/png" href="assets/images/y.png">
+    <link rel="apple-touch-icon" href="assets/images/y.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/project-templates.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Project-specific color - ChemistryHub Brand */
+        :root {
+            --project-color: #6366F1;
+            --chemistryhub-primary: #6366F1;
+            --chemistryhub-secondary: #8B5CF6;
+            --chemistryhub-accent: #EC4899;
+        }
+        
+        body.dark-mode {
+            --project-color: #818CF8;
+        }
+        
+        .project-title,
+        .content-section h2,
+        .content-section h3 {
+            color: var(--project-color);
+        }
+
+        /* Image styling - direct display */
+        .project-cover-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-section img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius-md);
+        }
+
+        .image-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            width: 100%;
+        }
+
+        .image-grid-2 > div {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .image-grid-2 img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+        }
+
+        /* Project footer section */
+        .project-footer {
+            background: var(--color-surface);
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .project-footer h2 {
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .project-footer p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* Next Project Navigation */
+        .next-project {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .next-project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .next-project-card {
+            position: relative;
+            padding: var(--spacing-2xl);
+            background: var(--color-background);
+            border: 2px solid var(--color-border-light);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .next-project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--chemistryhub-primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .next-project-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-tertiary);
+            font-weight: 500;
+        }
+
+        .next-project-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .next-project-card:hover .next-project-name {
+            color: var(--chemistryhub-primary);
+        }
+
+        .next-project-desc {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        /* Image Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: var(--radius-lg);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            z-index: 10001;
+        }
+        
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Make images clickable */
+        .content-section img,
+        .project-cover-image img,
+        .image-grid-2 img {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-section img:hover,
+        .project-cover-image img:hover,
+        .image-grid-2 img:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .image-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .next-project-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-blob"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+    
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor">
+        <span class="cursor-text" id="cursorText"></span>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo-container" id="logoContainer">
+                    <img src="assets/images/y.png" alt="Y" class="logo-y" id="logoY">
+                    <img src="assets/images/younis.png" alt="Younis" class="logo-full" id="logoFull">
+                </a>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">← Back to Home</a></li>
+                    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon">◐</span>
+                    </button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, var(--color-surface) 100%);">
+        <div class="container">
+            <div class="project-hero-content">
+                <div class="project-tags">
+                    <span class="tag">Edutech</span>
+                    <span class="tag">Visual Design</span>
+                    <span class="tag">2023</span>
+                </div>
+                <h1 class="project-title">ChemistryHub: Reinventing Chemistry Learning Through Gamification and AI</h1>
+                <p class="project-subtitle">Let's make learning chemistry fun!</p>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Client</span>
+                        <span class="meta-value">ChemistryHub</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Role</span>
+                        <span class="meta-value">Visual Design, UI & UX Design</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Industries</span>
+                        <span class="meta-value">Edutech</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Date</span>
+                        <span class="meta-value">January 2023</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tools</span>
+                        <span class="meta-value" style="display: flex; gap: 8px; align-items: center;">
+                            <img src="ZazouaLaw/logos/figma.png" alt="Figma" style="height: 24px; width: auto;">
+                            <img src="ZazouaLaw/logos/photoshop.png" alt="Photoshop" style="height: 24px; width: auto;">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-cover-image" style="margin-bottom: var(--spacing-3xl);">
+                <img src="Chemistry Hub/Hero Image.avif" alt="ChemistryHub App" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>The Challenge</h2>
+            <p>Distance education is experiencing daily growth, leading to a significant expansion of the market. Recently, a client approached me seeking a concept for an app that facilitates modern and intelligent learning of chemistry.</p>
+            <p>In the initial phases of designing any product, I find it crucial to first identify the problems the product aims to solve and the additional benefits it will offer.</p>
+        </div>
+    </section>
+
+    <!-- Project Images -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <img src="Chemistry Hub/value proposition canvas.png" alt="ChemistryHub Value Proposition Canvas" loading="lazy" style="width: 100%; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);">
+        </div>
+    </section>
+
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <h2>User Research & Insights</h2>
+            <p>With a clear sense of the app's value, I explored how to translate it into an engaging mobile experience. Through user-centered research, I found that learners craved visual, interactive explanations and a sense of progress.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container-narrow">
+            <img src="Chemistry Hub/value mapping.avif" alt="ChemistryHub Value Mapping" loading="lazy" style="width: 100%; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);">
+        </div>
+    </section>
+
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <h2>Understanding Our Users</h2>
+            <p>Users wanted a simple, visually rich app with short, digestible content. Educational research showed that active learning techniques—like simulations and real-time feedback—greatly improve retention.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container-narrow">
+            <img src="Chemistry Hub/persona.avif" alt="ChemistryHub User Persona" loading="lazy" style="width: 100%; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);">
+        </div>
+    </section>
+
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <h2>Competitive Analysis</h2>
+            <p>I conducted an analysis of leading educational apps to understand how they approached gamification and AI integration. Several apps used AI to adjust difficulty levels, personalize content, and deliver feedback instantly.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container-narrow">
+            <img src="Chemistry Hub/Competitors analysis.avif" alt="ChemistryHub Competitors Analysis" loading="lazy" style="width: 100%; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);">
+        </div>
+    </section>
+
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <h2>Gamification Strategy</h2>
+            <p>After understanding users' struggles, it became clear that the problem wasn't chemistry itself, but the outdated way it's taught. I integrated gamification theory to make chemistry both engaging and intuitive through point systems, challenges, and visual progress tracking.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container-narrow">
+            <img src="Chemistry Hub/Gamification Elements.avif" alt="ChemistryHub Gamification Elements" loading="lazy" style="width: 100%; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);">
+        </div>
+    </section>
+
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <h2>The Solution</h2>
+            <p>I consolidated key elements for the app, focusing on animation and images, integrating artificial intelligence for questions, applying UX writing principles, and incorporating gamification theory to create an engaging learning experience.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container-narrow">
+            <img src="Chemistry Hub/prototype.gif" alt="ChemistryHub Prototype" loading="lazy" style="width: 100%; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);">
+        </div>
+    </section>
+
+    <!-- Back to Home CTA -->
+    <section class="project-footer">
+        <div class="container-narrow">
+            <h2>Thanks for watching!</h2>
+            <p>Want to see how I approach other design challenges?</p>
+            <a href="index.html" class="btn btn-primary">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <section class="next-project">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Explore More Work</h2>
+            <div class="next-project-grid">
+                <a href="project-radiview.html" class="next-project-card">
+                    <span class="next-project-label">← Previous Project</span>
+                    <h3 class="next-project-name">RadiView</h3>
+                    <p class="next-project-desc">AI Medical Imaging</p>
+                </a>
+                <a href="project-qawafel.html" class="next-project-card">
+                    <span class="next-project-label">Next Project →</span>
+                    <h3 class="next-project-name">Qawafel</h3>
+                    <p class="next-project-desc">Wholesale E-commerce</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/younis.png" alt="Younis" class="footer-logo-img" id="footerLogo">
+                </div>
+                <p class="footer-text">© 2025 Younis. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modal/Lightbox -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <img id="modalImage" src="" alt="Expanded view">
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Image Modal/Lightbox functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+        
+        // Get all clickable images
+        const clickableImages = document.querySelectorAll('.content-section img, .project-cover-image img, .image-grid-2 img');
+        
+        // Open modal when clicking images
+        clickableImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.classList.add('active');
+                modalImg.src = this.src;
+                modalImg.alt = this.alt;
+                document.body.style.overflow = 'hidden';
+                
+                // Change cursor to white for visibility on dark background
+                const cursor = document.getElementById('customCursor');
+                if (cursor) {
+                    cursor.style.borderColor = 'white';
+                    const cursorText = cursor.querySelector('.cursor-text');
+                    if (cursorText) {
+                        cursorText.style.color = 'white';
+                    }
+                }
+            });
+        });
+        
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Reset cursor color
+            const cursor = document.getElementById('customCursor');
+            if (cursor) {
+                cursor.style.borderColor = '';
+                const cursorText = cursor.querySelector('.cursor-text');
+                if (cursorText) {
+                    cursorText.style.color = '';
+                }
+            }
+        }
+        
+        modalClose.addEventListener('click', closeModal);
+        
+        // Close on background click
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

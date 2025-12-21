@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Qawafel - Digitizing Wholesale Commerce E-commerce Platform">
+    <title>Qawafel - Younis Portfolio</title>
+    <link rel="icon" type="image/png" href="assets/images/y.png">
+    <link rel="apple-touch-icon" href="assets/images/y.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/project-templates.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Project-specific color - Qawafel Brand */
+        :root {
+            --project-color: #b86a35;
+            --qawafel-primary: #b86a35;
+            --qawafel-secondary: #d4813f;
+            --qawafel-accent: #9a5a2b;
+        }
+        
+        body.dark-mode {
+            --project-color: #d4813f;
+        }
+        
+        .project-title,
+        .content-section h2,
+        .content-section h3 {
+            color: var(--project-color);
+        }
+
+        /* Dashboard Preview Styling */
+        .dashboard-preview {
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .dashboard-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Feature Grid Styling */
+        .feature-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .feature-card {
+            background: var(--color-surface);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(184, 106, 53, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--project-color);
+            box-shadow: 0 20px 40px rgba(184, 106, 53, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: var(--spacing-xl);
+            background: rgba(184, 106, 53, 0.05);
+            border-radius: var(--radius-md);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--project-color);
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-label {
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Image styling - direct display, no gradient boxes */
+        .project-cover-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-section img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius-md);
+        }
+
+        .image-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            width: 100%;
+        }
+
+        .image-grid-2 > div {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .image-grid-2 img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+        }
+
+        /* Project footer section */
+        .project-footer {
+            background: var(--color-surface);
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .project-footer h2 {
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .project-footer p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* Image Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: var(--radius-lg);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            z-index: 10001;
+        }
+        
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Make images clickable */
+        .content-section img,
+        .project-cover-image img,
+        .image-grid-2 img {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-section img:hover,
+        .project-cover-image img:hover,
+        .image-grid-2 img:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Next Project Navigation */
+        .next-project {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .next-project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .next-project-card {
+            position: relative;
+            padding: var(--spacing-2xl);
+            background: var(--color-background);
+            border: 2px solid var(--color-border-light);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .next-project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--qawafel-primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .next-project-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-tertiary);
+            font-weight: 500;
+        }
+
+        .next-project-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .next-project-card:hover .next-project-name {
+            color: var(--qawafel-primary);
+        }
+
+        .next-project-desc {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .image-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .next-project-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-blob"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+    
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor">
+        <span class="cursor-text" id="cursorText"></span>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo-container" id="logoContainer">
+                    <img src="assets/images/y.png" alt="Y" class="logo-y" id="logoY">
+                    <img src="assets/images/younis.png" alt="Younis" class="logo-full" id="logoFull">
+                </a>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">← Back to Home</a></li>
+                    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon">◐</span>
+                    </button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero" style="background: linear-gradient(135deg, rgba(184, 106, 53, 0.1) 0%, var(--color-surface) 100%);">
+        <div class="container">
+            <div class="project-hero-content">
+                <div class="project-tags">
+                    <span class="tag">E-commerce</span>
+                    <span class="tag">Visual Design</span>
+                    <span class="tag">2021</span>
+                </div>
+                <h1 class="project-title">Digitizing Wholesale Commerce – Qawafel</h1>
+                <p class="project-subtitle">Qawafel connects wholesale vendors and businesses with technological, financial, marketing, and logistical solutions</p>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Client</span>
+                        <span class="meta-value">Qawafel</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Role</span>
+                        <span class="meta-value">Visual Design, UI & UX Design</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Industries</span>
+                        <span class="meta-value">E-commerce</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Date</span>
+                        <span class="meta-value">May 2021</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tools</span>
+                        <span class="meta-value" style="display: flex; gap: 8px; align-items: center;">
+                            <img src="ZazouaLaw/logos/figma.png" alt="Figma" style="height: 24px; width: auto;">
+                            <img src="ZazouaLaw/logos/photoshop.png" alt="Photoshop" style="height: 24px; width: auto;">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-cover-image" style="margin-bottom: var(--spacing-3xl);">
+                <img src="Qwafel/Main Page English.jpg" alt="Qawafel Main Page" loading="lazy">
+            </div>
+        </div>
+    </section>
+    <!-- Project Overview -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>The Challenge</h2>
+            <p>Traditional wholesale commerce in the Middle East relies on fragmented processes—phone calls, WhatsApp messages, and manual coordination. Qawafel aims to digitize this entire ecosystem, connecting vendors and businesses through a unified platform.</p>
+        </div>
+    </section>
+    <!-- Project Images -->
+    <section class="content-section">
+        <div class="container-narrow">
+            <img src="Qwafel/page with side menu arabic.jpg" alt="Qawafel Page with Side Menu - Arabic" loading="lazy" style="width: 100%; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);">
+        </div>
+    </section>
+
+    <section class="content-section bg-surface">        <div class="container-narrow">
+            <h2>Product Discovery</h2>
+            <p>The platform features a comprehensive product catalog with detailed specifications, pricing, and vendor information. Businesses can browse thousands of products with advanced filtering and search capabilities.</p>
+        </div>
+    </section>
+
+    <section class="content-section">        <div class="container-narrow">
+            <div class="image-grid-2">
+                <div>
+                    <img src="Qwafel/Product View English.jpg" alt="Qawafel Product View - English" loading="lazy">
+                </div>
+                <div>
+                    <img src="Qwafel/Product View Arabic.jpg" alt="Qawafel Product View - Arabic" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <h2>Featured Content</h2>
+            <p>The homepage highlights hot deals, trending products, and featured suppliers to help businesses discover the best wholesale opportunities quickly.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container-narrow">
+            <img src="Qwafel/popular-hot deals- suppliers- English.jpg" alt="Qawafel Popular Hot Deals and Suppliers" loading="lazy" style="width: 100%; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);">
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container-narrow">
+            <h2>Bilingual Experience</h2>
+            <p>Designed for the Middle Eastern market, Qawafel provides seamless Arabic and English interfaces with proper RTL support, ensuring accessibility for all users in the region.</p>
+        </div>
+    </section>
+
+    <section class="content-section bg-surface">
+        <div class="container-narrow">
+            <div class="image-grid-2">
+                <div>
+                    <img src="Qwafel/Main Page Arabic.jpg" alt="Qawafel Main Page - Arabic" loading="lazy">
+                </div>
+                <div>
+                    <img src="Qwafel/Main Page English.jpg" alt="Qawafel Main Page - English" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Home CTA -->
+    <section class="project-footer">
+        <div class="container-narrow">
+            <h2>Thanks for watching!</h2>
+            <p>Want to see how I approach other design challenges?</p>
+            <a href="index.html" class="btn btn-primary">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <section class="next-project">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Explore More Work</h2>
+            <div class="next-project-grid">
+                <a href="project-bolt.html" class="next-project-card">
+                    <span class="next-project-label">← Previous Project</span>
+                    <h3 class="next-project-name">Bolt Micro-Mobility</h3>
+                    <p class="next-project-desc">Product Redesign</p>
+                </a>
+                <a href="project-zazoulaw.html" class="next-project-card">
+                    <span class="next-project-label">Next Project →</span>
+                    <h3 class="next-project-name">ZazouLaw</h3>
+                    <p class="next-project-desc">Legal Services App</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/younis.png" alt="Younis" class="footer-logo-img" id="footerLogo">
+                </div>
+                <p class="footer-text">© 2025 Younis. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modal/Lightbox -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <img id="modalImage" src="" alt="Expanded view">
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Image Modal/Lightbox functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+        
+        // Get all clickable images
+        const clickableImages = document.querySelectorAll('.content-section img, .project-cover-image img, .image-grid-2 img');
+        
+        // Open modal when clicking images
+        clickableImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.classList.add('active');
+                modalImg.src = this.src;
+                modalImg.alt = this.alt;
+                document.body.style.overflow = 'hidden';
+                
+                // Change cursor to white for visibility on dark background
+                const cursor = document.getElementById('customCursor');
+                if (cursor) {
+                    cursor.style.borderColor = 'white';
+                    const cursorText = cursor.querySelector('.cursor-text');
+                    if (cursorText) {
+                        cursorText.style.color = 'white';
+                    }
+                }
+            });
+        });
+        
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Reset cursor color
+            const cursor = document.getElementById('customCursor');
+            if (cursor) {
+                cursor.style.borderColor = '';
+                const cursorText = cursor.querySelector('.cursor-text');
+                if (cursorText) {
+                    cursorText.style.color = '';
+                }
+            }
+        }
+        
+        modalClose.addEventListener('click', closeModal);
+        
+        // Close on background click
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

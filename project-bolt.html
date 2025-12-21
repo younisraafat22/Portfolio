@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bolt Micro-Mobility - Holistic Product Experience Redesign Case Study">
+    <title>Bolt Micro-Mobility - Younis Portfolio</title>
+    <link rel="icon" type="image/png" href="assets/images/y.png">
+    <link rel="apple-touch-icon" href="assets/images/y.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/project-styles.css">
+    <link rel="stylesheet" href="assets/css/project-templates.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Bolt-specific styling - Story-driven layout */
+        :root {
+            --bolt-green: #34D186;
+            --bolt-dark: #1A1A1A;
+            --warning-red: #FF6B6B;
+            --available-green: #2ECC71;
+            --limited-yellow: #F39C12;
+            --project-color: #34D186;
+        }
+        
+        body.dark-mode {
+            --project-color: #34D186;
+        }
+        
+        /* Project-specific colors */
+        .project-title,
+        .story-text h2,
+        .solution-header h3,
+        .content-section h2,
+        .content-section h3 {
+            color: var(--project-color);
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Section styling */
+        .section-intro {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .section-number {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--project-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        /* Quick Stats in Hero */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            padding: var(--spacing-xl);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-box {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .stat-label {
+            font-size: 0.9375rem;
+        }
+        
+        /* Timeline Story Layout */
+        .timeline-story {
+            display: grid;
+            gap: var(--spacing-2xl);
+        }
+        
+        .timeline-moment {
+            display: grid;
+            grid-template-columns: 100px 1fr 200px;
+            gap: var(--spacing-xl);
+            align-items: center;
+            padding: var(--spacing-xl);
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            transition: transform 0.3s ease;
+        }
+        
+        .timeline-moment:hover {
+            transform: translateX(8px);
+        }
+        
+        .timeline-moment.highlight-moment {
+            border-left: 4px solid var(--warning-red);
+        }
+        
+        .moment-time {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bolt-green);
+            font-family: monospace;
+        }
+        
+        .moment-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .moment-content p {
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+        
+        .moment-visual {
+            width: 200px;
+        }
+        
+        /* Story Timeline Layout */
+        .story-section {
+            padding: var(--spacing-3xl) 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .story-section.dark-bg {
+            background: var(--color-surface);
+        }
+        
+        /* Ensure all containers have consistent alignment */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-xl);
+            width: 100%;
+        }
+        
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-3xl);
+            align-items: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+        
+        .story-grid.reverse {
+            direction: rtl;
+        }
+        
+        .story-grid.reverse > * {
+            direction: ltr;
+        }
+        
+        .story-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--bolt-green);
+        }
+        
+        .story-text h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin: var(--spacing-xl) 0 var(--spacing-md) 0;
+            color: var(--color-text-primary);
+        }
+        
+        .story-text p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .story-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .story-visual img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Problem Cards */
+        .problem-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .problem-card {
+            background: var(--color-surface);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--warning-red);
+            transition: transform 0.3s ease;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .problem-card h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--warning-red);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .problem-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+        }
+        
+        /* Solution Showcase */
+        .solution-showcase {
+            background: linear-gradient(135deg, rgba(52, 209, 134, 0.1) 0%, rgba(52, 209, 134, 0.05) 100%);
+            padding: var(--spacing-3xl);
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-3xl) 0;
+        }
+        
+        .solution-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .solution-header h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--bolt-green);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .solution-screens {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .screen-mockup {
+            background: white;
+            border-radius: 30px;
+            padding: var(--spacing-md);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            aspect-ratio: 9/19;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.dark-mode .screen-mockup {
+            background: #1a1a1a;
+        }
+        
+        .screen-mockup::before {
+            content: 'APP SCREEN';
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .screen-mockup::before {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .screen-mockup img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+        
+        /* Hardware Showcase */
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .hardware-item {
+            background: var(--color-surface);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .hardware-visual {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-2xl);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+        
+        body.dark-mode .hardware-visual {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+        
+        .hardware-visual::before {
+            content: 'HARDWARE';
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .hardware-visual::before {
+            color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hardware-item h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--bolt-green);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .comparison-table th {
+            background: var(--bolt-green);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table .check {
+            color: var(--available-green);
+            font-size: 1.25rem;
+        }
+        
+        .comparison-table .cross {
+            color: var(--warning-red);
+            font-size: 1.25rem;
+        }
+        
+        /* Impact Metrics */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .impact-card {
+            background: var(--color-surface);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border-top: 4px solid var(--bolt-green);
+        }
+        
+        .impact-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--bolt-green);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .impact-label {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+        }
+        
+        /* Quote Block */
+        .insight-quote {
+            background: linear-gradient(135deg, rgba(52, 209, 134, 0.1) 0%, rgba(52, 209, 134, 0.05) 100%);
+            padding: var(--spacing-2xl);
+            border-left: 4px solid var(--bolt-green);
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-2xl) 0;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--color-text-primary);
+        }
+        
+        /* Process Steps */
+        .process-timeline {
+            position: relative;
+            padding-left: var(--spacing-2xl);
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--bolt-green);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: var(--spacing-2xl);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 8px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--bolt-green);
+            border: 3px solid var(--color-background);
+        }
+        
+        .timeline-item h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        /* Next Project Navigation */
+        .next-project {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .next-project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .next-project-card {
+            position: relative;
+            padding: var(--spacing-2xl);
+            background: var(--color-background);
+            border: 2px solid var(--color-border-light);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .next-project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--bolt-green);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .next-project-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-tertiary);
+            font-weight: 500;
+        }
+
+        .next-project-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .next-project-card:hover .next-project-name {
+            color: var(--bolt-green);
+        }
+
+        .next-project-desc {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .timeline-moment {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .moment-visual {
+                width: 100%;
+            }
+            
+            .next-project-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+            
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-xl);
+            }
+            
+            .story-grid.reverse {
+                direction: ltr;
+            }
+            
+            .quick-stats {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .hardware-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .solution-screens {
+                grid-template-columns: 1fr;
+            }
+            
+            .story-text h2 {
+                font-size: 1.75rem;
+            }
+            
+            .story-text h3 {
+                font-size: 1.5rem;
+            }
+            
+            .project-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor">
+        <span class="cursor-text" id="cursorText"></span>
+    </div>
+    
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-blob"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo-container">
+                    <img src="assets/images/y.png" alt="Y" class="logo-y">
+                    <img src="assets/images/younis.png" alt="Younis" class="logo-full">
+                </a>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html#hero">Home</a></li>
+                    <li><a href="index.html#work">Work</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon">◐</span>
+                    </button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-tags">
+                <span class="tag">Product Design</span>
+                <span class="tag">Mobile App</span>
+                <span class="tag">Hardware Integration</span>
+                <span class="tag">2025</span>
+            </div>
+            <h1 class="project-title">Bolt Micro-Mobility</h1>
+            <p class="project-subtitle">Holistic product experience redesign solving parking, navigation, and safety challenges through proactive design and hardware-software integration</p>
+            
+            <div class="project-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Role</span>
+                    <span class="meta-value">Product Designer (UX/UI + Hardware)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Timeline</span>
+                    <span class="meta-value">2 weeks (Dec 2025)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Platform</span>
+                    <span class="meta-value">Mobile App + Hardware</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Tools</span>
+                    <span class="meta-value" style="display: flex; gap: 8px; align-items: center;">
+                        <img src="ZazouaLaw/logos/figma.png" alt="Figma" style="height: 24px; width: auto;">
+                        <span>User Research</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Image / Stats -->
+    <section class="project-hero-image" style="padding: 0; margin-top: var(--spacing-3xl);">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 260px; gap: 2rem; align-items: stretch;">
+                <div style="background: linear-gradient(135deg, #1A1A1A 0%, #34D186 100%); border-radius: var(--radius-lg); overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 600px;">
+                    <img src="Bolt/bolt_scooter_0001.webp" alt="Bolt Micro-Mobility" style="width: 100%; height: 100%; object-fit: contain; padding: 2rem;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem; justify-content: space-between; height: 100%; width: 260px;">
+                    <div style="background: var(--color-surface); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid rgba(255, 107, 107, 0.3); flex: 1; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+                        <div style="color: #FF6B6B; font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem;">26 min</div>
+                        <div style="color: var(--color-text-secondary); font-size: 0.9375rem;">Expected: 10 min</div>
+                    </div>
+                    <div style="background: var(--color-surface); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid rgba(255, 107, 107, 0.3); flex: 1; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+                        <div style="color: #FF6B6B; font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem;">+€6</div>
+                        <div style="color: var(--color-text-secondary); font-size: 0.9375rem;">Extra charges</div>
+                    </div>
+                    <div style="background: var(--color-surface); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid rgba(255, 107, 107, 0.3); flex: 1; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+                        <div style="color: #FF6B6B; font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem;">No</div>
+                        <div style="color: var(--color-text-secondary); font-size: 0.9375rem;">Parking spots found</div>
+                    </div>
+                    <div style="background: var(--color-surface); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid rgba(255, 107, 107, 0.3); flex: 1; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+                        <div style="color: #FF6B6B; font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem;"><i class="fas fa-train"></i></div>
+                        <div style="color: var(--color-text-secondary); font-size: 0.9375rem;">Missed train</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section class="story-section" style="margin-top: var(--spacing-3xl);">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-text">
+                    <h2>The Problem</h2>
+                    <h3 style="font-size: 1.25rem; font-weight: 600; color: var(--color-text-primary); margin-top: var(--spacing-lg);">When a 10-minute ride became a 26-minute crisis</h3>
+                    
+                    <p style="margin-top: var(--spacing-md);">While rushing to catch a train in Erlangen with my wife, I rented two Bolt scooters for what should have been a simple 10-minute ride. Instead, we experienced cascading failures across digital and physical product layers that turned a quick trip into a stressful ordeal.</p>
+                </div>
+                <div class="story-visual">
+                    <img src="Bolt/Scooter-amico.png" alt="Journey start">
+                </div>
+            </div>
+            
+            <div class="insight-quote">
+                "What should have cost €4 and 10 minutes became €16 and nearly missing our train entirely."
+            </div>
+        </div>
+    </section>
+
+    <!-- The Story - Visual Timeline -->
+    <section class="story-section dark-bg">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; color: var(--bolt-green); margin-bottom: var(--spacing-3xl);">What Happened</h2>
+            
+            <!-- Story Timeline -->
+            <div class="timeline-story">
+                <div class="timeline-moment">
+                    <div class="moment-time">00:00</div>
+                    <div class="moment-content">
+                        <h3>Scanned scooter at Erlangen</h3>
+                        <p>Expected: 10 min ride, €2 each</p>
+                    </div>
+                    <div class="moment-visual">
+                        <!-- Placeholder: Scooter unlock illustration -->
+                        <div style="width: 100%; height: 200px; background: rgba(52, 209, 134, 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--bolt-green); font-size: 3rem;"><i class="fas fa-lock-open"></i></div>
+                    </div>
+                </div>
+                
+                <div class="timeline-moment highlight-moment">
+                    <div class="moment-time">10:00</div>
+                    <div class="moment-content">
+                        <h3>Arrived at Hauptbahnhof</h3>
+                        <p style="color: var(--warning-red); font-weight: 600;"><i class="fas fa-ban"></i> No parking zones available</p>
+                    </div>
+                    <div class="moment-visual">
+                        <!-- Placeholder: Confused person looking for parking -->
+                        <div style="width: 100%; height: 200px; background: rgba(255, 107, 107, 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--warning-red); font-size: 3rem;"><i class="fas fa-square-parking"></i></div>
+                    </div>
+                </div>
+                
+                <div class="timeline-moment">
+                    <div class="moment-time">10:00-10:26</div>
+                    <div class="moment-content">
+                        <h3>Searching for parking</h3>
+                        <p>Stopped 4+ times to check app<br>Nearly fell while hand-signaling<br>Costs mounting every minute</p>
+                    </div>
+                    <div class="moment-visual">
+                        <!-- Placeholder: Person struggling -->
+                        <div style="width: 100%; height: 200px; background: rgba(243, 156, 18, 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--limited-yellow); font-size: 3rem;"><i class="fas fa-magnifying-glass-location"></i></div>
+                    </div>
+                </div>
+                
+                <div class="timeline-moment highlight-moment">
+                    <div class="moment-time">10:26</div>
+                    <div class="moment-content">
+                        <h3>Finally found parking</h3>
+                        <p style="color: var(--warning-red); font-weight: 600;">€16 total | Missed our train</p>
+                    </div>
+                    <div class="moment-visual">
+                        <!-- Placeholder: Frustrated end -->
+                        <div style="width: 100%; height: 200px; background: rgba(255, 107, 107, 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--warning-red); font-size: 3rem;"><i class="fas fa-clock"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Issues - Visual Cards -->
+    <section class="story-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; color: var(--bolt-green); margin-bottom: var(--spacing-2xl);">3 Critical Gaps</h2>
+            
+            <div class="problem-cards">
+                <div class="problem-card">
+                    <div style="font-size: 3rem; margin-bottom: var(--spacing-md);"><i class="fas fa-triangle-exclamation"></i></div>
+                    <h4>No Proactive Warnings</h4>
+                    <p>App had parking data but never warned me before I started</p>
+                </div>
+                <div class="problem-card">
+                    <div style="font-size: 3rem; margin-bottom: var(--spacing-md);"><i class="fas fa-mobile-screen"></i></div>
+                    <h4>No Safe Navigation</h4>
+                    <p>Had to hold phone illegally or stop constantly to check directions</p>
+                </div>
+                <div class="problem-card">
+                    <div style="font-size: 3rem; margin-bottom: var(--spacing-md);"><i class="fas fa-hand"></i></div>
+                    <h4>Unsafe Turn Signals</h4>
+                    <p>Hand signals = removing hand from handlebar = nearly falling</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UX Audit: Current Experience Analysis -->
+    <section class="story-section dark-bg">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: var(--spacing-3xl);">
+                <h2 style="font-size: 2.5rem; color: var(--bolt-green); margin-bottom: var(--spacing-md);">UX Audit: Current State Analysis</h2>
+                <p style="font-size: 1.25rem; color: var(--color-text-secondary);">I analyzed Bolt's existing app and competitors (Voi, Lime, Tier) to identify systematic UX gaps</p>
+            </div>
+            
+            <!-- Heuristic Evaluation -->
+            <div style="margin-bottom: var(--spacing-3xl);">
+                <h3 style="font-size: 1.75rem; color: var(--color-text-primary); margin-bottom: var(--spacing-xl);">Heuristic Evaluation Results</h3>
+                
+                <div class="problem-cards">
+                    <div class="problem-card">
+                        <h4>❌ Error Prevention</h4>
+                        <p><strong>Score: 2/10</strong></p>
+                        <p>No warnings before users start rides to parking-limited destinations. System knows parking is full but doesn't communicate this proactively.</p>
+                    </div>
+                    <div class="problem-card">
+                        <h4>❌ Visibility of System Status</h4>
+                        <p><strong>Score: 3/10</strong></p>
+                        <p>Users can't see parking availability in real-time during navigation. Must stop and manually check app while riding.</p>
+                    </div>
+                    <div class="problem-card">
+                        <h4>❌ Match Between System & Real World</h4>
+                        <p><strong>Score: 4/10</strong></p>
+                        <p>App forces context switching to Maps for navigation. Users must hold phone illegally or stop frequently—doesn't match real riding behavior.</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- User Journey Mapping: Before -->
+    <section class="story-section">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; color: var(--bolt-green); margin-bottom: var(--spacing-md); text-align: center;">User Journey: Current Experience</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--color-text-secondary); margin-bottom: var(--spacing-3xl);">Mapping the pain points from my actual experience</p>
+            
+            <!-- Journey Steps -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-xl); margin-bottom: var(--spacing-3xl);">
+                <!-- Step 1 -->
+                <div style="position: relative; background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg); border-top: 4px solid var(--warning-red);">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-md);">
+                        <div style="width: 48px; height: 48px; background: rgba(255, 107, 107, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--warning-red); font-size: 1.5rem;">
+                            <i class="fas fa-mobile-screen-button"></i>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin: 0;">Step 1</p>
+                            <h4 style="margin: 0; font-size: 1.125rem;">Planning</h4>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.6; margin-bottom: var(--spacing-md);">Open app → Find scooters → No warnings → Start ride</p>
+                    <div style="display: flex; align-items: center; gap: var(--spacing-xs); padding: var(--spacing-sm); background: rgba(255, 107, 107, 0.1); border-radius: var(--radius-md);">
+                        <i class="fas fa-face-frown" style="color: var(--warning-red);"></i>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--warning-red); font-weight: 600;">No parking data shown</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div style="position: relative; background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg); border-top: 4px solid var(--warning-red);">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-md);">
+                        <div style="width: 48px; height: 48px; background: rgba(255, 107, 107, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--warning-red); font-size: 1.5rem;">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin: 0;">Step 2</p>
+                            <h4 style="margin: 0; font-size: 1.125rem;">Navigation</h4>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.6; margin-bottom: var(--spacing-md);">Switch to Maps → Hold phone → Unsafe riding</p>
+                    <div style="display: flex; align-items: center; gap: var(--spacing-xs); padding: var(--spacing-sm); background: rgba(255, 107, 107, 0.1); border-radius: var(--radius-md);">
+                        <i class="fas fa-face-frown-open" style="color: var(--warning-red);"></i>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--warning-red); font-weight: 600;">Illegal phone handling</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div style="position: relative; background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg); border-top: 4px solid var(--warning-red);">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-md);">
+                        <div style="width: 48px; height: 48px; background: rgba(255, 107, 107, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--warning-red); font-size: 1.5rem;">
+                            <i class="fas fa-square-parking"></i>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin: 0;">Step 3</p>
+                            <h4 style="margin: 0; font-size: 1.125rem;">Arrival Crisis</h4>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.6; margin-bottom: var(--spacing-md);">Arrive → No parking → Search for 16 min → €16 cost</p>
+                    <div style="display: flex; align-items: center; gap: var(--spacing-xs); padding: var(--spacing-sm); background: rgba(255, 107, 107, 0.1); border-radius: var(--radius-md);">
+                        <i class="fas fa-face-angry" style="color: var(--warning-red);"></i>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--warning-red); font-weight: 600;">Missed train</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emotion Graph -->
+            <div style="background: var(--color-surface); padding: var(--spacing-2xl); border-radius: var(--radius-lg);">
+                <h3 style="font-size: 1.25rem; margin-bottom: var(--spacing-lg); text-align: center;">Emotional Journey</h3>
+                <div style="display: flex; justify-content: space-between; align-items: end; height: 120px; border-bottom: 2px solid var(--color-border-light); padding-bottom: var(--spacing-md);">
+                    <div style="text-align: center; flex: 1;">
+                        <div style="height: 60%; background: var(--limited-yellow); width: 60%; margin: 0 auto; border-radius: var(--radius-sm) var(--radius-sm) 0 0;"></div>
+                        <p style="margin-top: var(--spacing-sm); font-size: 0.875rem; color: var(--color-text-secondary);">Planning</p>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="height: 40%; background: var(--warning-red); width: 60%; margin: 0 auto; border-radius: var(--radius-sm) var(--radius-sm) 0 0;"></div>
+                        <p style="margin-top: var(--spacing-sm); font-size: 0.875rem; color: var(--color-text-secondary);">Navigation</p>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="height: 20%; background: var(--warning-red); width: 60%; margin: 0 auto; border-radius: var(--radius-sm) var(--radius-sm) 0 0;"></div>
+                        <p style="margin-top: var(--spacing-sm); font-size: 0.875rem; color: var(--color-text-secondary);">Crisis</p>
+                    </div>
+                </div>
+                <div style="margin-top: var(--spacing-lg); padding: var(--spacing-lg); background: rgba(255, 107, 107, 0.1); border-radius: var(--radius-md); text-align: center;">
+                    <p style="font-weight: 600; margin-bottom: var(--spacing-xs); color: var(--warning-red);">Overall Experience</p>
+                    <p style="font-size: 0.9375rem; color: var(--color-text-secondary);">SUS Score: 35/100 | Satisfaction: 2/10 | Task Success: 50%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Solution -->
+    <section class="story-section dark-bg">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: var(--spacing-3xl);">
+                <h2 style="font-size: 2.5rem; color: var(--bolt-green); margin-bottom: var(--spacing-md);">Redesigned Experience: Before & After</h2>
+                <p style="font-size: 1.25rem; color: var(--color-text-secondary);">Holistic UX/UI redesign + hardware integration</p>
+            </div>
+            
+            <!-- Solution Grid -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-2xl); margin-bottom: var(--spacing-3xl);">
+                <div style="text-align: center; padding: var(--spacing-xl); background: var(--color-surface); border-radius: var(--radius-lg);">
+                    <div style="font-size: 3rem; margin-bottom: var(--spacing-md);"><i class="fas fa-lightbulb"></i></div>
+                    <h3 style="color: var(--bolt-green); margin-bottom: var(--spacing-sm);">Smart Software</h3>
+                    <p>Proactive warnings, integrated navigation, emergency support</p>
+                </div>
+                <div style="text-align: center; padding: var(--spacing-xl); background: var(--color-surface); border-radius: var(--radius-lg);">
+                    <div style="font-size: 3rem; margin-bottom: var(--spacing-md);"><i class="fas fa-screwdriver-wrench"></i></div>
+                    <h3 style="color: var(--bolt-green); margin-bottom: var(--spacing-sm);">Safe Hardware</h3>
+                    <p>Integrated phone holder + LED turn signals</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Feature Comparison -->
+    <section class="story-section">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; color: var(--bolt-green); margin-bottom: var(--spacing-2xl);">UI Redesign: Feature-by-Feature Comparison</h2>
+            
+            <!-- Feature 1: Parking Warnings -->
+            <div style="margin-bottom: var(--spacing-3xl);">
+                <h3 style="font-size: 1.75rem; margin-bottom: var(--spacing-xl); color: var(--color-text-primary);">Feature 1: Proactive Parking Warnings</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-2xl);">
+                    <div>
+                        <div style="background: rgba(255, 107, 107, 0.1); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-md);">
+                            <p style="font-weight: 600; color: var(--warning-red);">❌ BEFORE</p>
+                        </div>
+                        <div class="screen-mockup" style="background: var(--color-surface); border: 2px solid var(--color-border-light); min-height: 400px;">
+                            <div style="padding: var(--spacing-lg);">
+                                <p style="font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: var(--spacing-md);">Current Bolt App</p>
+                                <div style="background: rgba(52, 209, 134, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm); margin-bottom: var(--spacing-sm);">
+                                    <p style="font-weight: 600; font-size: 1.125rem;">🛴 Scooter #4521</p>
+                                    <p style="font-size: 0.875rem; color: var(--color-text-secondary);">100% battery</p>
+                                </div>
+                                <button style="width: 100%; padding: var(--spacing-md); background: var(--bolt-green); color: white; border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer;">Start Ride</button>
+                                
+                                <div style="margin-top: var(--spacing-xl); padding: var(--spacing-md); background: rgba(255, 107, 107, 0.05); border-radius: var(--radius-sm);">
+                                    <p style="font-size: 0.875rem; color: var(--warning-red); font-weight: 600;">⚠️ UX Issues:</p>
+                                    <ul style="margin-top: var(--spacing-xs); font-size: 0.875rem; line-height: 1.6;">
+                                        <li>No destination input</li>
+                                        <li>No parking availability shown</li>
+                                        <li>No warnings or predictions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div style="background: rgba(52, 209, 134, 0.1); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-md);">
+                            <p style="font-weight: 600; color: var(--bolt-green);">✓ AFTER (Redesign)</p>
+                        </div>
+                        <div class="screen-mockup" style="background: var(--color-surface); border: 2px solid var(--bolt-green); min-height: 400px;">
+                            <div style="padding: var(--spacing-lg);">
+                                <p style="font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: var(--spacing-md);">Redesigned App</p>
+                                <div style="margin-bottom: var(--spacing-md);">
+                                    <input type="text" placeholder="Where to?" style="width: 100%; padding: var(--spacing-md); border: 2px solid var(--color-border-light); border-radius: var(--radius-md); font-size: 1rem; background: var(--color-background);">
+                                </div>
+                                
+                                <div style="background: rgba(255, 107, 107, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm); border-left: 4px solid var(--warning-red); margin-bottom: var(--spacing-md);">
+                                    <p style="font-weight: 600; font-size: 0.9375rem; margin-bottom: var(--spacing-xs);">⚠️ Parking Alert</p>
+                                    <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Hauptbahnhof: 0/12 spots available</p>
+                                    <p style="font-size: 0.875rem; color: var(--bolt-green); margin-top: var(--spacing-xs); font-weight: 600;">✓ Alternative: 300m walk from Rathausplatz (8/10 spots)</p>
+                                </div>
+                                
+                                <div style="background: rgba(52, 209, 134, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm); margin-bottom: var(--spacing-sm);">
+                                    <p style="font-weight: 600; font-size: 1.125rem;">🛴 Scooter #4521</p>
+                                    <p style="font-size: 0.875rem; color: var(--color-text-secondary);">100% battery · 10 min ride</p>
+                                </div>
+                                
+                                <button style="width: 100%; padding: var(--spacing-md); background: var(--bolt-green); color: white; border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer;">Start with Navigation</button>
+                                
+                                <div style="margin-top: var(--spacing-md); padding: var(--spacing-md); background: rgba(52, 209, 134, 0.05); border-radius: var(--radius-sm);">
+                                    <p style="font-size: 0.875rem; color: var(--bolt-green); font-weight: 600;">✓ UX Improvements:</p>
+                                    <ul style="margin-top: var(--spacing-xs); font-size: 0.875rem; line-height: 1.6;">
+                                        <li>Destination required</li>
+                                        <li>Real-time parking status</li>
+                                        <li>Proactive alternatives</li>
+                                        <li>Prevents crisis before it starts</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 2: Navigation -->
+            <div style="margin-bottom: var(--spacing-3xl);">
+                <h3 style="font-size: 1.75rem; margin-bottom: var(--spacing-xl); color: var(--color-text-primary);">Feature 2: Integrated Navigation</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-2xl);">
+                    <div>
+                        <div style="background: rgba(255, 107, 107, 0.1); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-md);">
+                            <p style="font-weight: 600; color: var(--warning-red);">❌ BEFORE</p>
+                        </div>
+                        <div class="screen-mockup" style="background: var(--color-surface); border: 2px solid var(--color-border-light); min-height: 400px;">
+                            <div style="padding: var(--spacing-lg);">
+                                <p style="font-weight: 600; margin-bottom: var(--spacing-sm);">🛴 Riding Mode</p>
+                                <div style="background: rgba(52, 209, 134, 0.1); padding: var(--spacing-xl); border-radius: var(--radius-md); text-align: center; margin-bottom: var(--spacing-md);">
+                                    <p style="font-size: 2rem; font-weight: 700; color: var(--bolt-green);">26 min</p>
+                                    <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Riding time</p>
+                                </div>
+                                <div style="background: var(--color-background); padding: var(--spacing-md); border-radius: var(--radius-sm); margin-bottom: var(--spacing-md);">
+                                    <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Speed: 18 km/h</p>
+                                    <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Distance: 2.3 km</p>
+                                </div>
+                                <button style="width: 100%; padding: var(--spacing-md); background: var(--warning-red); color: white; border: none; border-radius: var(--radius-md); font-weight: 600;">End Ride</button>
+                                
+                                <div style="margin-top: var(--spacing-xl); padding: var(--spacing-md); background: rgba(255, 107, 107, 0.05); border-radius: var(--radius-sm);">
+                                    <p style="font-size: 0.875rem; color: var(--warning-red); font-weight: 600;">⚠️ UX Issues:</p>
+                                    <ul style="margin-top: var(--spacing-xs); font-size: 0.875rem; line-height: 1.6;">
+                                        <li>No navigation at all</li>
+                                        <li>Must switch to Google Maps</li>
+                                        <li>Hold phone illegally while riding</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div style="background: rgba(52, 209, 134, 0.1); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-md);">
+                            <p style="font-weight: 600; color: var(--bolt-green);">✓ AFTER (Redesign)</p>
+                        </div>
+                        <div class="screen-mockup" style="background: var(--color-surface); border: 2px solid var(--bolt-green); min-height: 400px;">
+                            <div style="padding: var(--spacing-lg);">
+                                <p style="font-weight: 600; margin-bottom: var(--spacing-sm);">🧭 Navigation Active</p>
+                                <div style="background: rgba(52, 209, 134, 0.1); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-md);">
+                                    <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-sm);">
+                                        <div style="font-size: 2rem;">↰</div>
+                                        <div>
+                                            <p style="font-size: 1.25rem; font-weight: 700;">Turn left in 50m</p>
+                                            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">onto Bahnhofstraße</p>
+                                        </div>
+                                    </div>
+                                    <div style="height: 4px; background: rgba(52, 209, 134, 0.2); border-radius: 2px; margin-top: var(--spacing-sm);">
+                                        <div style="width: 65%; height: 100%; background: var(--bolt-green); border-radius: 2px;"></div>
+                                    </div>
+                                    <p style="font-size: 0.75rem; color: var(--color-text-tertiary); margin-top: var(--spacing-xs);">3 min to destination · 800m</p>
+                                </div>
+                                
+                                <div style="background: rgba(243, 156, 18, 0.1); padding: var(--spacing-sm); border-radius: var(--radius-sm); margin-bottom: var(--spacing-md); border-left: 3px solid var(--limited-yellow);">
+                                    <p style="font-size: 0.875rem; font-weight: 600;">⚠️ Parking: 2/12 spots at destination</p>
+                                </div>
+                                
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-sm); font-size: 0.875rem; color: var(--color-text-secondary);">
+                                    <div>Speed: 18 km/h</div>
+                                    <div>Time: 10 min</div>
+                                </div>
+                                
+                                <div style="margin-top: var(--spacing-md); padding: var(--spacing-md); background: rgba(52, 209, 134, 0.05); border-radius: var(--radius-sm);">
+                                    <p style="font-size: 0.875rem; color: var(--bolt-green); font-weight: 600;">✓ UX Improvements:</p>
+                                    <ul style="margin-top: var(--spacing-xs); font-size: 0.875rem; line-height: 1.6;">
+                                        <li>Built-in turn-by-turn navigation</li>
+                                        <li>No app switching needed</li>
+                                        <li>Safe phone mounting</li>
+                                        <li>Auto-activates hardware turn signals</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 3: Emergency Support -->
+            <div style="margin-bottom: var(--spacing-3xl);">
+                <h3 style="font-size: 1.75rem; margin-bottom: var(--spacing-xl); color: var(--color-text-primary);">Feature 3: Emergency Support</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-2xl);">
+                    <div>
+                        <div style="background: rgba(255, 107, 107, 0.1); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-md);">
+                            <p style="font-weight: 600; color: var(--warning-red);">❌ BEFORE</p>
+                        </div>
+                        <div class="screen-mockup" style="background: var(--color-surface); border: 2px solid var(--color-border-light); min-height: 300px;">
+                            <div style="padding: var(--spacing-lg);">
+                                <p style="font-weight: 600; margin-bottom: var(--spacing-md);">Need Help?</p>
+                                <button style="width: 100%; padding: var(--spacing-md); background: var(--color-background); border: 2px solid var(--color-border-light); border-radius: var(--radius-md); margin-bottom: var(--spacing-sm);">📧 Email Support</button>
+                                <button style="width: 100%; padding: var(--spacing-md); background: var(--color-background); border: 2px solid var(--color-border-light); border-radius: var(--radius-md);">❓ FAQ</button>
+                                
+                                <div style="margin-top: var(--spacing-xl); padding: var(--spacing-md); background: rgba(255, 107, 107, 0.05); border-radius: var(--radius-sm);">
+                                    <p style="font-size: 0.875rem; color: var(--warning-red); font-weight: 600;">⚠️ UX Issues:</p>
+                                    <ul style="margin-top: var(--spacing-xs); font-size: 0.875rem; line-height: 1.6;">
+                                        <li>Email only (24h response)</li>
+                                        <li>No real-time help when stuck</li>
+                                        <li>Can't unlock/extend ride remotely</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div style="background: rgba(52, 209, 134, 0.1); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-md);">
+                            <p style="font-weight: 600; color: var(--bolt-green);">✓ AFTER (Redesign)</p>
+                        </div>
+                        <div class="screen-mockup" style="background: var(--color-surface); border: 2px solid var(--bolt-green); min-height: 300px;">
+                            <div style="padding: var(--spacing-lg);">
+                                <p style="font-weight: 600; margin-bottom: var(--spacing-md);">🆘 Emergency Help</p>
+                                <div style="background: rgba(255, 107, 107, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm); margin-bottom: var(--spacing-md);">
+                                    <p style="font-weight: 600; margin-bottom: var(--spacing-xs);">Can't find parking?</p>
+                                    <button style="width: 100%; padding: var(--spacing-md); background: var(--bolt-green); color: white; border: none; border-radius: var(--radius-md); font-weight: 600; margin-top: var(--spacing-sm);">🔓 Unlock Remote Parking (Free 15 min)</button>
+                                </div>
+                                
+                                <button style="width: 100%; padding: var(--spacing-md); background: var(--color-background); border: 2px solid var(--bolt-green); border-radius: var(--radius-md); margin-bottom: var(--spacing-sm); font-weight: 600; color: var(--bolt-green);">💬 Live Chat (2 min wait)</button>
+                                <button style="width: 100%; padding: var(--spacing-md); background: var(--color-background); border: 2px solid var(--color-border-light); border-radius: var(--radius-md);">📞 Call Support</button>
+                                
+                                <div style="margin-top: var(--spacing-md); padding: var(--spacing-md); background: rgba(52, 209, 134, 0.05); border-radius: var(--radius-sm);">
+                                    <p style="font-size: 0.875rem; color: var(--bolt-green); font-weight: 600;">✓ UX Improvements:</p>
+                                    <ul style="margin-top: var(--spacing-xs); font-size: 0.875rem; line-height: 1.6;">
+                                        <li>Context-aware suggestions</li>
+                                        <li>Real-time live chat</li>
+                                        <li>Remote parking unlock</li>
+                                        <li>Prevents abandonment</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Journey: After -->
+    <section class="story-section dark-bg">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; color: var(--bolt-green); margin-bottom: var(--spacing-md); text-align: center;">User Journey: Redesigned Experience</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--color-text-secondary); margin-bottom: var(--spacing-3xl);">How the redesign transforms the experience</p>
+            
+            <!-- Journey Steps -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-xl); margin-bottom: var(--spacing-3xl);">
+                <!-- Step 1 -->
+                <div style="position: relative; background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg); border-top: 4px solid var(--bolt-green);">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-md);">
+                        <div style="width: 48px; height: 48px; background: rgba(52, 209, 134, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bolt-green); font-size: 1.5rem;">
+                            <i class="fas fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin: 0;">Step 1</p>
+                            <h4 style="margin: 0; font-size: 1.125rem;">Proactive Warning</h4>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.6; margin-bottom: var(--spacing-md);">Enter destination → See alert → Choose alternative → Start ride</p>
+                    <div style="display: flex; align-items: center; gap: var(--spacing-xs); padding: var(--spacing-sm); background: rgba(52, 209, 134, 0.1); border-radius: var(--radius-md);">
+                        <i class="fas fa-face-smile" style="color: var(--bolt-green);"></i>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--bolt-green); font-weight: 600;">Problem prevented</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div style="position: relative; background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg); border-top: 4px solid var(--bolt-green);">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-md);">
+                        <div style="width: 48px; height: 48px; background: rgba(52, 209, 134, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bolt-green); font-size: 1.5rem;">
+                            <i class="fas fa-map-location-dot"></i>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin: 0;">Step 2</p>
+                            <h4 style="margin: 0; font-size: 1.125rem;">Safe Navigation</h4>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.6; margin-bottom: var(--spacing-md);">Phone in holder → Built-in nav → LED signals → Safe riding</p>
+                    <div style="display: flex; align-items: center; gap: var(--spacing-xs); padding: var(--spacing-sm); background: rgba(52, 209, 134, 0.1); border-radius: var(--radius-md);">
+                        <i class="fas fa-face-smile-beam" style="color: var(--bolt-green);"></i>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--bolt-green); font-weight: 600;">Hands-free & legal</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div style="position: relative; background: var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg); border-top: 4px solid var(--bolt-green);">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-md);">
+                        <div style="width: 48px; height: 48px; background: rgba(52, 209, 134, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bolt-green); font-size: 1.5rem;">
+                            <i class="fas fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin: 0;">Step 3</p>
+                            <h4 style="margin: 0; font-size: 1.125rem;">Smooth Arrival</h4>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.6; margin-bottom: var(--spacing-md);">Direct to spot → Park easily → On time → €4 total</p>
+                    <div style="display: flex; align-items: center; gap: var(--spacing-xs); padding: var(--spacing-sm); background: rgba(52, 209, 134, 0.1); border-radius: var(--radius-md);">
+                        <i class="fas fa-face-laugh-beam" style="color: var(--bolt-green);"></i>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--bolt-green); font-weight: 600;">Mission accomplished</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emotion Graph -->
+            <div style="background: var(--color-surface); padding: var(--spacing-2xl); border-radius: var(--radius-lg);">
+                <h3 style="font-size: 1.25rem; margin-bottom: var(--spacing-lg); text-align: center;">Emotional Journey</h3>
+                <div style="display: flex; justify-content: space-between; align-items: end; height: 120px; border-bottom: 2px solid var(--color-border-light); padding-bottom: var(--spacing-md);">
+                    <div style="text-align: center; flex: 1;">
+                        <div style="height: 80%; background: var(--bolt-green); width: 60%; margin: 0 auto; border-radius: var(--radius-sm) var(--radius-sm) 0 0;"></div>
+                        <p style="margin-top: var(--spacing-sm); font-size: 0.875rem; color: var(--color-text-secondary);">Planning</p>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="height: 90%; background: var(--bolt-green); width: 60%; margin: 0 auto; border-radius: var(--radius-sm) var(--radius-sm) 0 0;"></div>
+                        <p style="margin-top: var(--spacing-sm); font-size: 0.875rem; color: var(--color-text-secondary);">Navigation</p>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="height: 95%; background: var(--bolt-green); width: 60%; margin: 0 auto; border-radius: var(--radius-sm) var(--radius-sm) 0 0;"></div>
+                        <p style="margin-top: var(--spacing-sm); font-size: 0.875rem; color: var(--color-text-secondary);">Arrival</p>
+                    </div>
+                </div>
+                <div style="margin-top: var(--spacing-lg); padding: var(--spacing-lg); background: rgba(52, 209, 134, 0.1); border-radius: var(--radius-md); text-align: center;">
+                    <p style="font-weight: 600; margin-bottom: var(--spacing-xs); color: var(--bolt-green);">Overall Experience</p>
+                    <p style="font-size: 0.9375rem; color: var(--color-text-secondary);">Projected SUS: 85/100 | Satisfaction: 9/10 | Task Success: 100%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Features Showcase -->
+    <section class="story-section">
+        <div class="container">
+            <h3 style="text-align: center; font-size: 2rem; color: var(--bolt-green); margin-bottom: var(--spacing-2xl);">Complete Feature Set</h3>
+            
+            <div class="solution-screens">
+                <div class="screen-mockup">
+                    <div style="padding: var(--spacing-md); text-align: center;">
+                        <p style="font-weight: 600; margin-bottom: var(--spacing-xs);">Pre-Ride Warning</p>
+                        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Know before you go</p>
+                    </div>
+                </div>
+                <div class="screen-mockup">
+                    <div style="padding: var(--spacing-md); text-align: center;">
+                        <p style="font-weight: 600; margin-bottom: var(--spacing-xs);">Built-in Navigation</p>
+                        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">No app switching</p>
+                    </div>
+                </div>
+                <div class="screen-mockup">
+                    <div style="padding: var(--spacing-md); text-align: center;">
+                        <p style="font-weight: 600; margin-bottom: var(--spacing-xs);">Emergency Help</p>
+                        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">When you're stuck</p>
+                    </div>
+                </div>
+                <div class="screen-mockup">
+                    <div style="padding: var(--spacing-md); text-align: center;">
+                        <p style="font-weight: 600; margin-bottom: var(--spacing-xs);">Live Parking Map</p>
+                        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Real-time availability</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Showcase -->
+    <section class="story-section dark-bg">
+        <div class="container">
+            <h3 style="text-align: center; font-size: 2rem; color: var(--bolt-green); margin-bottom: var(--spacing-xl);">Hardware Innovation</h3>
+            
+            <div class="hardware-grid">
+                <div class="hardware-item">
+                    <div class="hardware-visual">
+                        <!-- Placeholder: Phone holder -->
+                    </div>
+                    <h4>Integrated Phone Holder</h4>
+                    <p>Built into every Bolt scooter</p>
+                    <ul style="margin-top: var(--spacing-md); line-height: 1.8; font-size: 0.9375rem;">
+                        <li>✓ Pre-installed on all scooters</li>
+                        <li>✓ Universal phone compatibility</li>
+                        <li>✓ Safe hands-free navigation</li>
+                    </ul>
+                </div>
+                
+                <div class="hardware-item">
+                    <div class="hardware-visual">
+                        <!-- Placeholder: Turn signals -->
+                    </div>
+                    <h4>Smart Turn Signals</h4>
+                    <p>Integrated in Bolt Pro scooters</p>
+                    <ul style="margin-top: var(--spacing-md); line-height: 1.8; font-size: 0.9375rem;">
+                        <li>✓ Auto-activation from nav</li>
+                        <li>✓ LED visibility 50m+</li>
+                        <li>✓ Two hands on handlebar</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="insight-quote" style="margin-top: var(--spacing-3xl);">
+                "Voi pioneered turn signals. I added the missing piece: software intelligence that auto-activates them during navigation."
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact - Big Numbers -->
+    <section class="story-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; color: var(--bolt-green); margin-bottom: var(--spacing-2xl);">Expected Impact</h2>
+            
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <div class="impact-number">75%</div>
+                    <div class="impact-label">Less parking search time</div>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number">90%</div>
+                    <div class="impact-label">Fewer safety incidents</div>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number">80%</div>
+                    <div class="impact-label">Fewer support tickets</div>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number">€1.5M</div>
+                    <div class="impact-label">Year 1 revenue potential</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Takeaway -->
+    <section class="story-section dark-bg">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h2 style="font-size: 2rem; color: var(--bolt-green); margin-bottom: var(--spacing-lg);">What I Learned</h2>
+                <div class="problem-cards" style="text-align: left;">
+                    <div class="problem-card" style="border-left-color: var(--bolt-green);">
+                        <h4 style="color: var(--bolt-green);">UX isn't just screens</h4>
+                        <p>Real problems need hardware + software + service design working together</p>
+                    </div>
+                    <div class="problem-card" style="border-left-color: var(--bolt-green);">
+                        <h4 style="color: var(--bolt-green);">Learn from leaders</h4>
+                        <p>Voi solved hardware—I focused on what they missed: software integration</p>
+                    </div>
+                    <div class="problem-card" style="border-left-color: var(--bolt-green);">
+                        <h4 style="color: var(--bolt-green);">Prevent, don't react</h4>
+                        <p>The app had all the data to stop my crisis before it started</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Home CTA -->
+    <section class="project-footer">
+        <div class="container-narrow">
+            <h2>Thanks for watching!</h2>
+            <p>Want to see how I approach other design challenges?</p>
+            <a href="index.html" class="btn btn-primary">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <section class="next-project">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Explore More Work</h2>
+            <div class="next-project-grid">
+                <a href="project-radiview.html" class="next-project-card">
+                    <span class="next-project-label">← Previous Project</span>
+                    <h3 class="next-project-name">RadiView</h3>
+                    <p class="next-project-desc">AI Medical Imaging</p>
+                </a>
+                <a href="project-zazoulaw.html" class="next-project-card">
+                    <span class="next-project-label">Next Project →</span>
+                    <h3 class="next-project-name">ZazouLaw</h3>
+                    <p class="next-project-desc">Legal Services App</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/younis.png" alt="Younis" class="footer-logo-img" id="footerLogo">
+                </div>
+                <p class="footer-text">© 2025 Younis. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
