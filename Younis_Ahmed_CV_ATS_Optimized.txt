@@ -1,0 +1,126 @@
+YOUNIS AHMED
+UX/UI Designer | Medical Engineering + AI Product Design
+──────────────────────────────────────────────────────────────────────────
+
+CONTACT
+Email: [Your Email]
+Phone: [Your Phone]
+Portfolio: younisraafat22.github.io/Portfolio
+LinkedIn: [Your LinkedIn]
+Location: Germany
+
+──────────────────────────────────────────────────────────────────────────
+
+PROFESSIONAL SUMMARY
+
+UX/UI Designer with unique Medical Engineering and Data Processing background (B.Sc. + M.Sc. FAU Germany), specializing in healthcare and AI-powered product design. Google UX Design Professional certified with master's thesis exploring Large Language Models in medical imaging. Proven ability to design enterprise platforms achieving 30% efficiency gains (RadiView) and consumer apps addressing complex user needs (ZazouLaw, ChemistryHub). Combines analytical thinking with user-centered design principles and brand identity expertise, having delivered 4 complete brand systems across healthcare and legal sectors.
+
+──────────────────────────────────────────────────────────────────────────
+
+FEATURED PROJECTS
+
+RadiView - AI Medical Imaging Platform | 2024
+• Designed enterprise radiologist workflow platform reducing diagnostic time by 30% through AI-powered case prioritization and unified dashboard interface
+• Created comprehensive information architecture managing 500+ daily medical images across multiple hospital departments
+• Conducted stakeholder interviews with 8 radiologists to identify critical pain points in existing workflow systems
+• Developed intuitive filtering and sorting mechanisms enabling rapid case assessment and treatment prioritization
+• Tools: Figma, User Research, Wireframing, High-Fidelity Prototyping, Healthcare UX
+
+ChemistryHub - Gamified Learning Platform | 2024
+• Designed mobile EdTech application reinventing chemistry education through gamification and AI-generated adaptive questions
+• Conducted user research with 15+ students and competitive analysis of 5 leading educational platforms to validate design decisions
+• Created value proposition canvas and user personas identifying key motivation drivers for student engagement
+• Implemented visual lesson system with progress tracking, achievements, and personalized learning paths
+• Designed AI question generation interface enabling dynamic content adaptation based on student performance
+• Tools: Figma, User Personas, Value Proposition Canvas, Gamification Design, Mobile UX
+
+ZazouLaw - Legal Services Mobile App | 2024
+• Created Egypt's first comprehensive legal services mobile app with Arabic-first design and full RTL (Right-to-Left) support
+• Designed transparent lawyer booking system addressing trust barriers identified through user research with 12+ potential clients
+• Developed real-time case tracking interface and secure document management system for attorney-client communication
+• Implemented bilingual interface supporting seamless Arabic/English switching for diverse user base
+• Created complete brand identity system including logo, color palette, and visual design language
+• Tools: Figma, Prototyping, Arabic/RTL Design, Brand Identity, Legal Tech UX
+
+Qawafel - B2B E-commerce Platform | 2024
+• Designed bilingual wholesale e-commerce platform connecting 100+ vendors with business buyers across Middle East region
+• Created comprehensive vendor dashboard managing technological, financial, marketing, and logistical solutions
+• Developed intuitive product discovery system with advanced filtering for bulk wholesale purchasing
+• Designed featured content sections highlighting popular deals, hot offers, and trusted suppliers
+• Implemented responsive design ensuring seamless experience across desktop and mobile devices
+• Tools: Figma, Dashboard Design, B2B UX, Bilingual Interface Design
+
+──────────────────────────────────────────────────────────────────────────
+
+PROFESSIONAL EXPERIENCE
+
+Brand Designer (Freelance) | 2023 - Present
+• Delivered 4 complete brand identity systems for clients across healthcare, legal, and e-commerce sectors, achieving 100% client satisfaction and measurable increases in brand recognition
+• Created comprehensive visual systems including logos, color palettes, typography guidelines, and brand application standards
+• Collaborated directly with stakeholders to understand business objectives and translate them into compelling visual identities
+• Designed marketing materials and digital assets maintaining brand consistency across multiple touchpoints
+
+UX Writer & Documentation Specialist | Siemens | 2022 - 2023
+• Designed and implemented Microsoft 365 user documentation system serving 500+ employees, reducing IT support tickets by 40% through improved UX writing and information architecture
+• Created user-friendly guides, tutorials, and help documentation following best practices in technical communication
+• Conducted user testing sessions with 20+ employees to validate documentation clarity and effectiveness
+• Collaborated with IT team to identify common pain points and create targeted content addressing user needs
+• Established documentation templates and style guides ensuring consistency across all user-facing materials
+
+──────────────────────────────────────────────────────────────────────────
+
+EDUCATION
+
+M.Sc. Medical Image & Data Processing
+Friedrich-Alexander-Universität (FAU), Erlangen-Nürnberg, Germany | 2021 - 2023
+Thesis: [Your Thesis Title - Large Language Models in Medical Imaging/Data Processing]
+• Explored Large Language Model applications in medical data processing and imaging workflows
+• Research directly applicable to AI-powered healthcare product design and intelligent medical interfaces
+• [Add specific findings: e.g., "Developed novel approach to medical report generation using LLMs"]
+• [Add relevant techniques: e.g., "Investigated natural language processing for radiology report analysis"]
+
+B.Sc. Medical Engineering
+[Your University], [Location] | [Year - Year]
+• Foundation in biomedical systems, medical device design, and healthcare technology
+• Coursework in Human-Computer Interaction and Graphical Design sparked passion for UX/UI design
+
+──────────────────────────────────────────────────────────────────────────
+
+CERTIFICATIONS
+
+Google UX Design Professional Certificate | Google | 2024
+• Completed 6-month intensive program covering end-to-end UX design process
+• Delivered 3 capstone projects demonstrating user research, wireframing, prototyping, and usability testing
+• Mastered design thinking methodology, accessibility standards, and responsive design principles
+
+──────────────────────────────────────────────────────────────────────────
+
+SKILLS
+
+Design Tools
+Figma (Advanced), Adobe XD, Photoshop, Illustrator, InDesign
+
+UX/UI Methods
+User Research, Competitive Analysis, User Personas, Journey Mapping, Wireframing, Prototyping, Usability Testing, Information Architecture, Interaction Design, Design Systems
+
+Specialized Areas
+Healthcare UX Design, AI Product Design, Arabic/RTL Design, Dashboard Design, Gamification, B2B Platform Design, Brand Identity Design, UX Writing
+
+Technical Skills
+HTML5, CSS3, Basic JavaScript, Responsive Web Design, Microsoft 365, Medical Imaging Knowledge, Data Processing
+
+Languages
+English (Fluent), Arabic (Native), German (Intermediate)
+
+──────────────────────────────────────────────────────────────────────────
+
+ADDITIONAL INFORMATION
+
+• Unique combination of medical engineering background with UX design expertise enables effective communication with technical healthcare stakeholders
+• Experience designing for diverse markets including Middle East (Arabic/RTL), Europe, and global audiences
+• Passionate about leveraging AI and emerging technologies to solve complex user problems in healthcare and education
+• Active portfolio showcasing 6+ projects across healthcare, legal tech, EdTech, and e-commerce domains
+
+──────────────────────────────────────────────────────────────────────────
+
+References available upon request
