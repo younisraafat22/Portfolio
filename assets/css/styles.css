@@ -2453,7 +2453,7 @@ body.dark-mode .back-to-top:hover {
     object-fit: cover;
     object-position: center;
     display: block;
-    transform: none;
+    transform: scale(1.18);
 }
 
 @media (max-width: 1024px) {
