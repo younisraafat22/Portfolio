@@ -1169,6 +1169,17 @@ body.dark-mode .gradient-blob {
     z-index: 1;
 }
 
+.branding-section {
+    padding: var(--spacing-3xl) 0;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(180deg, var(--color-background) 0%, var(--color-surface) 100%);
+}
+
+.branding-section .section-subtitle {
+    max-width: 720px;
+}
+
 .section-header {
     text-align: center;
     margin-bottom: var(--spacing-3xl);
@@ -2403,10 +2414,6 @@ body.dark-mode .back-to-top:hover {
     object-position: center;
     display: block;
     transform: scale(1.1);
-}
-
-.slow-video {
-    /* This class will be used in JavaScript to slow down playback */
 }
 
 @media (max-width: 1024px) {
