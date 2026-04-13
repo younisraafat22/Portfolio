@@ -1115,6 +1115,10 @@ body.dark-mode .gradient-blob {
     z-index: 1;
 }
 
+.skills-slider-top {
+    margin-top: 72px;
+}
+
 .slider-track {
     display: flex;
     width: fit-content;
@@ -2376,7 +2380,7 @@ body.dark-mode .back-to-top:hover {
    =================================== */
 
 .quick-projects {
-    padding: var(--spacing-4xl) 0;
+    padding: var(--spacing-lg) 0 var(--spacing-3xl);
     background: transparent;
     overflow: hidden;
 }
@@ -2388,9 +2392,15 @@ body.dark-mode .back-to-top:hover {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    margin-top: var(--spacing-3xl);
+    margin-top: 0;
     overflow: hidden;
     padding: var(--spacing-xl) 0;
+}
+
+@media (max-width: 768px) {
+    .skills-slider-top {
+        margin-top: 64px;
+    }
 }
 
 .carousel-track-auto {
