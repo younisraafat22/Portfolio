@@ -1186,6 +1186,13 @@ body.dark-mode .gradient-blob {
     overflow: hidden;
 }
 
+.branding-section .case-study-image,
+.branding-section .placeholder-image,
+.branding-section .placeholder-content,
+.branding-section .placeholder-content img {
+    border-radius: 0;
+}
+
 .branding-section .placeholder-content img {
     position: absolute;
     inset: 0;
