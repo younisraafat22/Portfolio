@@ -1,10 +1,10 @@
 # How to Customize Project Pages
 
-This guide will help you easily create and customize project case study pages for your portfolio.
+This guide will help you create and customize project case study pages for your portfolio.
 
 ## Quick Start
 
-1. **Duplicate the template**: Copy `project-medconnect.html` and rename it (e.g., `project-yourproject.html`)
+1. **Duplicate the template**: Copy `project-template-process.html` or another case-study page and rename it (for example, `project-yourproject.html`)
 2. **Update the content**: Follow the customization guide below
 3. **Add your images**: Replace placeholder divs with your actual project images
 4. **Link from homepage**: Make sure your homepage links to the new project page
@@ -74,7 +74,7 @@ Replace placeholder divs with actual images:
 **Option A: Single Image**
 ```html
 <div class="project-image">
-    <img src="images/your-project-image.jpg" alt="Description" style="width: 100%; border-radius: 12px;">
+    <img src="assets/images/your-project-image.jpg" alt="Description" style="width: 100%; border-radius: 12px;">
     <p class="image-caption">Caption: Describe what this shows</p>
 </div>
 ```
@@ -181,7 +181,7 @@ Update metrics with your actual results:
 
 ## Creating Additional Project Pages
 
-1. Copy `project-medconnect.html`
+1. Copy `project-template-process.html`
 2. Rename to `project-yourname.html`
 3. Update all content following the guide above
 4. Update homepage `index.html` to link to your new page:
@@ -191,10 +191,11 @@ Update metrics with your actual results:
 
 ## Image Organization Tips
 
-Create an `images` folder structure:
+Create an `assets/images` folder structure:
 ```
 My Portofolio/
-├── images/
+├── assets/
+│   └── images/
 │   ├── project-1/
 │   │   ├── hero.jpg
 │   │   ├── screen-1.jpg
@@ -206,7 +207,7 @@ My Portofolio/
 
 Then reference images:
 ```html
-<img src="images/project-1/hero.jpg" alt="Description">
+<img src="assets/images/project-1/hero.jpg" alt="Description">
 ```
 
 ## Best Practices

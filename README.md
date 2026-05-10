@@ -1,8 +1,8 @@
 # Younis Ahmed - UI/UX Designer Portfolio
 
-A clean, modern portfolio website showcasing UI/UX design work and case studies.
+A clean, modern portfolio website showcasing UI/UX design work, branding, and case studies.
 
-� **Live Site**: [https://younisahmed.netlify.app/](https://younisahmed.netlify.app)
+**Live Site**: [https://younisahmed.netlify.app/](https://younisahmed.netlify.app)
 
 ## ✨ Features
 
@@ -25,28 +25,39 @@ A clean, modern portfolio website showcasing UI/UX design work and case studies.
 
 ```
 portfolio/
-├── index.html                      # Main homepage
-├── project-medconnect.html         # Example case study
-├── README.md                       # This file
-├── CNAME                          # Custom domain config
-├── .gitignore                     # Git ignore rules
-├── DEPLOYMENT.md                  # Deployment guide
-├── PROJECT-CUSTOMIZATION-GUIDE.md # How to customize
-│
+├── index.html
+├── project-bolt.html
+├── project-chemistryhub.html
+├── project-qawafel.html
+├── project-radiview.html
+├── project-template-process.html
+├── project-zazoulaw.html
+├── Younis_Ahmed_CV.html
+├── Younis_Ahmed_CV_ATS_Optimized.txt
+├── Younis-Ahmed-UIUX-Graphic-Design-CV.pdf
+├── CV.docx
+├── CNAME
+├── DEPLOYMENT.md
+├── PROJECT-CUSTOMIZATION-GUIDE.md
+├── README.md
 ├── assets/
 │   ├── css/
-│   │   ├── styles.css             # Main stylesheet
-│   │   └── project-styles.css     # Case study styles
+│   │   ├── styles.css
+│   │   ├── project-styles.css
+│   │   └── project-templates.css
 │   ├── images/
-│   │   ├── y.png                  # Logo (Y)
-│   │   ├── younis.png             # Logo (full)
-│   │   ├── y-white.png            # Dark mode logo
-│   │   ├── younis-white.png       # Dark mode full logo
-│   │   ├── cursor.png             # Custom cursor
-│   │   └── cursor-white.png       # Dark cursor
-│   └── js/
-│       └── script.js              # Interactive features
+│   ├── js/
+│   │   └── script.js
+│   └── Branding/
+├── Bolt/
+├── Chemistry Hub/
+├── Icarus/
+├── Qwafel/
+├── Various Projects/
+└── ZazouaLaw/
 ```
+
+The root keeps the live homepage and case studies together for simple static hosting. Supporting design assets stay under `assets/`, while project-specific source files and exports are grouped in their own folders.
 
 ## 🚀 Quick Start
 
@@ -154,10 +165,10 @@ npx serve
 
 ### Add New Projects
 
-1. Duplicate `project-medconnect.html`
-2. Rename to `project-yourname.html`
-3. Update content and images
-4. Add card in Work section of `index.html`
+1. Duplicate a matching case-study page, such as `project-template-process.html`
+2. Rename it to `project-yourname.html`
+3. Update content, images, and project links
+4. Add the new card in the Work section of `index.html`
 5. See `PROJECT-CUSTOMIZATION-GUIDE.md` for details
 
 ### Connect Contact Form
@@ -316,7 +327,7 @@ Button:         #111827 (black for CTA buttons)
 2. No build process required!
 
 ### View a Project Page
-Click any project card or navigate to `project-medconnect.html`
+Click any project card or navigate to a case-study page such as `project-bolt.html`
 
 ## 📝 Customization Guide
 
@@ -462,7 +473,7 @@ Popular backend options:
 - **styles.css** - All homepage styling and animations
 - **script.js** - Interactive features (form, scroll, animations)
 - **project-styles.css** - Specific styles for project pages
-- **project-medconnect.html** - Example project case study
+- **project-template-process.html** - Example project case study template
 - **PROJECT-CUSTOMIZATION-GUIDE.md** - Detailed guide for project pages
 
 ## 🆘 Support
