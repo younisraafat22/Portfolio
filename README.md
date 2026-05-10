@@ -32,14 +32,15 @@ portfolio/
 ├── project-radiview.html
 ├── project-template-process.html
 ├── project-zazoulaw.html
-├── Younis_Ahmed_CV.html
-├── Younis_Ahmed_CV_ATS_Optimized.txt
 ├── Younis-Ahmed-UIUX-Graphic-Design-CV.pdf
-├── CV.docx
 ├── CNAME
-├── DEPLOYMENT.md
-├── PROJECT-CUSTOMIZATION-GUIDE.md
 ├── README.md
+├── docs/
+│   ├── CV.docx
+│   ├── DEPLOYMENT.md
+│   ├── PROJECT-CUSTOMIZATION-GUIDE.md
+│   ├── Younis_Ahmed_CV.html
+│   └── Younis_Ahmed_CV_ATS_Optimized.txt
 ├── assets/
 │   ├── css/
 │   │   ├── styles.css
@@ -57,7 +58,7 @@ portfolio/
 └── ZazouaLaw/
 ```
 
-The root keeps the live homepage and case studies together for simple static hosting. Supporting design assets stay under `assets/`, while project-specific source files and exports are grouped in their own folders.
+The root keeps the live homepage and case studies together for simple static hosting. Supporting documents live in `docs/`, while design assets stay under `assets/` and project-specific source files and exports are grouped in their own folders.
 
 ## 🚀 Quick Start
 
@@ -169,7 +170,7 @@ npx serve
 2. Rename it to `project-yourname.html`
 3. Update content, images, and project links
 4. Add the new card in the Work section of `index.html`
-5. See `PROJECT-CUSTOMIZATION-GUIDE.md` for details
+5. See `docs/PROJECT-CUSTOMIZATION-GUIDE.md` for details
 
 ### Connect Contact Form
 
@@ -239,8 +240,8 @@ Changes go live in 1-2 minutes!
 
 ## 📖 Additional Resources
 
-- **Deployment Guide**: See `DEPLOYMENT.md` for detailed setup
-- **Customization Guide**: See `PROJECT-CUSTOMIZATION-GUIDE.md`
+- **Deployment Guide**: See `docs/DEPLOYMENT.md` for detailed setup
+- **Customization Guide**: See `docs/PROJECT-CUSTOMIZATION-GUIDE.md`
 
 ---
 
@@ -249,7 +250,7 @@ Built with ❤️ by Younis Ahmed © 2025
 
 ### Individual Project Pages
 - **Full Case Studies**: Detailed project pages with hero images, process, results
-- **Easy Customization**: Template-based system (see PROJECT-CUSTOMIZATION-GUIDE.md)
+- **Easy Customization**: Template-based system (see `docs/PROJECT-CUSTOMIZATION-GUIDE.md`)
 - **Consistent Navigation**: Back to home button in nav
 - **Next Project Links**: Seamless navigation between projects
 - **Rich Content Sections**: Overview, Challenge, Solution, Process, Results, Learnings
@@ -347,7 +348,7 @@ Click any project card or navigate to a case-study page such as `project-bolt.ht
 
 ### Create New Project Pages
 
-See `PROJECT-CUSTOMIZATION-GUIDE.md` for detailed instructions on:
+See `docs/PROJECT-CUSTOMIZATION-GUIDE.md` for detailed instructions on:
 - Duplicating the project template
 - Customizing content sections
 - Adding your images
@@ -474,12 +475,12 @@ Popular backend options:
 - **script.js** - Interactive features (form, scroll, animations)
 - **project-styles.css** - Specific styles for project pages
 - **project-template-process.html** - Example project case study template
-- **PROJECT-CUSTOMIZATION-GUIDE.md** - Detailed guide for project pages
+- **docs/PROJECT-CUSTOMIZATION-GUIDE.md** - Detailed guide for project pages
 
 ## 🆘 Support
 
 For questions or customization help:
-1. Check `PROJECT-CUSTOMIZATION-GUIDE.md` for project page questions
+1. Check `docs/PROJECT-CUSTOMIZATION-GUIDE.md` for project page questions
 2. Review code comments in HTML/CSS/JS files
 3. Modern web design best practices apply throughout
 
